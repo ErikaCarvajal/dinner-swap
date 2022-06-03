@@ -1,0 +1,47 @@
+[
+  {
+    "id": "1meal",
+    "name": "BBQ 4 meats and veggies",
+    "points": 600,
+    "imageSrc": "https://lh3.googleusercontent.com/ayxTIDQBvorVffvpVWIjC6xt7ZLbXDYVogHUdmjJqkxLnVQaczePSWYnjQeq1U2HZnAJUldh5d952CewAyziL1D39joIhQ9MPYFb-_ue6we-G2hK4gnUMZN1_u6uvg3hH8wHu7sHlKIiqfxPiDJ9VnUvRKpiv0ausBcfuNVmETa1ULx2ldmIBrcgaJAC67o-20mVubhDnj0So9WYGe0o6B-xgZo9qICoAFzmwuHCoTdngGRMzCtEZxmZYCGIMn2Qrrh6rqkRPBFRHFYg_-pGhWgshwZDwfM5omK0jsphEVgde2SF0bMci59i8Phfp3diVCvY9B0ko4ryw8P-Y-h6AxxHByfv3oapOAN9hxTPdfRdBTKquSg4aMk16GqlaUNrY5jU71x7S5Ka3tSQcGv4jcoavY-dEtvXn_jvfGn9lKRBBPppnjb-TMDWjd0LwbxbG9MvyRfJY5GAoX5jV9ukMZDrA32953Q5ItmzRBovcNvRV7Cxg1rXS0ZSMteLcMmrap2i3OBqjMkds-DD5nvz28RtxOT55K_Vw7Ps2Ns7WdUCEpLIxqAcuVQqnJp152dA39O_46VRX_X5MIT4gf8f4oNVV3Sdb09jOdSaw6nK2NNMa7Jwt5466swLR59hbSUJOWDQndp5QAud3oxjr6C089DLQqCEApjr0LLLTZS6L_wnROyY5DgOkBTCUioPO1MtkkTmTAC_7gpusxo72dJVxeBLFtB7ryWJRo6vQOz9guLMOmptW9GEobnktBXGj9IrqhONTfdMkp0PCn1iB-pS3yNBB961YgNTGwA=w649-h865-no?authuser=0",
+    "description": "Checking, pork, beef and lamb grilled to perfection",
+    "timeRequired": "1 week",
+    "servings": 4,
+    "contains": "No dairy or nuts. Vegan",
+    "daysAvailable": "Saturdays and Sundays"
+  },
+  {
+      "id": "2meal",
+    "name": "Beef Soup",
+    "points": 50,
+    "imageSrc": "/images/beefSoup.jpg",
+    "description": "Perfect for a winter night",
+    "timeRequired": "3 days",
+    "servings": 4,
+    "contains": "No dairy or nuts. Gluten Free.",
+    "daysAvailable": "Any day of the week"
+  },
+  {
+    "id": "3meal",
+  "name": "Bunuelos",
+  "points": 100,
+  "imageSrc": "/images/Bunuelos.jpg",
+  "description": "A familty recipe from Colombia",
+  "timeRequired": "2 days",
+  "servings": 4,
+  "contains": "No dairy or nuts.",
+  "daysAvailable": "Fridays, Saturdays and Sundays"
+},   
+{
+    "id": "4meal",
+  "name": "Chicken Salad",
+  "points": 400,
+  "imageSrc": "/images/ChickenSalad.jpg",
+  "description": "Exactly what you need on a hot summer day",
+  "timeRequired": "2 days",
+  "servings": 4,
+  "contains": "Not recommended for people with serious allergies",
+  "daysAvailable": "Any day"
+}
+]
+

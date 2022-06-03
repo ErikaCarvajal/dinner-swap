@@ -1,3 +1,5 @@
+"use strict";
+
 // Require modules:
 const express = require("express");
 const morgan = require("morgan");
@@ -11,7 +13,7 @@ const { getHome } = require("./handlers/homeHandlers");
 express()
 .use(morgan('tiny'))
 .use(express.json())
-
+.use(express.static("public"))
 
 .get("/api/home", getHome)
 

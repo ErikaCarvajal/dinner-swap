@@ -4,9 +4,8 @@ import styled from "styled-components";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 // Require components
-import salmon from "../images/salmon.jpg";
 
-const Homepage = () => {
+const Meals = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [meals, setMeals] = useState("");
 
@@ -14,23 +13,38 @@ const Homepage = () => {
     fetch(`api/home`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setMeals(data);
+        console.log(data.data);
+        setMeals(data.data);
         setIsLoaded(true);
       })
       .catch((err) => console.log(err));
   }, []);
 
+//   isLoaded ? meals.map((item) => console.log(item)) : null;
+
   return (
     <>
       {isLoaded ? (
         <div>
-          <Div style={{ backgroundImage: `url(${salmon})` }}>
             <H1>
-              Welcome to Dinner Swingers Because we are all good at least at one
-              thing!
+              Meal listing
             </H1>
-          </Div>
+            <ul>
+            {meals.map((item) => {
+                return (
+                    <li key={item.id}>
+                        <Img src={item.imageSrc} />
+                        <p>{item.name}</p>
+                        <p>{item.points}</p>
+                        <p>{item.description}</p>
+                        <p>{item.contains}</p>
+                        <p>{item.daysAvailable}</p>
+                        <p>{item.servings}</p>
+                        <p>{item.timeRequired}</p>
+                    </li>
+                )
+            })}
+            </ul>
         </div>
       ) : (
         <LoadingWrapper>
@@ -41,7 +55,7 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default Meals;
 
 const Div = styled.div`
   height: 100vh;
@@ -58,7 +72,6 @@ const H1 = styled.h1`
   position: absolute;
   top: 40%;
   left: 50%;
-  transform: translate(-50%, -50%);
   width: 400px;
 `;
 
@@ -67,3 +80,8 @@ const LoadingWrapper = styled.div`
   margin-top: 50px;
   justify-content: center;
 `;
+
+const Img = styled.img`
+    width: 400px;
+    height: 400px;
+`
