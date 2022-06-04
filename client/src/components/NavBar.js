@@ -22,7 +22,7 @@ const Navbar = () => {
         {/* )} */}
       </li>
       <li>
-          <NavLink to="/newMeal">Log Out</NavLink>
+          <NavLink to="/new">Log Out</NavLink>
       </li>
       <li>
           <NavLink to="/logOut">Log Out</NavLink>

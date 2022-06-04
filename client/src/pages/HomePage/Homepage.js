@@ -1,10 +1,14 @@
 // Require modules
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 // Require components
-import salmon from "../images/salmon.jpg";
+import salmon from "../../images/salmon.jpg";
+import LogoutButton from "../../components/LogoutButton";
+import Profile from "../../components/Profile";
+import LoginButton from "../../components/LoginButton";
 
 const Homepage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -23,11 +27,14 @@ const Homepage = () => {
 
   return (
     <>
+      <NavLink to="/profile">Profile</NavLink>
+      <LoginButton />
+      <LogoutButton />
       {isLoaded ? (
         <div>
           <Div style={{ backgroundImage: `url(${salmon})` }}>
             <H1>
-              Welcome to Dinner Swingers Because we are all good at least at one
+              Welcome to Dinner Swap Because we are all good at least at one
               thing!
             </H1>
           </Div>
