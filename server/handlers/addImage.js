@@ -6,6 +6,7 @@
 const { sendResponse } = require("../lib/utils");
 const { cloudinary } = require("../lib/cloudinary");
 
+let localVariable = "";
 // Receive Image input
 const addImage = async (req, res) => {
   try {
@@ -14,8 +15,14 @@ const addImage = async (req, res) => {
       upload_preset: "cuweodxj",
     });
     // const imgUrl = uploadedResponse.url;
-    console.log(uploadedResponse)
-    sendResponse(res, 200, uploadedResponse, "Mmmmm yummy!!");
+    localVariable = uploadedResponse;
+
+    if (uploadedResponse) {
+      sendResponse(res, 200, uploadedResponse, "All clear")
+    } else {
+      sendResponse(res, 404, "Couldn't create new meal")
+    }
+    // sendResponse(res, 200, uploadedResponse, "Mmmmm yummy!!");
 
   } catch (err) {
     console.log(err);
@@ -24,4 +31,35 @@ const addImage = async (req, res) => {
 
 };
 
-module.exports = { addImage };
+const addMeal = async (req, res) => {
+  // Connect to mongo client
+  const {clientDb} = res.locals;
+  
+  try {
+      // Connect to DB:
+      const db = clientDb.db("dinnerSwap");
+
+      const { name, points } = req.body;
+      const { secure_url, public_id} = localVariable;
+
+      let newMeal = {name, points, secure_url, public_id};
+
+      // Connect to collection:
+      const meals = await db.collection("meals").insertOne(newMeal);
+      // test connection to db:
+      console.log("from BE addMeals - meals", meals);
+      console.log("local Variable from addMeal", localVariable)
+      console.log("BE addMeals req.body  ", req.body)
+      // test request:
+      console.log(req.body)
+
+      sendResponse(res, 200, meals, )
+  } catch (err) {
+      console.log(err)
+  } finally {
+      // Close connection
+      clientDb.close()
+  }
+};
+
+module.exports = { addImage, addMeal };

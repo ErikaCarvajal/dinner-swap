@@ -20,7 +20,7 @@ const SingleMeal = () => {
   }, []);
 
   const handleClick = () => {
-    navigate()
+    navigate(`/meals/new`)
   }
 
   if (isLoaded) {
@@ -30,7 +30,7 @@ const SingleMeal = () => {
         <button onClick={handleClick} >New Meal</button>
         <p>Name: {meal[0].name}</p>
         <p>Points: {meal[0].points}</p>
-        <Img src={meal[0].imageSrc} />
+        <Img src={meal[0].secure_url} />
         <p>Description: {meal[0].description}</p>
         <p>Contains: {meal[0].contains}</p>
         <p>Days Available: {meal[0].daysAvailable}</p>

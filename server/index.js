@@ -10,8 +10,8 @@ const port = 8000;
 const { getHome } = require("./handlers/homeHandlers");
 const { getMeals } = require("./handlers/allMeals");
 const getMeal = require("./handlers/oneMeal");
-const addMeal = require("./handlers/addMeal");
-const { addImage } = require("./handlers/addImage");
+// const addMeal = require("./handlers/addMeal");
+const { addImage, addMeal } = require("./handlers/addImage");
 
 const { connectDb } = require("./lib/utils");
 

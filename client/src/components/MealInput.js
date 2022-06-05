@@ -9,15 +9,14 @@
 
 // import { v2 as cloudinary } from 'cloudinary';
 import { useState } from "react";
-import styled from "styled-components";
+import styled, { ThemeConsumer } from "styled-components";
 
 const MealImage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [image, setImage] = useState("");
   const [inputFile, setInputFile] = useState("");
   const [previewSource, setPreviewSource] = useState("");
-  const [fileInputState, setFileInputState] = useState('');
-  
+  const [fileInputState, setFileInputState] = useState("");
 
   const uploadImg = async (e) => {
     console.log(e.target.files[0]);
@@ -34,24 +33,26 @@ const MealImage = () => {
   };
 
   const handleSubmit = (e) => {
-      console.log("submit")
-      e.preventDefault();
-      if(!previewSource) return;
-      uploadImage(previewSource);
-  }
+    console.log("submit");
+    e.preventDefault();
+    if (!previewSource) return;
+    uploadImage(previewSource);
+  };
 
   const uploadImage = async (base64EncodedImage) => {
-      console.log("inside uploadImage")
-      console.log(base64EncodedImage)
-      try {
-          await fetch('/api/upload', {
-              method: 'POST',
-              body: JSON.stringify({data: base64EncodedImage}),
-              headers: {'Content-type': 'application/json'}
-          })
-      } catch (err) {
-          console.log(err);
-      }
+    // console.log("inside uploadImage");
+    // console.log(base64EncodedImage);
+    try {
+      await fetch("/api/upload", {
+        method: "POST",
+        body: JSON.stringify({ data: base64EncodedImage }),
+        headers: { "Content-type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((data) => console.log("from img", data));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

@@ -23,33 +23,33 @@ const Meals = () => {
   }, []);
 
   const HandleClick = (id) => {
-    navigate(`/meals/${id}`)
-  }
+    navigate(`/meals/${id}`);
+  };
 
   return (
     <>
       {isLoaded ? (
         <div>
-            <H1>
-              Meal listing
-            </H1>
-            <ul>
+          <ul>
             {meals.map((item) => {
-                return (
-                  
-                    <button type="button" onClick={()=>HandleClick(item._id)} key={item.id}>
-                        <Img src={item.imageSrc} />
-                        <p>{item.name}</p>
-                        <p>{item.points}</p>
-                        <p>{item.description}</p>
-                        <p>{item.contains}</p>
-                        <p>{item.daysAvailable}</p>
-                        <p>{item.servings}</p>
-                        <p>{item.timeRequired}</p>
-                    </button>
-                )
+              return (
+                <button
+                  type="button"
+                  onClick={() => HandleClick(item._id)}
+                  key={item.id}
+                >
+                  <Img src={item.secure_url} />
+                  <p>{item.name}</p>
+                  <p>{item.points}</p>
+                  <p>{item.description}</p>
+                  <p>{item.contains}</p>
+                  <p>{item.daysAvailable}</p>
+                  <p>{item.servings}</p>
+                  <p>{item.timeRequired}</p>
+                </button>
+              );
             })}
-            </ul>
+          </ul>
         </div>
       ) : (
         <LoadingWrapper>
@@ -87,6 +87,6 @@ const LoadingWrapper = styled.div`
 `;
 
 const Img = styled.img`
-    width: 400px;
-    height: 400px;
-`
+  width: 400px;
+  height: 400px;
+`;
