@@ -8,8 +8,10 @@ const port = 8000;
 
 // Require handlers:
 const { getHome } = require("./handlers/homeHandlers");
-const { addImage } = require("./handlers/addImage");
 const { getMeals } = require("./handlers/allMeals");
+const getMeal = require("./handlers/oneMeal");
+const addMeal = require("./handlers/addMeal");
+const { addImage } = require("./handlers/addImage");
 
 const { connectDb } = require("./lib/utils");
 
@@ -22,6 +24,8 @@ express()
 
   .get("/api/home", getHome)
   .get("/api/meals", getMeals)
+  .post('/api/meals/new', addMeal)
+  .get('/api/meals/:id', getMeal)
   .post("/api/upload", addImage)
 
   // this is our catch all endpoint.

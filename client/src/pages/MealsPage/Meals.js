@@ -2,15 +2,17 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { useNavigate } from "react-router-dom";
 
 // Require components
 
 const Meals = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [meals, setMeals] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`api/meals`)
+    fetch(`/api/meals`)
       .then((res) => res.json())
       .then((data) => {
         console.log("from fetch", data.data);
@@ -20,7 +22,9 @@ const Meals = () => {
       .catch((err) => console.log(err));
   }, []);
 
-//   isLoaded ? meals.map((item) => console.log(item)) : null;
+  const HandleClick = (id) => {
+    navigate(`/meals/${id}`)
+  }
 
   return (
     <>
@@ -32,7 +36,8 @@ const Meals = () => {
             <ul>
             {meals.map((item) => {
                 return (
-                    <li key={item.id}>
+                  
+                    <button type="button" onClick={()=>HandleClick(item._id)} key={item.id}>
                         <Img src={item.imageSrc} />
                         <p>{item.name}</p>
                         <p>{item.points}</p>
@@ -41,7 +46,7 @@ const Meals = () => {
                         <p>{item.daysAvailable}</p>
                         <p>{item.servings}</p>
                         <p>{item.timeRequired}</p>
-                    </li>
+                    </button>
                 )
             })}
             </ul>
