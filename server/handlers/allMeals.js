@@ -12,8 +12,8 @@ const getMeals = async (req, res) => {
     // connect to collection:
     const allMeals = await db.collection("meals").find().toArray();
 
-    console.log(allMeals);
-    if (allMeals > 0) {
+    console.log("From handler ",allMeals);
+    if (allMeals) {
       sendResponse(res, 200, allMeals, "from all meals");
     } else {
       sendResponse(res, 400, "Couldn't connect with Db");

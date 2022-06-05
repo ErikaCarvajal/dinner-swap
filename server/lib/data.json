@@ -34,5 +34,17 @@
     "servings": 4,
     "contains": "No dairy or nuts.",
     "daysAvailable": "Fridays, Saturdays and Sundays"
+  },
+  {
+    "id": "4meal",
+    "name": "THIS IS FROM DATA.JSON FOLDER - GETS ERASE EVERY BATCHIMPORT IN MONGODB",
+    "points": 100,
+    "imageSrc": "https://res.cloudinary.com/dpeskwcqr/image/upload/v1654370442/dinnerSwap/ihjtq8r90k7kfluizsjd.jpg",
+    "public_id": "dinnerSwap/w1wshrktvmq2ultuium5",
+    "description": "A familty recipe from Colombia",
+    "timeRequired": "2 days",
+    "servings": 4,
+    "contains": "No dairy or nuts.",
+    "daysAvailable": "Fridays, Saturdays and Sundays"
   }
 ]

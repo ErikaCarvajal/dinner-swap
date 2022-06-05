@@ -30,6 +30,7 @@ const Homepage = () => {
       <NavLink to="/profile">Profile</NavLink>
       <LoginButton />
       <LogoutButton />
+      <NavLink to="/meals">Meals</NavLink>
       {isLoaded ? (
         <div>
           <Div style={{ backgroundImage: `url(${salmon})` }}>

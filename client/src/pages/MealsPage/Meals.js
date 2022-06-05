@@ -13,7 +13,7 @@ const Meals = () => {
     fetch(`api/meals`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.data);
+        console.log("from fetch", data.data);
         setMeals(data.data);
         setIsLoaded(true);
       })
