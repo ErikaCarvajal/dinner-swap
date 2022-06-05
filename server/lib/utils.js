@@ -1,7 +1,8 @@
-// Utility function to connect to MongoDB:
+// Utility function to connect to MongoDB
 
 // Dependencies:
-const { mongoClient } = require("mongodb");
+const { MongoClient } = require("mongodb");
+
 require("dotenv").config();
 const { MONGO_URI } = process.env;
 

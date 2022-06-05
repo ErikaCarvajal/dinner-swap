@@ -10,7 +10,7 @@ const Meals = () => {
   const [meals, setMeals] = useState("");
 
   useEffect(() => {
-    fetch(`api/home`)
+    fetch(`api/meals`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data.data);
