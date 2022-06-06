@@ -2,9 +2,9 @@
 
 
 // const { ObjectID } = require("bson");
-const { sendResponse } = require("../lib/utils/sendResponse");
+const { sendResponse } = require("../../lib/utils/sendResponse");
 
-const getMeal = async (req, res) => {
+const deleteMeal = async (req, res) => {
   // connect to clientDb
   const { clientDb } = res.locals;
   try {
@@ -39,11 +39,4 @@ const getMeal = async (req, res) => {
   }
 };
 
-const updateMeal = async (req, res) => {
-  console.log("meal and req.body from updateMeal")
-  console.log(meal);
-  console.log(req.body)
-
-}
-
-module.exports = {getMeal, updateMeal};
+module.exports = deleteMeal;

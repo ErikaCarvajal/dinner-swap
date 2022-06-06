@@ -9,4 +9,4 @@ const getHome = async (req, res) => {
   sendResponse(res, 200, data, "from getHome");
 };
 
-module.exports = { getHome };
+module.exports = getHome;

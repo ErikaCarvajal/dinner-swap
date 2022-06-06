@@ -7,10 +7,17 @@ const morgan = require("morgan");
 const port = 8000;
 
 // Require handlers:
-const { getHome } = require("./handlers/homeHandlers");
-const { getMeals } = require("./handlers/allMeals");
-const { getMeal, updateMeal } = require("./handlers/oneMeal");
-const { addMeal } = require("./handlers/addImage");
+const getHome = require("./handlers/home");
+const getMeals = require("./handlers/meals/allMeals");
+const getMeal = require("./handlers/meals/oneMeal");
+const addMeal = require("./handlers/meals/addMeal");
+const updateMeal = require("./handlers/meals/updateMeal");
+const deleteMeal = require("./handlers/meals/deleteMeal");
+
+const getUser = require("./handlers/users/getUser");
+const addUser = require("./handlers/users/addUser");
+const updateUser = require("./handlers/users/updateUser");
+const deleteUser = require("./handlers/users/deleteUser");
 
 const { connectDb } = require("./lib/utils/connectDb");
 
@@ -30,13 +37,13 @@ express()
   .post("/api/meal/add", addMeal)
   .get("/api/meal/:id", getMeal)
   .put("/api/meal/:id", updateMeal)
+  .delete("/api/meal/:id", deleteMeal)
 
   //* USERS Endpoints
-  // TODO: Add user endpoints
-  // create user in MongoDb
-  // get user from MongoDB
-  // update user's data
-  // delete user's data
+  .post("/api/user/add", addUser)
+  .get("/api/user/:email", getUser)
+  .put("/api/user/:email", updateUser)
+  .delete("/api/user/:email", deleteUser)
 
   // this is our catch all endpoint.
   .get("*", (req, res) => {

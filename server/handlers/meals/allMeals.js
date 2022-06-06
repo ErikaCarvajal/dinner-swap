@@ -1,7 +1,7 @@
 "use strict";
 
 // require handlers
-const { sendResponse } = require("../lib/utils/sendResponse");
+const { sendResponse } = require("../../lib/utils/sendResponse");
 
 const getMeals = async (req, res) => {
   const { clientDb } = res.locals;
@@ -25,4 +25,4 @@ const getMeals = async (req, res) => {
   }
 };
 
-module.exports = { getMeals };
+module.exports = getMeals;

@@ -3,12 +3,12 @@
 //   useUnifiedTopology: true,
 // };
 
-const { sendResponse } = require("../lib/utils/sendResponse");
-const { cloudinary } = require("../lib/cloudinary");
-const { uploadImgToCloudinary } = require("../lib/utils/uploadImgToCloudinary");
+const { sendResponse } = require("../../lib/utils/sendResponse");
+const { cloudinary } = require("../../lib/cloudinary");
+const {
+  uploadImgToCloudinary,
+} = require("../../lib/utils/uploadImgToCloudinary");
 
-let localVariable = "";
-// Receive Image input
 
 const addMeal = async (req, res) => {
   // Connect to mongo client
@@ -32,12 +32,7 @@ const addMeal = async (req, res) => {
 
     // Connect to collection:
     const meals = await db.collection("meals").insertOne(newMeal);
-    // test connection to db:
-    // console.log("from BE addMeals - meals", meals);
-    // console.log("local Variable from addMeal", localVariable);
-    // console.log("BE addMeals req.body  ", req.body);
-    // // test request:
-    // console.log(req.body);
+
 
     sendResponse(res, 200, meals);
   } catch (err) {
@@ -48,4 +43,4 @@ const addMeal = async (req, res) => {
   }
 };
 
-module.exports = { addMeal };
+module.exports = addMeal;
