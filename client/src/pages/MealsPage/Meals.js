@@ -17,13 +17,12 @@ const Meals = () => {
       .then((data) => {
         console.log("from fetch", data.data);
         setMeals(data.data);
-        setIsLoaded(true);
-      })
+        setIsLoaded(true)})
       .catch((err) => console.log(err));
   }, []);
 
   const HandleClick = (id) => {
-    navigate(`/meals/${id}`);
+    navigate(`/meal/${id}`);
   };
 
   return (

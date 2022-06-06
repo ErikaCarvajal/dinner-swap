@@ -11,11 +11,11 @@
 import { useState } from "react";
 import styled, { ThemeConsumer } from "styled-components";
 
-const MealImage = () => {
+const MealImage = ({ previewSource, setPreviewSource }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [image, setImage] = useState("");
   const [inputFile, setInputFile] = useState("");
-  const [previewSource, setPreviewSource] = useState("");
+
   const [fileInputState, setFileInputState] = useState("");
 
   const uploadImg = async (e) => {
@@ -32,32 +32,9 @@ const MealImage = () => {
     };
   };
 
-  const handleSubmit = (e) => {
-    console.log("submit");
-    e.preventDefault();
-    if (!previewSource) return;
-    uploadImage(previewSource);
-  };
-
-  const uploadImage = async (base64EncodedImage) => {
-    // console.log("inside uploadImage");
-    // console.log(base64EncodedImage);
-    try {
-      await fetch("/api/upload", {
-        method: "POST",
-        body: JSON.stringify({ data: base64EncodedImage }),
-        headers: { "Content-type": "application/json" },
-      })
-        .then((res) => res.json())
-        .then((data) => console.log("from img", data));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form>
         <input
           type="file"
           name="image"
@@ -66,7 +43,7 @@ const MealImage = () => {
           }}
           value={image}
         />
-        <Button type="submit">Submit</Button>
+        {/* <Button type="submit">Submit</Button> */}
       </form>
       {previewSource && (
         <img src={previewSource} alt="chosen" style={{ height: "300px" }} />

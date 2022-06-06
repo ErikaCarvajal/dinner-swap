@@ -1,7 +1,7 @@
 "use strict";
 
 // require handlers
-const { sendResponse } = require("../lib/utils");
+const { sendResponse } = require("../lib/utils/sendResponse");
 
 const getMeals = async (req, res) => {
   const { clientDb } = res.locals;
@@ -12,7 +12,7 @@ const getMeals = async (req, res) => {
     // connect to collection:
     const allMeals = await db.collection("meals").find().toArray();
 
-    console.log("From handler ",allMeals);
+    console.log("From handler ", allMeals);
     if (allMeals) {
       sendResponse(res, 200, allMeals, "from all meals");
     } else {

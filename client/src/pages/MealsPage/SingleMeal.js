@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+import Options from "../../components/Options"
+
 const SingleMeal = () => {
   let { id } = useParams();
   const navigate = useNavigate();
@@ -9,25 +11,20 @@ const SingleMeal = () => {
   const [meal, setMeal] = useState();
 
   useEffect(() => {
-    fetch(`/api/meals/${id}`)
+    fetch(`/api/meal/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setIsLoaded(true);
         setMeal(data.data);
-        // console.log("Data FE SingleMeal", data);
+        console.log("Data FE SingleMeal", data);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  const handleClick = () => {
-    navigate(`/meals/new`)
-  }
-
   if (isLoaded) {
     return (
       <>
-        Single Meal
-        <button onClick={handleClick} >New Meal</button>
+        <Options />
         <p>Name: {meal[0].name}</p>
         <p>Points: {meal[0].points}</p>
         <Img src={meal[0].secure_url} />

@@ -2,7 +2,7 @@
 
 
 // const { ObjectID } = require("bson");
-const { sendResponse } = require("../lib/utils");
+const { sendResponse } = require("../lib/utils/sendResponse");
 
 const getMeal = async (req, res) => {
   // connect to clientDb
@@ -21,9 +21,16 @@ const getMeal = async (req, res) => {
       .find({ _id: new ObjectID(id) })
       .toArray();
 
-    meal.length > 0
-      ? sendResponse(res, 200, meal, "from one meal")
-      : sendResponse(res, 400, "Sorry, that meal id doesn't exists");
+      const urlArray = req.originalUrl.split("/");
+
+      if (urlArray[3] === "update" && meal) {
+        res.locals.meal = meal;
+        next();
+      } else if (meal) {
+          sendResponse(res, 200, meal, "from one meal")
+      } else {
+        sendResponse(res, 400, "Sorry, that meal id doesn't exists");
+      }
   } catch (err) {
     console.log(err);
   } finally {
@@ -32,4 +39,11 @@ const getMeal = async (req, res) => {
   }
 };
 
-module.exports = getMeal;
+const updateMeal = async (req, res) => {
+  console.log("meal and req.body from updateMeal")
+  console.log(meal);
+  console.log(req.body)
+
+}
+
+module.exports = {getMeal, updateMeal};

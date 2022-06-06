@@ -20,9 +20,11 @@ function App() {
             <Route path="/" element={<Homepage />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/meals" element={<Meals />} />
-            <Route path="/meals/new" element={<NewMeal />} />
+            <Route path="/meal/add" element={<NewMeal method={"add"} />} />
+            <Route path="/meal/del" element={<NewMeal method={"delete"} />} />
+            <Route path="/meal/upd" element={<NewMeal method={"update"} />} />
             <Route path="/mealinput" element={<MealInput />} />
-            <Route path="/meals/:id" element={<SingleMeal />} />
+            <Route path="/meal/:id" element={<SingleMeal />} />
           </>
           <Route path="login" element={<LoginButton />} />
         </Routes>
