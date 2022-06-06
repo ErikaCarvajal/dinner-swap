@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+import MealContent from "../../components/Meals/MealContent"
 import Options from "../../components/Options"
 
 const SingleMeal = () => {
@@ -21,18 +22,22 @@ const SingleMeal = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const handleChoice = (option) => {
+    console.log("button checked ", option)
+    if (option === 0) {
+      navigate("/meal/add")
+    } else if (option === 1) {
+      navigate("/meal/upd") 
+    } else {
+      navigate("/meal/del")
+    }
+  }
+
   if (isLoaded) {
     return (
       <>
-        <Options />
-        <p>Name: {meal[0].name}</p>
-        <p>Points: {meal[0].points}</p>
-        <Img src={meal[0].secure_url} />
-        <p>Description: {meal[0].description}</p>
-        <p>Contains: {meal[0].contains}</p>
-        <p>Days Available: {meal[0].daysAvailable}</p>
-        <p>Servings: {meal[0].servings}</p>
-        <p>Time Required: {meal[0].timeRequired}</p>
+        <Options onChecked={handleChoice}/>
+        <MealContent meal={meal[0]} />
       </>
     );
   } else {
@@ -41,9 +46,3 @@ const SingleMeal = () => {
 };
 
 export default SingleMeal;
-
-const Img = styled.img`
-    width: 500px;
-    height: 500px;
-    margin: 10px;
-`

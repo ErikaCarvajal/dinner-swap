@@ -9,14 +9,9 @@
 
 // import { v2 as cloudinary } from 'cloudinary';
 import { useState } from "react";
-import styled, { ThemeConsumer } from "styled-components";
 
 const MealImage = ({ previewSource, setPreviewSource }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
   const [image, setImage] = useState("");
-  const [inputFile, setInputFile] = useState("");
-
-  const [fileInputState, setFileInputState] = useState("");
 
   const uploadImg = async (e) => {
     console.log(e.target.files[0]);
@@ -43,7 +38,6 @@ const MealImage = ({ previewSource, setPreviewSource }) => {
           }}
           value={image}
         />
-        {/* <Button type="submit">Submit</Button> */}
       </form>
       {previewSource && (
         <img src={previewSource} alt="chosen" style={{ height: "300px" }} />
@@ -53,8 +47,3 @@ const MealImage = ({ previewSource, setPreviewSource }) => {
 };
 
 export default MealImage;
-
-const Button = styled.button`
-  background-color: blue;
-  color: white;
-`;

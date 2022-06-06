@@ -14,10 +14,10 @@ export const NewMeal = ({method}) => {
     setPoints(e.target.value);
   };
 
+  // Look into Axios package
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Look into Axios package
-    fetch("/api/meals/new", {
+    fetch("/api/meal/add", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({

@@ -1,13 +1,14 @@
 // Require modules
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import {UserContext} from "../../components/UserContext";
 
 // Require components
 import salmon from "../../images/salmon.jpg";
 import LogoutButton from "../../components/LogoutButton";
-import Profile from "../../components/Profile";
+import Profile from "../ProfilePage/Profile";
 import LoginButton from "../../components/LoginButton";
 
 const Homepage = () => {
@@ -24,6 +25,8 @@ const Homepage = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  console.log()
 
   return (
     <>
