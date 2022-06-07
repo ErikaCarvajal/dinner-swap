@@ -1,13 +1,15 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 //TO ADD LATER ON:
-// import { UserContext } from "./usersContext/UserContext";
-// import { useContext } from "react";
+import { UserContext } from "./UserContext";
+import LogoutButton from "./LogoutButton";
+import LoginButton from "./LoginButton";
 
 const Navbar = () => {
     // To add when we have the user Context
-//   const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   return (
     <Div>
@@ -15,18 +17,21 @@ const Navbar = () => {
         <NavLinkStyled to="/">Home</NavLinkStyled>
       </li>
       <li>
-        {/* {user ? (
-          <NavLinkStyled2 to="/signin">Howdy, {user.name}</NavLinkStyled2>
-        ) : ( */}
+      <NavLinkStyled to="/profile">Profile</NavLinkStyled>
+      </li>
+      <NavLinkStyled to="/meals">Meals</NavLinkStyled>
+
+      <div>
+      <li>
+        {user ? (
+          <NavLinkStyled2 to="/signin">Hello, {user.name}</NavLinkStyled2>
+        ) : (
           <NavLinkStyled to="/signin">Sign In</NavLinkStyled>
-        {/* )} */}
+        )}
       </li>
-      <li>
-          <NavLink to="/new">Log Out</NavLink>
-      </li>
-      <li>
-          <NavLink to="/logOut">Log Out</NavLink>
-      </li>
+      <LoginButton />
+      <LogoutButton />
+      </div>
     </Div>
   );
 };
@@ -51,7 +56,7 @@ const NavLinkStyled = styled(NavLink)`
   color: #ffffff;
   height: 100%;
   /* font-size: "40px"; */
-  font-size: ${(p) => (p.secondary ? "25px" : "40px")};
+  font-size: ${(p) => (p.secondary ? "20px" : "20px")};
   padding-left: 20px;
   padding-right: 20px;
 `;

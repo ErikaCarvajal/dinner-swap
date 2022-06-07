@@ -5,42 +5,36 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   // const { user, isAuthenticated } = useAuth0();
-  const [user, setUser] = useState({});
+  const [userEmail, setUserEmail] = useState(sessionStorage.getItem("email") ? JSON.parse(sessionStorage.getItem("email")) : null);
+  const [ user, setUser ] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  // if (isAuthenticated) {
-  //     setUser(user.email)
-  // }
-  const userEmail = JSON.parse(window.sessionStorage.getItem("email"));
 
   useEffect(() => {
+    userEmail &&
     fetch(`/api/user/${userEmail}`)
       .then((res) => res.json())
-      .then((data) => {
+      .then(({data}) => {
         console.log(data);
         setIsLoaded(true);
-        setUser(data.data);
+        setUser(data);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  console.log("This is User", user);
-  if (isLoaded) {
+  console.log("This is User", userEmail);
+  console.log("This is User data", user);
+  // if (isLoaded) {
     return (
       <>
         <UserContext.Provider
-          value={{
-            name: user[0].name,
-            id: user[0]._id,
-            email: user[0].email,
-            address: user[0].address,
-            points: user[0].points
+          value={{ userEmail, setUserEmail, isLoaded, setIsLoaded, user
           }}
         >
           {children}
         </UserContext.Provider>
       </>
     );
-  } else {
-    <p>Still loading</p>;
-  }
+  // } else {
+  //   <p>Still loading</p>;
+  // }
 };

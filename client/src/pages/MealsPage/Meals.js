@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useNavigate } from "react-router-dom";
+import IsLogged from "../ProfilePage/IsLogged";
 
 // Require components
 
@@ -29,6 +30,8 @@ const Meals = () => {
     <>
       {isLoaded ? (
         <div>
+        <IsLogged />
+
           <ul>
             {meals.map((item) => {
               return (

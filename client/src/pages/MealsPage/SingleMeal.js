@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 import MealContent from "../../components/Meals/MealContent";
@@ -44,6 +44,9 @@ const SingleMeal = () => {
   if (isLoaded) {
     return (
       <>
+      {/* <NavLink to="/meal/add">Add Meal</NavLink>
+      <NavLink to="/meal/del">Delete Meal</NavLink>
+      <NavLink to="/meal/upd">Update Meal</NavLink> */}
         <Options onChecked={handleChoice} />
         <MealContent meal={meal[0]} />
       </>
