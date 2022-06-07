@@ -14,7 +14,7 @@ import LoginButton from "../../components/LoginButton";
 const Homepage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [meals, setMeals] = useState("");
-
+  
   useEffect(() => {
     fetch(`api/home`)
       .then((res) => res.json())

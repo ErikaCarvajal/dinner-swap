@@ -15,17 +15,14 @@ function App() {
     <div>
       <Router>
         <Routes>
-          {/* {need to make them protected routes} */}
-          <>
             <Route path="/" element={<Homepage />} />
-            <Route path="/profile" element={<Profile />} />
             <Route path="/meals" element={<Meals />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/meal/add" element={<NewMeal method={"add"} />} />
             <Route path="/meal/del" element={<NewMeal method={"delete"} />} />
-            <Route path="/meal/upd" element={<SingleMeal method={"update"} />} />
+            <Route path="/meal/upd/:id" element={<NewMeal method={"update"} />} />
             <Route path="/meal/:id" element={<SingleMeal />} />
             <Route path="/mealinput" element={<MealInput />} />
-          </>
           <Route path="login" element={<LoginButton />} />
         </Routes>
       </Router>
