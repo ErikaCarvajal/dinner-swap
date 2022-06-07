@@ -2,9 +2,7 @@
 
 const { sendResponse } = require("../../lib/utils/sendResponse");
 
-// TODO: NEEDS LOTS OF WORK
-
-const mealsByUser = async (req, res) => {
+const getMealsByUserId = async (req, res) => {
   // Connect to mongo client
   const { clientDb } = res.locals;
 
@@ -13,11 +11,12 @@ const mealsByUser = async (req, res) => {
     const db = clientDb.db("dinnerSwap");
 
     // Connect to collection:
-    // TODO: add the filter by user id. 
-    const meals = await db.collection("meals").find().toArray;
+    const userId = req.params.id;
+    console.log("id from req. params ", userId)
+    const mealsById = await db.collection("meals").find({ userId: (userId) }).toArray();
+    console.log(mealsById)
 
-
-    sendResponse(res, 200, meals);
+    sendResponse(res, 200, mealsById, "From meals by id");
   } catch (err) {
     console.log(err);
   } finally {
@@ -26,4 +25,4 @@ const mealsByUser = async (req, res) => {
   }
 };
 
-module.exports = mealsByUser;
+module.exports = getMealsByUserId;

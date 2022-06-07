@@ -20,7 +20,9 @@ const addMeal = async (req, res) => {
     // Connect to DB:
     const db = clientDb.db("dinnerSwap");
 
-    const { name, points } = req.body;
+    console.log("from BE addMeal", req.body)
+    
+    const { name, points, description, contains, daysAvailable, servings, timeRequired, userId } = req.body;
     const {
       result: { secure_url, public_id },
       error,
@@ -28,7 +30,7 @@ const addMeal = async (req, res) => {
 
     console.log(secure_url, public_id);
 
-    let newMeal = { name, points, secure_url, public_id };
+    let newMeal = { name, points, description, contains, daysAvailable, servings, timeRequired, userId, secure_url, public_id };
 
     // Connect to collection:
     const meals = await db.collection("meals").insertOne(newMeal);
