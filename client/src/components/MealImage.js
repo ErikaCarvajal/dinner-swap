@@ -1,13 +1,3 @@
-// Reads cloudinary env variable
-// require("dotenv").config();
-
-// const cloudinary = require('cloudinary').v2;
-
-// Node.js SDK uploader function
-// cloudinary.uploader
-// .upload
-
-// import { v2 as cloudinary } from 'cloudinary';
 import { useState } from "react";
 
 const MealImage = ({ previewSource, setPreviewSource }) => {

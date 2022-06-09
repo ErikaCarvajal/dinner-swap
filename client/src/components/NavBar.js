@@ -2,36 +2,33 @@ import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-//TO ADD LATER ON:
 import { UserContext } from "./UserContext";
 import LogoutButton from "./LogoutButton";
 import LoginButton from "./LoginButton";
 
 const Navbar = () => {
-    // To add when we have the user Context
   const { user } = useContext(UserContext);
 
   return (
-    <Div>
+    <Div user={user}>
       <li>
         <NavLinkStyled to="/">Home</NavLinkStyled>
       </li>
       <li>
-      <NavLinkStyled to="/profile">Profile</NavLinkStyled>
+        <NavLinkStyled to="/profile">Profile</NavLinkStyled>
       </li>
-      <NavLinkStyled to="/meals">Meals</NavLinkStyled>
-
-      <div>
       <li>
-        {user ? (
-          <NavLinkStyled2 to="/signin">Hello, {user.name}</NavLinkStyled2>
-        ) : (
-          <NavLinkStyled to="/signin">Sign In</NavLinkStyled>
-        )}
+        <NavLinkStyled to="/meals">Meals</NavLinkStyled>
       </li>
-      <LoginButton />
-      <LogoutButton />
-      </div>
+      <li></li>
+      <SignInButtons>
+        <StyledLoginBtn user={user}>
+          <LoginButton />
+        </StyledLoginBtn>
+        <StyledLogoutBtn user={user}>
+          <LogoutButton />
+        </StyledLogoutBtn>
+      </SignInButtons>
     </Div>
   );
 };
@@ -39,7 +36,9 @@ const Navbar = () => {
 export default Navbar;
 
 const Div = styled.div`
-  background-color: var(--primary-color);
+  background-color: ${(p) =>
+    p.user ? `var(--secondary-color)` : `var(--primary-color)`};
+  /* background-color: var(--primary-color); */
   list-style: none;
   display: flex;
   flex-direction: row;
@@ -56,23 +55,21 @@ const NavLinkStyled = styled(NavLink)`
   color: #ffffff;
   height: 100%;
   /* font-size: "40px"; */
-  font-size: ${(p) => (p.secondary ? "20px" : "20px")};
+  font-size: 20px;
   padding-left: 20px;
   padding-right: 20px;
 `;
 
-const NavLinkStyled2 = styled(NavLink)`
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: #ffffff;
-  height: 100%;
-  /* font-size: "40px"; */
-  font-size: ${(p) => (p.secondary ? "25px" : "40px")};
-  padding-left: 20px;
-  padding-right: 20px;
-  :hover {
-    pointer-events: none;
-    cursor: default;
-  }
+const SignInButtons = styled.div`
+display: flex;
+    align-items: center;
+    margin-right: 40px;
+`
+
+const StyledLoginBtn = styled.li`
+  visibility: ${(p) => (p.user ? "hidden" : "visible")};
+`;
+
+const StyledLogoutBtn = styled.li`
+  visibility: ${(p) => (p.user ? "visible" : "hidden")};
 `;

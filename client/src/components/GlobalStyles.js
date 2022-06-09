@@ -4,11 +4,12 @@ export const breakpoints = { tablet: "600px" };
 
 export default createGlobalStyle`
     :root {
-      --primary-color: #54a0ff;
+      --primary-color: #54a0ff;   //using
+      --secondary-color: #feca57;  //using
       --accent-bg-color: rgba(204, 85, 0, 0.1);
       --page-horizontal-padding: 20px;
       --header-height: 50px;
-      --max-content-width: 1200px;
+      --max-content-width: 1200px;  
       --heading-font-family: 'Teko', sans-serif;
       --user-img-width: 120px;
     }
@@ -59,4 +60,7 @@ export default createGlobalStyle`
     h2 {
       font-size: 28px;
     }
+
+
 `;
+  

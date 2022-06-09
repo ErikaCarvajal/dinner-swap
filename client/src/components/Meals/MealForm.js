@@ -2,10 +2,14 @@ import styled from "styled-components";
 
 import { useState, useContext } from "react";
 import { UserContext } from "../../components/UserContext";
-import MealImage from "../../components/MealInput";
+import MealImage from "../MealImage";
+import { handleErrorMessages } from "./MealErrorMessages";
+import Wrapper from "./MealWrapper";
+import { useNavigate } from "react-router-dom";
 
 const MealForm = ({ oldMealData, setIsEditing, mealId }) => {
-  const { id: userId } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
   const [previewSource, setPreviewSource] = useState("");
   const {
     name,
@@ -16,14 +20,16 @@ const MealForm = ({ oldMealData, setIsEditing, mealId }) => {
     daysAvailable,
     servings,
     timeRequired,
+    userId,
   } = oldMealData;
 
-  const initialValue = oldMealData;
+  const [mealToBeUpdated, setMealToBeUpdated] = useState(oldMealData);
 
-  const [mealToBeUpdated, setMealToBeUpdated] = useState(initialValue);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     e.preventDefault();
+    setError(null);
     const key = e.target.name;
     const value = e.target.value;
     setMealToBeUpdated({ ...mealToBeUpdated, [key]: value });
@@ -32,123 +38,151 @@ const MealForm = ({ oldMealData, setIsEditing, mealId }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch(`/api/meal/${mealId}`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        mealToBeUpdated,
-        userId,
-        // data: previewSource,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+    // Validate user's input
+    handleErrorMessages(mealToBeUpdated, setError);
+
+    if (!error) {
+      fetch(`/api/meal/${mealId}`, {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          name: mealToBeUpdated.name,
+          points: mealToBeUpdated.points,
+          description: mealToBeUpdated.description,
+          timeRequired: mealToBeUpdated.timeRequired,
+          servings: mealToBeUpdated.servings,
+          contains: mealToBeUpdated.contains,
+          daysAvailable: mealToBeUpdated.daysAvailable,
+          secure_url: mealToBeUpdated.secure_url,
+          public_id: mealToBeUpdated.public_id,
+          userId: mealToBeUpdated.userId,
+          imgData: previewSource,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));
+    }
+    navigate("/meals");
   };
 
   return (
     <>
-    <MealImage
-          previewSource={previewSource}
-          setPreviewSource={setPreviewSource}
-        />
-      <Img src={secure_url} />
-    <Form onSubmit={(e) => handleSubmit(e)}>
-      <label htmlFor="name">Name</label>
-      <input
-        type="text"
-        placeholder={name}
-        id="name"
-        name="name"
-        onChange={(e) => {
-          handleChange(e);
-        }}
-      />
+      <Wrapper>
+        <Form onSubmit={(e) => handleSubmit(e)}>
+          <Div>
+            <div>
+              Current Image
+              <Img src={secure_url} />
+            </div>
+            <div>
+              To update image:
+              <MealImage
+                previewSource={previewSource}
+                setPreviewSource={setPreviewSource}
+              />
+            </div>
+          </Div>
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            placeholder={name}
+            id="name"
+            name="name"
+            onChange={(e) => {
+              handleChange(e);
+            }}
+            required
+          />
 
-      <label htmlFor="points">Points</label>
-      <input
-        type="number"
-        placeholder={points}
-        id="points"
-        name="points"
-        onChange={(e) => {
-          handleChange(e);
-        }}
-      />
+          <label htmlFor="points">Points</label>
+          <input
+            type="number"
+            placeholder={points}
+            id="points"
+            name="points"
+            onChange={(e) => {
+              handleChange(e);
+            }}
+            required
+          />
 
-      <label htmlFor="">Image Upload</label>
-      <input type="" id="" name="" />
+          <label htmlFor="description">Description</label>
+          <input
+            type="text"
+            id="description"
+            placeholder={description}
+            name="description"
+            onChange={(e) => {
+              handleChange(e);
+            }}
+            required
+          />
 
-      <label htmlFor="description">Description</label>
-      <input
-        type="text"
-        id="description"
-        placeholder={description}
-        name="description"
-        onChange={(e) => {
-          handleChange(e);
-        }}
-      />
+          <label htmlFor="contains">Contains</label>
+          <input
+            type="text"
+            placeholder={contains}
+            id="contains"
+            name="contains"
+            onChange={(e) => {
+              handleChange(e);
+            }}
+            required
+          />
 
-      <label htmlFor="contains">Contains</label>
-      <input
-        type="text"
-        placeholder={contains}
-        id="contains"
-        name="contains"
-        onChange={(e) => {
-          handleChange(e);
-        }}
-      />
+          <label htmlFor="daysAvailable">daysAvailable</label>
+          <input
+            type="text"
+            placeholder={daysAvailable}
+            id="daysAvailable"
+            name="daysAvailable"
+            onChange={(e) => {
+              handleChange(e);
+            }}
+            required
+          />
 
-      <label htmlFor="">Days Available</label>
-      <input
-        type="text"
-        placeholder={daysAvailable}
-        id="days-available"
-        name="days-available"
-        onChange={(e) => {
-          handleChange(e);
-        }}
-      />
+          <label htmlFor="servings">Servings</label>
+          <input
+            type="number"
+            placeholder={servings}
+            id="servings"
+            name="servings"
+            onChange={(e) => {
+              handleChange(e);
+            }}
+            required
+          />
 
-      <label htmlFor="servings">Servings</label>
-      <input
-        type="number"
-        placeholder={servings}
-        id="servings"
-        name="servings"
-        onChange={(e) => {
-          handleChange(e);
-        }}
-      />
+          <label htmlFor="timeRequired">Time-required</label>
+          <input
+            type="number"
+            placeholder={timeRequired}
+            id="timeRequired"
+            name="timeRequired"
+            onChange={(e) => {
+              handleChange(e);
+            }}
+            required
+          />
 
-      <label htmlFor="time-required">Time-required</label>
-      <input
-        type="text"
-        placeholder={timeRequired}
-        id="time-required"
-        name="time-required"
-        onChange={(e) => {
-          handleChange(e);
-        }}
-      />
-
-      <input
-        type="button"
-        value="Cancel"
-        onClick={() => {
-          setIsEditing(false);
-        }}
-      />
-
-      <input type="button" value="Save" onClick="submit" />
-    </Form>
+          <div>
+            <input
+              type="button"
+              value="Cancel"
+              onClick={() => {
+                setIsEditing(false);
+              }}
+            />
+            {error && <p>{error}</p>}
+            <input type="submit" value="Update" />
+          </div>
+        </Form>
+      </Wrapper>
     </>
   );
 };
-
-// TODO: Add handleSubmit to request BE to update the meal to the Save button
 
 export default MealForm;
 
@@ -158,7 +192,15 @@ const Form = styled.form`
 `;
 
 const Img = styled.img`
-  width: 500px;
-  height: 500px;
+  width: 50px;
+  height: 50px;
   margin: 10px;
+`;
+
+const Div = styled.div`
+  display: flex;
+  column-gap: 100px;
+  align-content: center;
+  justify-content: center;
+  align-items: baseline;
 `;

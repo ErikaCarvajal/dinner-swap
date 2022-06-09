@@ -1,44 +1,34 @@
 // Require modules
 import { useEffect, useState, useContext } from "react";
-import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import {UserContext} from "../../components/UserContext";
 
 // Require components
 import salmon from "../../images/salmon.jpg";
-import LogoutButton from "../../components/LogoutButton";
-import Profile from "../ProfilePage/Profile";
-import LoginButton from "../../components/LoginButton";
+import IsLogged from "../ProfilePage/IsLogged";
+import { UserContext } from "../../components/UserContext";
 
 const Homepage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [meals, setMeals] = useState("");
-  
+  const { user } = useContext(UserContext);
+
   useEffect(() => {
     fetch(`api/home`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setMeals(data);
         setIsLoaded(true);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(isLoaded)
-
   return (
     <>
-      {/* <NavLink to="/profile">Profile</NavLink>
-      <LoginButton />
-      <LogoutButton />
-      <NavLink to="/meals">Meals</NavLink> */}
-      {/* <NavLink to="/meal/add">Add Meal</NavLink>
-      <NavLink to="/meal/del">Delete Meal</NavLink>
-      <NavLink to="/meal/upd">Update Meal</NavLink> */}
       {isLoaded ? (
         <div>
+          <IsLogged />
           <Div style={{ backgroundImage: `url(${salmon})` }}>
             <H1>
               Welcome to Dinner Swap Because we are all good at least at one

@@ -10,7 +10,7 @@ import Meals from "../pages/MealsPage/Meals";
 import { NewMeal } from "../pages/MealsPage/NewMeal";
 import SingleMeal from "../pages/MealsPage/SingleMeal";
 import Profile from "../pages/ProfilePage";
-import MealInput from "./MealInput";
+// import MealInput from "./MealInput";
 import LoginButton from "./LoginButton";
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
           <Route path="/meal/del" element={<NewMeal method={"delete"} />} />
           <Route path="/meal/upd/:id" element={<NewMeal method={"update"} />} />
           <Route path="/meal/:id" element={<SingleMeal />} />
-          <Route path="/mealinput" element={<MealInput />} />
+          {/* <Route path="/mealinput" element={<MealImage />} /> */}
           <Route path="login" element={<LoginButton />} />
         </Routes>
       </Router>
