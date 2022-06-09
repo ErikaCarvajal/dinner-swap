@@ -6,7 +6,7 @@
     "secure_url": "https://res.cloudinary.com/dpeskwcqr/image/upload/v1654370779/dinnerSwap/s7acqqwt18ulerbxtlyf.jpg",
     "public_id": "dinnerSwap/s7acqqwt18ulerbxtlyf",
     "description": "Checking, pork, beef and lamb grilled to perfection",
-    "timeRequired": "1 week",
+    "timeRequired": 1,
     "servings": 4,
     "contains": "No dairy or nuts. Vegan",
     "daysAvailable": "Saturdays and Sundays"
@@ -18,7 +18,7 @@
     "secure_url": "https://res.cloudinary.com/dpeskwcqr/image/upload/v1654370442/dinnerSwap/ihjtq8r90k7kfluizsjd.jpg",
     "public_id": "dinnerSwap/ihjtq8r90k7kfluizsjd",
     "description": "Perfect for a winter night",
-    "timeRequired": "3 days",
+    "timeRequired": 3,
     "servings": 4,
     "contains": "No dairy or nuts. Gluten Free.",
     "daysAvailable": "Any day of the week"
@@ -30,7 +30,7 @@
     "secure_url": "https://res.cloudinary.com/dpeskwcqr/image/upload/v1654370442/dinnerSwap/ihjtq8r90k7kfluizsjd.jpg",
     "public_id": "dinnerSwap/w1wshrktvmq2ultuium5",
     "description": "A familty recipe from Colombia",
-    "timeRequired": "2 days",
+    "timeRequired": 2,
     "servings": 4,
     "contains": "No dairy or nuts.",
     "daysAvailable": "Fridays, Saturdays and Sundays"
@@ -42,9 +42,10 @@
     "secure_url": "https://res.cloudinary.com/dpeskwcqr/image/upload/v1654370442/dinnerSwap/ihjtq8r90k7kfluizsjd.jpg",
     "public_id": "dinnerSwap/w1wshrktvmq2ultuium5",
     "description": "A familty recipe from Colombia",
-    "timeRequired": "2 days",
+    "timeRequired": 2,
     "servings": 4,
     "contains": "No dairy or nuts.",
-    "daysAvailable": "Fridays, Saturdays and Sundays"
+    "daysAvailable": "Fridays, Saturdays and Sundays",
+    "comments": ["best meal"]
   }
 ]

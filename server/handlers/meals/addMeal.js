@@ -20,9 +20,12 @@ const addMeal = async (req, res) => {
     // Connect to DB:
     const db = clientDb.db("dinnerSwap");
 
-    console.log("from BE addMeal", req.body)
+    console.log("from BE addMeal handle", req.body)
+    const { completeMeal } = req.body;
+
     
-    const { name, points, description, contains, daysAvailable, servings, timeRequired, userId } = req.body;
+
+    const { name, points, description, contains, daysAvailable, servings, timeRequired, userId } = completeMeal;
     const {
       result: { secure_url, public_id },
       error,

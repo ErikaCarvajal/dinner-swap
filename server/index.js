@@ -14,6 +14,7 @@ const addMeal = require("./handlers/meals/addMeal");
 const updateMeal = require("./handlers/meals/updateMeal");
 const deleteMeal = require("./handlers/meals/deleteMeal");
 const getMealsByUserId = require("./handlers/meals/mealsByUser");
+const addComment = require("./handlers/meals/addComment");
 
 const getUser = require("./handlers/users/getUser");
 const addUser = require("./handlers/users/addUser");
@@ -39,6 +40,7 @@ express()
   .get("/api/meal/:id", getMeal)
   .put("/api/meal/:id", updateMeal)
   .delete("/api/meal/:id", deleteMeal)
+  .post("/api/comment/", addComment)
 
   //* USERS Endpoints
   .post("/api/user/add", addUser)
