@@ -9,7 +9,7 @@ const addUser = async (req, res) => {
   try {
     // Connect to DB:
     const db = clientDb.db("dinnerSwap");
-
+    console.log("from BE addUser")
     // Connect to collection:
     console.log(req.body)
     const user = await db.collection("users").insertOne(req.body);

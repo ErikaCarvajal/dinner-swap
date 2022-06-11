@@ -25,7 +25,7 @@ const addMeal = async (req, res) => {
 
     
 
-    const { name, points, description, contains, daysAvailable, servings, timeRequired, userId } = completeMeal;
+    const { name, points, description, contains, daysAvailable, servings, daysInAdvance, userId } = completeMeal;
     const {
       result: { secure_url, public_id },
       error,
@@ -33,7 +33,7 @@ const addMeal = async (req, res) => {
 
     console.log(secure_url, public_id);
 
-    let newMeal = { name, points, description, contains, daysAvailable, servings, timeRequired, userId, secure_url, public_id };
+    let newMeal = { name, points, description, contains, daysAvailable, servings, daysInAdvance, userId, secure_url, public_id };
 
     // Connect to collection:
     const meals = await db.collection("meals").insertOne(newMeal);

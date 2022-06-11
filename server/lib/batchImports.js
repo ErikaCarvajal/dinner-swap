@@ -1,5 +1,6 @@
 // import data from data.js to MongoDB
 const data = require("./data.json");
+const users = require("./users.json");
 
 const { MongoClient } = require("mongodb");
 
@@ -24,10 +25,12 @@ const batchImport = async () => {
 
     //connects to collection
     const dinners = await db.collection("meals").insertMany(data);
-    if (dinners) {
-      console.log("greet Success", dinners);
+    const subscribers = await db.collection("users").insertMany(users);
+
+    if (dinners && subscribers) {
+      console.log("Meals and Users collections are updated", dinners, subscribers);
     } else {
-      console.log("greet FAILURE");
+      console.log("There was an error on uploading information. Please try again.");
     }
   } catch (err) {
     console.log(err.stack);
