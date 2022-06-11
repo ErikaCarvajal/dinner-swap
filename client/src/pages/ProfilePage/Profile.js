@@ -4,9 +4,10 @@ import { UserContext } from "../../components/UserContext";
 import Wrapper from "../../components/Meals/MealWrapper";
 
 
-const Profile = () => {
+const Profile = (props) => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const { user: userDB} = useContext(UserContext);
+  console.log("This is user from DB in profile", userDB)
 
   if (isLoading) {
     return <div>Loading ...</div>;

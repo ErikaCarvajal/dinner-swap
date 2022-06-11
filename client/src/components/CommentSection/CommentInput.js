@@ -45,8 +45,8 @@ const CommentInput = ({ userId, mealId }) => {
           onChange={(e) => {
             handleTitle(e);
           }}
-        />
-        <lable htmlFor="content">Content</lable>
+        /> 
+        <label htmlFor="content">Content</label>
         <input
           type="text"
           name="content"
@@ -66,7 +66,7 @@ export default CommentInput;
 // Inside MongoDB meals collection
 
 // meal = {
-//   timeRequired: 2,
+//   daysInAdvance: 2,
 //   name: "Cookies",
 //   comments: [
 //     {

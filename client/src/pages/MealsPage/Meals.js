@@ -59,7 +59,7 @@ const Meals = () => {
                   <p>{item.contains}</p>
                   <p>{item.daysAvailable}</p>
                   <p>{item.servings}</p>
-                  <p>{item.timeRequired} days</p>
+                  <p>{item.daysInAdvance} days</p>
                 </button>
               );
             })}

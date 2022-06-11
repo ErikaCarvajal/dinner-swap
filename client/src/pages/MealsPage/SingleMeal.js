@@ -11,7 +11,7 @@ import { UserContext } from "../../components/UserContext";
 import OrderForm from "../../components/OrderForm";
 import CommentInput from "../../components/CommentSection/CommentInput";
 
-const SingleMeal = () => {
+export const SingleMeal = () => {
   let { id } = useParams();
   const { user } = useContext(UserContext);
 
@@ -45,8 +45,8 @@ const SingleMeal = () => {
       <MealForm oldMealData={meal[0]} setIsEditing={setIsEditing} mealId={id} />
     );
   }
-
-  if (isLoaded && user?.points) {
+  if (isLoaded && user) {
+    console.log(user)
     return (
       <>
         <Wrapper>
@@ -63,7 +63,7 @@ const SingleMeal = () => {
                   userId={meal[0].userId}
                   mealPoints={meal[0].points}
                   mealId={meal[0].mealId}
-                  timeRequired={meal[0].timeRequired}
+                  daysInAdvance={meal[0].daysInAdvance}
                 />
               </div>
             </StyledForm>
@@ -78,8 +78,6 @@ const SingleMeal = () => {
     <p>Still Loading</p>;
   }
 };
-
-export default SingleMeal;
 
 const Div = styled.div`
   display: flex;

@@ -1,16 +1,16 @@
-import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { UserContext } from "./UserContext";
 import LogoutButton from "./LogoutButton";
 import LoginButton from "./LoginButton";
 
 const Navbar = () => {
-  const { user } = useContext(UserContext);
+  const { isAuthenticated } = useAuth0();
 
   return (
-    <Div user={user}>
+    <Div user={isAuthenticated}>
       <li>
         <NavLinkStyled to="/">Home</NavLinkStyled>
       </li>
@@ -22,13 +22,18 @@ const Navbar = () => {
       </li>
       <li></li>
       <SignInButtons>
+        <li>
+        {isAuthenticated ? <LogoutButton /> : <LoginButton /> }
+        </li>
+      </SignInButtons>
+      {/* <SignInButtons>
         <StyledLoginBtn user={user}>
           <LoginButton />
         </StyledLoginBtn>
         <StyledLogoutBtn user={user}>
           <LogoutButton />
         </StyledLogoutBtn>
-      </SignInButtons>
+      </SignInButtons> */}
     </Div>
   );
 };

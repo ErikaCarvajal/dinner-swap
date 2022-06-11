@@ -1,7 +1,7 @@
 import { useState } from "react";
 import moment from "moment";
 
-const OrderForm = ({ userPoints, mealPoints, timeRequired }) => {
+const OrderForm = ({ userPoints, mealPoints, daysInAdvance }) => {
   const [orderPoints, setOrderPoints] = useState(0);
   const [userNewPoints, setUserNewPoints] = useState(0);
   const [maxPossibleQty, setMaxPossibleQty] = useState(
@@ -11,7 +11,7 @@ const OrderForm = ({ userPoints, mealPoints, timeRequired }) => {
 
   const today = new Date();
   const minOrderDate = moment(
-    today.setDate(today.getDate() + timeRequired)
+    today.setDate(today.getDate() + daysInAdvance)
   ).format("YYYY-MM-DD");
 
   const handleQtyChange = (e) => {

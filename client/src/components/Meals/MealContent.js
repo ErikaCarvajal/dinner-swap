@@ -10,7 +10,7 @@ const MealContent = (props) => {
         <p>Contains: {props.meal.contains}</p>
         <p>Days Available: {props.meal.daysAvailable}</p>
         <p>Servings: {props.meal.servings}</p>
-        <p>Time Required: {props.meal.timeRequired} days</p>
+        <p>Time Required: {props.meal.daysInAdvance} days</p>
     </>
 }
 
