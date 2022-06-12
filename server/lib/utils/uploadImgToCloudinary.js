@@ -12,4 +12,13 @@ const uploadImgToCloudinary = async (fileStr) => {
   }
 };
 
-module.exports = { uploadImgToCloudinary };
+const deleteImgToCloudinary = async (imgId) => {
+  const deletionResponse = await cloudinary.uploader.destroy(imgId)
+  if (deletionResponse) {
+    return {response: "Deletion confirmed", error: null}
+  } else {
+    return {response: null, error: "error-deleting-image"}
+  }
+}
+
+module.exports = { uploadImgToCloudinary, deleteImgToCloudinary };

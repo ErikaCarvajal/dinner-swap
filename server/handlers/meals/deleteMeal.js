@@ -1,8 +1,11 @@
 "use strict";
 
-
 // const { ObjectID } = require("bson");
 const { sendResponse } = require("../../lib/utils/sendResponse");
+const { cloudinary } = require("../../lib/cloudinary");
+
+const { deleteImage } = require("../../lib/utils/updateImage");
+const { deleteImgToCloudinary } = require("../../lib/utils/uploadImgToCloudinary");
 
 const deleteMeal = async (req, res) => {
   // connect to clientDb
@@ -15,21 +18,25 @@ const deleteMeal = async (req, res) => {
 
     //============ Retrieve information from Database
     let ObjectID = require("mongodb").ObjectId;
+
+    console.log("req.body", req.body);
+    // 
+    const {public_id} = req.body;
+
+    const {response, error} = await deleteImgToCloudinary(public_id);
+    console.log(response)
+    // console.log("public_id", public_id)
     const id = req.params;
-    const meal = await db
-      .collection("meals")
-      .find({ _id: new ObjectID(id) })
-      .toArray();
+    const query = { _id: new ObjectID(id) };
 
-      const urlArray = req.originalUrl.split("/");
+    const result = await db.collection("meals").deleteOne(query);
+    // const result= "nothing";
+      // console.log(result)
 
-      if (urlArray[3] === "update" && meal) {
-        res.locals.meal = meal;
-        next();
-      } else if (meal) {
-          sendResponse(res, 200, meal, "from one meal")
+      if (result.deletedCount === 1) {
+          sendResponse(res, 200, result, "Meal was deleted")
       } else {
-        sendResponse(res, 400, "Sorry, that meal id doesn't exists");
+        sendResponse(res, 404, "Meal doesn't exists");
       }
   } catch (err) {
     console.log(err);
