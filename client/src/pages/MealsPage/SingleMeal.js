@@ -42,9 +42,10 @@ export const SingleMeal = () => {
   };
 
   const handleClick = () => {
-    navigate(`/user/${user.email}`)
-  }
+    navigate(`/user/${user.email}`);
+  };
 
+  console.log(meal);
 
   if (isEditing) {
     return (
@@ -55,8 +56,11 @@ export const SingleMeal = () => {
     console.log(user);
     return (
       <>
-        {user.address === "" && (
-          <Banner>Please add your address to post a meal.<button onClick={handleClick}>Update address</button></Banner>
+        {!user.address && (
+          <Banner>
+            Please add your address to post a meal.
+            <button onClick={handleClick}>Update address</button>
+          </Banner>
         )}
         <Wrapper>
           <Div>
@@ -76,10 +80,32 @@ export const SingleMeal = () => {
                 />
               </div>
             </StyledForm>
-            <div>
-              <CommentInput userId={meal[0].userId} mealId={meal[0]._id} />
-            </div>
           </Div>
+        </Wrapper>
+        <Wrapper>
+          <div>
+            <CommentInput userId={meal[0].userId} mealId={meal[0]._id} />
+          </div>
+        </Wrapper>
+        <Wrapper>
+          <div>
+
+            {meal[0].comments ? (
+              <ul>
+                {meal[0].comments.map((review, index) => {
+                  return (
+                    <li key={`${index}CO`}>
+                      <h4>{review.title}</h4>
+                      <p>{review.comment}</p>
+                      <p>{review.date}</p>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <p>No comments yet</p>
+            )}
+          </div>
         </Wrapper>
       </>
     );

@@ -10,8 +10,9 @@ const Profile = (props) => {
   // const { user, isAuthenticated, isLoading } = useAuth0();
   const { user, isAuthenticated, isLoading } = useAuth0();
   const navigate = useNavigate();
-  const { user: myUser, address } = useContext(UserContext);
-  const { streetNumber, streetName, city, postCode, province } = address;
+  const { user: myUser } = useContext(UserContext);
+  
+  
   if (myUser) {
     console.log("This is user from DB in profile", myUser);
   }
@@ -36,15 +37,17 @@ const Profile = (props) => {
           <p>Name: {myUser.name}</p>
           <p>Points: {myUser.points}</p>
           {/* <p>Address: {myUser.address}</p> */}
-          {(myUser.address) ? (
-            <div> 
+          {(!myUser.address) ? 
+          (<><p>got to add user</p> 
+           <AddUser/></>
+           ) : ( <div> 
           <p>Address: </p>
-          <p>Street Number: {streetNumber}</p>
-          <p>Street Name: {streetName}</p>
-          <p>City: {city}</p>
-          <p>Postal Code: {postCode}</p>
-          <p>Province: {province}</p>
-           </div>):(<AddUser/>)}
+          <p>Street Number: {myUser.address.streetNumber}</p>
+          <p>Street Name: {myUser.address.streetName}</p>
+          <p>City: {myUser.address.city}</p>
+          <p>Postal Code: {myUser.address.postCode}</p>
+          <p>Province: {myUser.address.province}</p>
+           </div>)}
         </div>
       ) : (
         <h2>Loading...</h2>

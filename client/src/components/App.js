@@ -45,7 +45,7 @@ function App() {
 
             <Route path="/user/:email" element={<AddUser />} />
             <Route path="login" element={<LoginButton />} />
-            <Route path="/test" element={<TestAddress />} />
+            {/* <Route path="/test" element={<TestAddress />} /> */}
             <Route path="*" element={<Error />} />
           </Routes>
         </Router>
