@@ -78,35 +78,6 @@ const AddUser = () => {
 
 
   };
-  //SUBMIT THAT WAS NEVER SUBMITTING=====================
-  // const handleSubmit = (e) => {
-  //   console.log("Handle submit before prevent default")
-  //   e.preventDefaul();
-  //   console.log("consologin the user submit")
-  //   console.log(e.target.value);
-  //   if (user) {
-  //     fetch(`api/user/${userDB.email}`, {
-  //       method: "PUT",
-  //       headers: { "content-type": "application/json" },
-  //       body: JSON.stringify({...userDB,
-  //         address: {
-  //         user,
-  //         streetAddress,
-  //         postCode,
-  //         city,
-  //         province,}
-  //       }),
-  //     })
-  //       .then((res) => res.json)
-  //       .then((data) => {
-  //         console.log(data);
-  //         // {window.sessionStorage.setItem("email", JSON.stringify(user.email))}
-  //         //   navigate('/')
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // };
-  
   
   return (
     <>

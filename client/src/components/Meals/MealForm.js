@@ -38,14 +38,14 @@ const MealForm = ({ oldMealData, setIsEditing, mealId }) => {
       console.log("inside handleChange -error is", error)
     };
     
-  const handleOnBlur = () => { }
+  // const handleOnBlur = () => { }
   
   const handleSubmit = (e) => {
     e.preventDefault();
     // Validate user's input
     handleErrorMessages(mealToBeUpdated, setError);
     console.log("inside handleSubmit -error is", error)
-
+    console.log(mealToBeUpdated)
     if (!error) {
       fetch(`/api/meal/${mealId}`, {
         method: "PUT",
@@ -73,6 +73,7 @@ const MealForm = ({ oldMealData, setIsEditing, mealId }) => {
 
   return (
     <>
+    <pre>{JSON.stringify(mealToBeUpdated, undefined, 2)}</pre>
       <Wrapper>
         <Form onSubmit={(e) => handleSubmit(e)}>
           <Div>

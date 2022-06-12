@@ -9,6 +9,7 @@ import Homepage from "../pages/HomePage";
 import Navbar from "./NavBar";
 import Meals from "../pages/MealsPage/Meals";
 import { NewMeal } from "../pages/MealsPage/NewMeal";
+import DeleteMeal from "../pages/MealsPage/DeleteMeal";
 import { SingleMeal } from "../pages/MealsPage/SingleMeal";
 import AddUser from "../pages/ProfilePage/AddUser";
 import Profile from "../pages/ProfilePage";
@@ -36,7 +37,7 @@ function App() {
             <Route path="/meals" element={<Meals />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/meal/add" element={<NewMeal method={"add"} />} />
-            <Route path="/meal/del" element={<NewMeal method={"delete"} />} />
+            <Route path="/meal/delete" element={<DeleteMeal method={"delete"} />} />
             <Route
               path="/meal/upd/:id"
               element={<NewMeal method={"update"} />}

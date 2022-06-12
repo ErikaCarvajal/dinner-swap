@@ -11,6 +11,7 @@ import { UserContext } from "../../components/UserContext";
 import OrderForm from "../../components/OrderForm";
 import CommentInput from "../../components/CommentSection/CommentInput";
 import AddUser from "../ProfilePage/AddUser";
+import handleDelete from "../MealsPage/DeleteMeal";
 
 export const SingleMeal = () => {
   let { id } = useParams();
@@ -20,6 +21,7 @@ export const SingleMeal = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [meal, setMeal] = useState();
   const [isEditing, setIsEditing] = useState(false);
+  const [ deletedMeal, setDeletedMeal ] = useState(false);
 
   useEffect(() => {
     fetch(`/api/meal/${id}`)
@@ -37,15 +39,20 @@ export const SingleMeal = () => {
     } else if (option === 1) {
       setIsEditing(true);
     } else {
-      navigate("/meal/del");
+      handleDelete(id, meal[0], setDeletedMeal);
     }
   };
+
+  if (deletedMeal) {
+    setDeletedMeal(false)
+    navigate(`/meals`)
+  }
 
   const handleClick = () => {
     navigate(`/user/${user.email}`);
   };
 
-  console.log(meal);
+  console.log(deletedMeal);
 
   if (isEditing) {
     return (
