@@ -22,21 +22,11 @@ const Homepage = () => {
     fetch(`api/home`)
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
         setMeals(data);
         setIsLoaded(true);
       })
       .catch((err) => console.log(err));
   }, []);
-
-
-  useEffect(() => {
-    if (user?.email !== auth0User?.email) {
-      navigate('/user/add')
-      // console.log("user doesn't exits")
-    }
-  })
-
 
   return (
     <>

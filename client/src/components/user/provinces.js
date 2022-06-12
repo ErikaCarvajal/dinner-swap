@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import styled from "styled-components";
 
 export const Provinces = ({ province, setProvince }) => {
-  const selectForm = useRef(null);
+  const selectProvince = useRef(null);
 
   const provincesArray = [
     "Alberta",
@@ -20,7 +20,7 @@ export const Provinces = ({ province, setProvince }) => {
     "Yukon",
   ];
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
       e.preventDefault();
       setProvince(e.target.value)
   }
@@ -28,10 +28,10 @@ export const Provinces = ({ province, setProvince }) => {
 
   return (
     <>
-      <form ref={selectForm} onChange={(e)=> handleSubmit(e)}>
+      {/* <form ref={selectForm} onChange={(e)=> handleSubmit(e)}> */}
 
-        <label htmlFor="province">Province</label>
-        <Select name="province" placeholder="Choose a province">
+        {/* <label htmlFor="province">Province</label> */}
+        <Select ref={selectProvince} onChange={(e)=>handleChange(e)} name="province" placeholder="Choose a province" >
         <option value="Choose a province">--Province--</option>
           {provincesArray.map((province) => {
               return (
@@ -40,7 +40,7 @@ export const Provinces = ({ province, setProvince }) => {
             </option>)
           })}
         </Select>
-      </form>
+      {/* </form> */}
     </>
   );
 };

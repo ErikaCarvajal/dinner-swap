@@ -10,6 +10,7 @@ import Wrapper from "../../components/Meals/MealWrapper";
 import { UserContext } from "../../components/UserContext";
 import OrderForm from "../../components/OrderForm";
 import CommentInput from "../../components/CommentSection/CommentInput";
+import AddUser from "../ProfilePage/AddUser";
 
 export const SingleMeal = () => {
   let { id } = useParams();
@@ -40,15 +41,23 @@ export const SingleMeal = () => {
     }
   };
 
+  const handleClick = () => {
+    navigate(`/user/${user.email}`)
+  }
+
+
   if (isEditing) {
     return (
       <MealForm oldMealData={meal[0]} setIsEditing={setIsEditing} mealId={id} />
     );
   }
   if (isLoaded && user) {
-    console.log(user)
+    console.log(user);
     return (
       <>
+        {user.address === "" && (
+          <Banner>Please add your address to post a meal.<button onClick={handleClick}>Update address</button></Banner>
+        )}
         <Wrapper>
           <Div>
             <div>
@@ -86,4 +95,12 @@ const Div = styled.div`
 
 const StyledForm = styled.div`
   margin: 50px 50px;
+`;
+
+const Banner = styled.div`
+  width: 100vw;
+  top: 0;
+  height: 50px;
+  background: tomato;
+  text-justify: center;
 `;

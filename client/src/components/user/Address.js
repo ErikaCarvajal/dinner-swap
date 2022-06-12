@@ -47,11 +47,13 @@ const UserAddress = ({
   //   setProvince(e.target.value);
   // };
 
+  const provincesArray = ["NL", "PE", "NS", "NB", "QC", "ON", "MB", "SK", "AB", "BC", "YT", "NT", "NU"]
+
   return (
     <Wrapper>
       <div>
-        <Address>
-
+        {/* <Address> */}
+<div>
           <label htmlFor="streetAddress">Street Address</label>
           <input
             className="streetAddress"
@@ -62,9 +64,11 @@ const UserAddress = ({
             value={streetAddress}
             onChange={(e) => handleStreetAddress(e)}
           />
-        </Address>
+     </div>
+        {/* </Address> */}
 
-        <AddressDetail>
+        {/* <AddressDetail> */}
+        <div>
           <label htmlFor="city">City</label>
           <input
             type="text"
@@ -86,8 +90,9 @@ const UserAddress = ({
             onChange={(e) => handlePostCode(e)}
           />
           {displayWarning && <p>*{warningMessage}</p>}
-        </AddressDetail>
-        <Provinces province={province} setProvince={setProvince} />
+          </div>
+        {/* </AddressDetail> */}
+        {/* <Provinces province={province} setProvince={setProvince} /> */}
        
         {/* <form  ref={selectForm} >
           <label htmlFor="province">Province</label>

@@ -7,10 +7,13 @@ import LogoutButton from "./LogoutButton";
 import LoginButton from "./LoginButton";
 
 const Navbar = () => {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, user, isLoading } = useAuth0();
+  const isUser = isAuthenticated && user;
 
   return (
     <Div user={isAuthenticated}>
+      {isUser && user.picture && <img src={user.picture} alt={user.name} />}
+      {isUser && user.name && <h3>Hi, {user.name}</h3>}
       <li>
         <NavLinkStyled to="/">Home</NavLinkStyled>
       </li>
@@ -22,9 +25,7 @@ const Navbar = () => {
       </li>
       <li></li>
       <SignInButtons>
-        <li>
-        {isAuthenticated ? <LogoutButton /> : <LoginButton /> }
-        </li>
+        <li>{isAuthenticated ? <LogoutButton /> : <LoginButton />}</li>
       </SignInButtons>
       {/* <SignInButtons>
         <StyledLoginBtn user={user}>
@@ -66,10 +67,10 @@ const NavLinkStyled = styled(NavLink)`
 `;
 
 const SignInButtons = styled.div`
-display: flex;
-    align-items: center;
-    margin-right: 40px;
-`
+  display: flex;
+  align-items: center;
+  margin-right: 40px;
+`;
 
 const StyledLoginBtn = styled.li`
   visibility: ${(p) => (p.user ? "hidden" : "visible")};

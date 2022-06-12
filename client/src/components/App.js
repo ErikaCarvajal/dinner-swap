@@ -13,15 +13,21 @@ import { SingleMeal } from "../pages/MealsPage/SingleMeal";
 import AddUser from "../pages/ProfilePage/AddUser";
 import Profile from "../pages/ProfilePage";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import TestAddress from "../components/user/testAddress";
+
 // import MealInput from "./MealInput";
 import LoginButton from "./LoginButton";
+import AuthWrapper from "./authentication/AuthWrapper";
+import { Error } from "../pages/Error";
+import PrivateRoute from "./authentication/PrivateRoute";
 
 function App() {
   const { isLoading } = useAuth0();
 
   return (
     <div>
-      {!isLoading ? (
+      {/* {!isLoading ? ( */}
+      <AuthWrapper>
         <Router>
           <GlobalStyles />
           <Navbar />
@@ -36,20 +42,22 @@ function App() {
               element={<NewMeal method={"update"} />}
             />
             <Route path="/meal/:id" element={<SingleMeal />} />
-            
-            <Route path="/user/add" element={<AddUser />} />
+
+            <Route path="/user/:email" element={<AddUser />} />
             <Route path="login" element={<LoginButton />} />
+            <Route path="/test" element={<TestAddress />} />
+            <Route path="*" element={<Error />} />
           </Routes>
         </Router>
-      ) : (
+      </AuthWrapper>
+      {/* ) : (
         <>
-
         <h1>is loading</h1>
         <LoadingWrapper>
           <CircularProgress />
         </LoadingWrapper>
         </>
-      )}
+      )} */}
     </div>
   );
 }
