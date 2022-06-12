@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const { sendResponse } = require("../../lib/utils/sendResponse");
 
@@ -11,17 +11,14 @@ const getUser = async (req, res) => {
     const db = clientDb.db("dinnerSwap");
 
     // Connect to collection:
-    
+
     // Grab email from params and use it to find the user information
     const userEmail = req.params;
-    const user = await db
-      .collection("users")
-      .find(userEmail)
-      .toArray();
+    const user = await db.collection("users").find(userEmail).toArray();
 
-    user ?
-    sendResponse(res, 200, user, "User retreived")
-    : sendResponse(res, 400, "Couldn't access the database")
+    user.length > 0
+      ? sendResponse(res, 200, user, "User retreived")
+      : sendResponse(res, 404, "User not found");
   } catch (err) {
     console.log(err);
   } finally {
