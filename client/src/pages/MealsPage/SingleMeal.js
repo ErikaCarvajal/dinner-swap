@@ -52,7 +52,7 @@ export const SingleMeal = () => {
     navigate(`/user/${user.email}`);
   };
 
-  console.log(deletedMeal);
+  
 
   if (isEditing) {
     return (
@@ -79,11 +79,12 @@ export const SingleMeal = () => {
               Your current points are: {user.points}
               <div>
                 <OrderForm
-                  userPoints={user.points}
+                  user={user}
                   userId={meal[0].userId}
                   mealPoints={meal[0].points}
-                  mealId={meal[0].mealId}
+                  mealId={meal[0]._id}
                   daysInAdvance={meal[0].daysInAdvance}
+                  soldBy={meal[0].userId}
                 />
               </div>
             </StyledForm>

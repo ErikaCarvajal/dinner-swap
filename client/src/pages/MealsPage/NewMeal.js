@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useRef} from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import MealImage from "../../components/MealImage";
 import { UserContext } from "../../components/UserContext";
@@ -14,16 +14,20 @@ export const NewMeal = ({ method }) => {
   const [formError, setFormError] = useState({});
   const [error, setError] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-  const daysAvailableArray = ["Saturdays and Sundays", "Monday to Fridays", "Everyday of the week"];
+  const daysAvailableArray = [
+    "Saturdays and Sundays",
+    "Monday to Fridays",
+    "Everyday of the week",
+  ];
 
   const [completeMeal, setCompleteMeal] = useState({
     name: "",
-    points: "",
+    points: 0,
     description: "",
     contains: "",
     daysAvailable: "",
-    servings: "",
-    daysInAdvance: "",
+    servings: 0,
+    daysInAdvance: 0,
     userId: user._id,
   });
   const [previewSource, setPreviewSource] = useState("");
@@ -39,9 +43,8 @@ export const NewMeal = ({ method }) => {
 
   const handleDaysAvailable = (e) => {
     e.preventDefault();
-    setCompleteMeal({...completeMeal, daysAvailable: e.target.value})
-  }
-
+    setCompleteMeal({ ...completeMeal, daysAvailable: e.target.value });
+  };
 
   // VALIDATION --- Leaving it out for now ========
   // const handleBlur = (e) => {
@@ -54,26 +57,23 @@ export const NewMeal = ({ method }) => {
   // }
   // END OF VALIDATION ============================
 
-
   // const handlePoints = (e) => {
   //   setPoints(e.target.value);
   // };
   // console.log("USER ============ ", user._id)
-
-
 
   // Look into Axios package
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // setFormError(handleErrorMessages(completeMeal, setError));// ======TO BE CHANGE
-    console.log()
+    console.log();
     console.log("CAN YOU SEE MEE, next is complete meal and previewSource");
     console.log(completeMeal, previewSource);
     if (previewSource) {
-      console.log("previewSource exists")
+      console.log("previewSource exists");
     } else {
-      alert("Please include image")
+      alert("Please include image");
     }
 
     // if (Object.keys(formError).length === 0) {
@@ -86,7 +86,7 @@ export const NewMeal = ({ method }) => {
 
     // if (Object.keys(formError).length === 0 && isSubmit && Object.keys(previewSource).length !== 0) {
     if (Object.keys(previewSource).length !== 0) {
-      console.log("true for  fetch")
+      console.log("true for  fetch");
       fetch(`/api/meal/add`, {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -115,7 +115,7 @@ export const NewMeal = ({ method }) => {
   return (
     <>
       {/* {Object.keys(formError).length === 0 && isSubmit && previewSource} */}
-     
+
       <Wrapper>
         <h1>New Meal</h1>
         <Div>
@@ -153,8 +153,8 @@ export const NewMeal = ({ method }) => {
             <input
               type="number"
               name="points"
-              min="1"
-              defaultValue="0"
+              min={1}
+              defaultValue={0}
               onChange={(e) => handleChange(e)}
               require
             />
@@ -178,22 +178,28 @@ export const NewMeal = ({ method }) => {
               require
             />
             {/* <ErrorMessageStyled>{formError.contains}</ErrorMessageStyled> */}
-{/* <fieldset> */}
+            {/* <fieldset> */}
 
-            <select ref={selectDays} onChange={(e)=>handleDaysAvailable(e)} name="daysAvailable">
-            <option value="" >Which days is this meal available</option>
-            {daysAvailableArray.map((period, index) => {
-              return (
-                <option key={period} value={period}>{period}</option>
-              )
-            })}
-                        </select>
+            <select
+              ref={selectDays}
+              onChange={(e) => handleDaysAvailable(e)}
+              name="daysAvailable"
+            >
+              <option value="">Which days is this meal available</option>
+              {daysAvailableArray.map((period, index) => {
+                return (
+                  <option key={period} value={period}>
+                    {period}
+                  </option>
+                );
+              })}
+            </select>
 
             <label htmlFor="servings">Servings</label>
             <input
               type="number"
               name="servings"
-              min="1"
+              min={1}
               onChange={(e) => handleChange(e)}
               // onBlur={handleBlur}
               require
@@ -207,7 +213,7 @@ export const NewMeal = ({ method }) => {
               <input
                 type="number"
                 name="daysInAdvance"
-                min="1"
+                min={1}
                 max="30"
                 onChange={(e) => handleChange(e)}
                 // onBlur={handleBlur}

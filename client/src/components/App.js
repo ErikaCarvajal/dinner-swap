@@ -21,6 +21,7 @@ import LoginButton from "./LoginButton";
 import AuthWrapper from "./authentication/AuthWrapper";
 import { Error } from "../pages/Error";
 import PrivateRoute from "./authentication/PrivateRoute";
+import OrderForm from "./OrderForm";
 
 function App() {
   const { isLoading } = useAuth0();
@@ -44,9 +45,11 @@ function App() {
             />
             <Route path="/meal/:id" element={<SingleMeal />} />
 
+            <Route path="/order/:email" element={<OrderForm />} />
+            
             <Route path="/user/:email" element={<AddUser />} />
             <Route path="login" element={<LoginButton />} />
-            {/* <Route path="/test" element={<TestAddress />} /> */}
+
             <Route path="*" element={<Error />} />
           </Routes>
         </Router>
