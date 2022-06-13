@@ -44,12 +44,11 @@ const OrderForm = ({ user, mealPoints, daysInAdvance, mealId, soldBy }) => {
     e.preventDefault();
 
     //Update Buyer:
-    user["purchased"] = [
-      { date: orderDate, quantity: orderQty, mealId: mealId },
-    ];
+    user["purchased"] = { date: orderDate, quantity: orderQty, mealId: mealId };
     user["points"] = userNewPoints;
     //Update Seller plus meal_userId
-    let sold = [{ date: orderDate, quantity: orderQty, mealId: mealId }];
+    let sold = { date: orderDate, quantity: orderQty, mealId: mealId };
+    let sellerPoints = orderPoints;
 
     console.log("user, sold, soldby", user, sold, soldBy);
     fetch(`/api/order/${_id}`, {
@@ -58,6 +57,7 @@ const OrderForm = ({ user, mealPoints, daysInAdvance, mealId, soldBy }) => {
       body: JSON.stringify({
         user,
         sold,
+        sellerPoints,
         soldBy,
       }),
     })
