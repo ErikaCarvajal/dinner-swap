@@ -81,4 +81,4 @@ const updateMeal = async (req, res) => {
   }
 };
 
-module.exports = updateMeal;
+module.exports = updateMeal;    

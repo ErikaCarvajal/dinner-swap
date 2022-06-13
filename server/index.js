@@ -15,6 +15,7 @@ const updateMeal = require("./handlers/meals/updateMeal");
 const deleteMeal = require("./handlers/meals/deleteMeal");
 const getMealsByUserId = require("./handlers/meals/mealsByUser");
 const addComment = require("./handlers/meals/addComment");
+const addOrder = require("./handlers/meals/addOrder");
 
 const getUser = require("./handlers/users/getUser");
 const addUser = require("./handlers/users/addUser");
@@ -42,12 +43,13 @@ express()
   .put("/api/meal/:id", updateMeal)
   .delete("/api/meal/:id", deleteMeal)
   .post("/api/comment/", addComment)
-
+  
   //* USERS Endpoints
   .post("/api/user/add", addUser)
   .get("/api/user/:email", getUser)
   .put("/api/user/:email", updateUser)
   .delete("/api/user/:email", deleteUser)
+  .put("/api/order/:id", addOrder)
   // .post("/api/user/validate-address", handleValidateAddress)
 
   // this is our catch all endpoint.
