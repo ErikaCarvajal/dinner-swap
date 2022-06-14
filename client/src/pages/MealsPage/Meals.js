@@ -17,7 +17,7 @@ const Meals = () => {
   const userFromContext = useContext(UserContext);
 
   useEffect(() => {
-    console.log("HELOOooOOOOOOOOOOOO")
+    console.log("HELOOooOOOOOOOOOOOO");
     fetch(`/api/meals`)
       .then((res) => res.json())
       .then((data) => {
@@ -48,6 +48,7 @@ const Meals = () => {
             {meals.map((item) => {
               return (
                 <button
+                  style={{ cursor: "pointer" }}
                   key={item.id}
                   type="button"
                   onClick={() => HandleClick(item._id)}
@@ -78,8 +79,7 @@ export default Meals;
 
 const MealCards = styled.div`
   width: 100%;
-  
-`
+`;
 
 const LoadingWrapper = styled.div`
   display: flex;

@@ -1,7 +1,15 @@
 import { useState } from "react";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
-const OrderForm = ({ user, mealPoints, daysInAdvance, mealId, soldBy }) => {
+const OrderForm = ({
+  user,
+  mealPoints,
+  mealName,
+  daysInAdvance,
+  mealId,
+  soldBy,
+}) => {
   const { points, _id } = user;
   const [orderQty, setOrderQty] = useState(0);
   const [orderDate, setOrderDate] = useState(0);
@@ -12,10 +20,14 @@ const OrderForm = ({ user, mealPoints, daysInAdvance, mealId, soldBy }) => {
   );
   const [error, setError] = useState(false);
   const today = new Date();
-  const nextAvailableDay = moment(today).add(2, 'days').format('YYYY-MM-DD')
+  const nextAvailableDay = moment(today)
+    .add(daysInAdvance, "days")
+    .format("YYYY-MM-DD");
   // const minOrderDate = moment(
   //   today.setDate(today.getDate() + daysInAdvance)
   // ).format("YYYY-MM-DD");
+
+  const navigate = useNavigate();
 
   const handleQtyChange = (e) => {
     const pointsPerOrder = e.target.value * mealPoints;
@@ -27,28 +39,30 @@ const OrderForm = ({ user, mealPoints, daysInAdvance, mealId, soldBy }) => {
       e.target.value = 0;
       setOrderQty(0);
     } else {
-      setUserNewPoints(points - pointsPerOrder)
+      setUserNewPoints(points - pointsPerOrder);
     }
   };
-
-  console.log(orderPoints, "orderPoints")
-  console.log(points, "points")
-  console.log(userNewPoints, 'userNewPoints')
-  console.log(daysInAdvance, "days in advance")
-  console.log("new date", today + daysInAdvance)
-  console.log("moment date", nextAvailableDay)
-  // console.log("new date", today + daysInAdvance)
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    //Update Buyer:
-    user["purchased"] = { date: orderDate, quantity: orderQty, mealId: mealId };
-    user["points"] = userNewPoints;
     //Update Seller plus meal_userId
-    let sold = { date: orderDate, quantity: orderQty, mealId: mealId };
+    let sold = {
+      date: orderDate,
+      quantity: orderQty,
+      mealId: mealId,
+      mealName: mealName,
+    };
     let sellerPoints = orderPoints;
+
+    //Update Buyer:
+    user["purchased"] = {
+      date: orderDate,
+      quantity: orderQty,
+      mealId: mealId,
+      mealName: mealName,
+    };
+    user["points"] = userNewPoints;
 
     console.log("user, sold, soldby", user, sold, soldBy);
     fetch(`/api/order/${_id}`, {
@@ -62,12 +76,16 @@ const OrderForm = ({ user, mealPoints, daysInAdvance, mealId, soldBy }) => {
       }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        console.log(data);
+        navigate("/profile");
+      })
       .catch((err) => console.log(err));
   };
 
+
   return (
-    <>
+    <>   
       <form onSubmit={(e) => handleSubmit(e)}>
         <div>
           points
@@ -100,7 +118,10 @@ const OrderForm = ({ user, mealPoints, daysInAdvance, mealId, soldBy }) => {
         </div>
 
         <div>
-          <input type="submit" value="Place Order" />
+    <p>{}</p>
+
+        {user._id !== soldBy &&
+          <input type="submit" value="Place Order" />}
         </div>
       </form>
       <p>{error}</p>

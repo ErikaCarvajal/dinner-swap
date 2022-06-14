@@ -7,10 +7,18 @@ import UserAddress from "../../components/user/Address";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const AddUser = () => {
+const AddUser = ({
+  setUpdateDone,
+  userName,
+  streetNumber,
+  streetName,
+  city,
+  postCode,
+  province,
+}) => {
   const navigate = useNavigate();
   const selectProvince = useRef(null);
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user } = useAuth0();
   const { user: userDB } = useContext(UserContext);
 
   const provincesArray = [
@@ -28,17 +36,19 @@ const AddUser = () => {
     "Saskatchewan",
     "Yukon",
   ];
+
   const [address, setAddress] = useState({
-    streetNumber: "",
-    streetName: "",
-    city: "",
-    postCode: "",
-    province: "",
+    streetNumber,
+    streetName,
+    city,
+    postCode,
+    province
   });
 
+  const [name, setName ] = useState({userName});
   const [error, setError] = useState(false);
+  // setUpdateDone(false)
 
-  
   const handleChange = (e) => {
     e.preventDefault();
     const key = e.target.name;
@@ -46,113 +56,116 @@ const AddUser = () => {
     setAddress({ ...address, [key]: value });
     console.log("inside handleChange -error is", error);
   };
-  
+
   const handleProvince = (e) => {
     e.preventDefault();
-    setAddress({...address, province: e.target.value})
-  }
-  
+    setAddress({ ...address, province: e.target.value });
+  };
+
+  const handleName = (e) => {
+    e.preventDefault();
+    setName(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("handling submit");
-    console.log(address)
-    console.log(Object.values(address))
-    console.log("streetAddress");
     if (user) {
-          fetch(`api/user/${userDB.email}`, {
-            method: "PUT",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({
-              address
-            }),
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              console.log(data);
-                navigate('/meals')
-            })
-            .catch((err) => console.log(err));
-        }
-
-
-
-
+      fetch(`api/user/${userDB.email}`, {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          address,
+          name
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status === 200) {
+            console.log(data);
+            setUpdateDone(true)
+          }
+        })
+        .catch((err) => console.log(err));
+    }
   };
-  
+
   return (
     <>
       <Wrapper>
+        {/* {streetNumber === "" && ( */}
         <div>
           <h2>Thank you for subscribing to Dinner Swap.</h2>
           <h3>
-            To finalize the process, please include the address where the meals can be picked up:
+            To finalize the process, please include the address where the meals
+            can be picked up:
           </h3>
         </div>
-
+        {/* )} */}
         <div>
+          <Form onSubmit={(e) => handleSubmit(e)}>
+            <label htmlFor="userName">Name</label>
+            <input type="text" id="userName" name="userName" value={name.userName} onChange={(e) => handleName(e)}/>
+            <label htmlFor="streetNumber">Street Number</label>
+            <input
+              type="tel"
+              id="streetNumber"
+              name="streetNumber"
+              maxLength="6"
+              value={address.streetNumber}
+              onChange={(e) => handleChange(e)}
+              required={true}
+            />
 
-        <Form onSubmit={(e) => handleSubmit(e)}>
-          <label htmlFor="address"></label>
+            <label htmlFor="streetName">Street Name</label>
+            <input
+              type="text"
+              id="streetName"
+              name="streetName"
+              value={address.streetName}
+              onChange={(e) => handleChange(e)}
+              required={true}
+            />
 
-          <label htmlFor="streetNumber">Street Number</label>
-          <input
-            type="tel"
-            id="streetNumber"
-            name="streetNumber"
-            maxLength="6"
-            value={address.streetNumber}
-            onChange={(e) => handleChange(e)}
-            required={true}
-            
-          />
+            <label htmlFor="city">City</label>
+            <input
+              type="text"
+              id="city"
+              name="city"
+              value={address.city}
+              onChange={(e) => handleChange(e)}
+              required={true}
+            />
 
-          <label htmlFor="streetName">Street Name</label>
-          <input
-            type="text"
-            id="streetName"
-            name="streetName"
-            value={address.streetName}
-            onChange={(e) => handleChange(e)}
-            required={true}
-          />
+            <label htmlFor="postCode">Postal Code</label>
+            <input
+              type="text"
+              id="postCode"
+              minLength="6"
+              maxLength="7"
+              name="postCode"
+              value={address.postCode}
+              onChange={(e) => handleChange(e)}
+              required={true}
+            />
 
-          <label htmlFor="city">City</label>
-          <input
-            type="text"
-            id="city"
-            name="city"
-            value={address.city}
-            onChange={(e) => handleChange(e)}
-            required={true}
-          />
-
-          <label htmlFor="postCode">Postal Code</label>
-          <input
-            type="text"
-            id="postCode"
-            minLength="6"
-            maxLength="7"
-            name="postCode"
-            value={address.postCode}
-            onChange={(e) => handleChange(e)}
-            required={true}
-          />
-
-          <select ref={selectProvince} onChange={(e) => handleProvince(e)} name="province" >
-          <option value="Choose a province">--Province--</option>
-            {provincesArray.map((province) => {
-              return (
-                <option
-                  key={province}
-                  value={province}
-                >
-                  {province}
-                </option>
-              );
-            })}
-          </select>
-          <input type="submit" value="Submit" />
-        </Form>
+            <select
+              ref={selectProvince}
+              onChange={(e) => handleProvince(e)}
+              name="province"
+            >
+            {province.length > 0 ? (
+              <option value={address.province}>{address.province}</option>
+            ): (<option value="Choose a province">--Province--</option>)}
+              {provincesArray.map((province) => {
+                return (
+                  <option key={province} value={province}>
+                    {province}
+                  </option>
+                );
+              })}
+            </select>
+            <input type="submit" value="Submit" />
+          </Form>
         </div>
       </Wrapper>
     </>

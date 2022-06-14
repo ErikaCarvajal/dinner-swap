@@ -26,7 +26,17 @@ export const UserProvider = ({ children }) => {
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ ...auth0User, points: 50 }),
+              body: JSON.stringify({
+                ...auth0User,
+                points: 50,
+                address: {
+                  streetNumber: "",
+                  streetName: "",
+                  city: "",
+                  postCode: "",
+                  province: "",
+                },
+              }),
             })
               .then((res) => res.json())
               .then((res) => {

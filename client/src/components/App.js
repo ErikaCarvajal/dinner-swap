@@ -22,6 +22,7 @@ import AuthWrapper from "./authentication/AuthWrapper";
 import { Error } from "../pages/Error";
 import PrivateRoute from "./authentication/PrivateRoute";
 import OrderForm from "./OrderForm";
+import MealForm from "./Meals/MealForm";
 
 function App() {
   const { isLoading } = useAuth0();
@@ -37,8 +38,14 @@ function App() {
             <Route path="/" element={<Homepage />} />
             <Route path="/meals" element={<Meals />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/meal/add" element={<NewMeal method={"add"} />} />
-            <Route path="/meal/delete" element={<DeleteMeal method={"delete"} />} />
+            <Route
+              path="/meal/add"
+              element={<MealForm method={"Add"} oldMealData={null} />}
+            />
+            <Route
+              path="/meal/delete"
+              element={<DeleteMeal method={"delete"} />}
+            />
             <Route
               path="/meal/upd/:id"
               element={<NewMeal method={"update"} />}
@@ -46,7 +53,7 @@ function App() {
             <Route path="/meal/:id" element={<SingleMeal />} />
 
             <Route path="/order/:email" element={<OrderForm />} />
-            
+
             <Route path="/user/:email" element={<AddUser />} />
             <Route path="login" element={<LoginButton />} />
 

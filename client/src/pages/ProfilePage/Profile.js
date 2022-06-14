@@ -1,60 +1,120 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../components/UserContext";
 import Wrapper from "../../components/Meals/MealWrapper";
 import usePrivateRoute from "../../hooks/usePrivateRoute";
 import AddUser from "./AddUser";
+import Transactions from "../../components/user/Transactions";
+import ProfileTabs from "./ProfileTabs";
 
 const Profile = (props) => {
-  // const { user, isAuthenticated, isLoading } = useAuth0();
   const { user, isAuthenticated, isLoading } = useAuth0();
   const navigate = useNavigate();
   const { user: myUser } = useContext(UserContext);
-  
-  
+  const [currentTab, setCurrentTab] = useState("");
+  const [ updateDone, setUpdateDone] = useState(false);
+
   if (myUser) {
-    console.log("This is user from DB in profile", myUser);
+    console.log("This is myUser from DB in profile", myUser);
   }
 
   usePrivateRoute();
 
+  const tabs = ["Update", "Purchased", "Sold"];
 
-  // if (myUser) {
-  //   console.log("from inside address")
-  //   console.log(myUser.address)
-  //   navigate(`/user/${user.email}`)
-  // }
+  if (isAuthenticated && myUser) {
+    const { name, picture, email } = user;
+    const {
+      name: myUserName,
+      points,
+      address: { streetNumber, streetName, city, postCode, province },
+      purchased,
+      sold,
+    } = myUser;
 
-  return (
-    <div>
-    <Wrapper>
-      {isAuthenticated && myUser ? (
-        <div>
-          <img src={user.picture} alt={user.name} />
-          <h2>{user.name}</h2>
-          <p>Email: {user.email}</p>
-          <p>Name: {myUser.name}</p>
-          <p>Points: {myUser.points}</p>
-          {/* <p>Address: {myUser.address}</p> */}
-          {(!myUser.address) ? 
-          (<><p>got to add user</p> 
-           <AddUser/></>
-           ) : ( <div> 
-          <p>Address: </p>
-          <p>Street Number: {myUser.address.streetNumber}</p>
-          <p>Street Name: {myUser.address.streetName}</p>
-          <p>City: {myUser.address.city}</p>
-          <p>Postal Code: {myUser.address.postCode}</p>
-          <p>Province: {myUser.address.province}</p>
-           </div>)}
-        </div>
-      ) : (
-        <h2>Loading...</h2>
-      )}
-    </Wrapper>
-    </div>
-  );
+    return (
+      <div>
+        <Wrapper>
+          <div>
+            <div>
+              <img src={picture} alt={name} />
+              <h2>{name}</h2>
+              <p>Email: {email}</p>
+              <p>Name: {myUserName}</p>
+              <p>Points: {points}</p>
+              {/* {streetNumber === "" ? (
+                <>
+                  <p>Please update your address</p>
+                  <AddUser
+                    userName={myUserName}
+                    streetNumber=""
+                    streetName=""
+                    city=""
+                    postCode=""
+                    province=""
+                  />
+                </>
+              ) : ( */}
+                <div>
+                  <p>Address: </p>
+                  <p>Street Number: {streetNumber}</p>
+                  <p>Street Name: {streetName}</p>
+                  <p>City: {city}</p>
+                  <p>Postal Code: {postCode}</p>
+                  <p>Province: {province}</p>
+                </div>
+              {/* )} */}
+            </div>
+            <div>
+              <div>
+                {tabs.map((tab) => {
+                  return (
+                    <ProfileTabs
+                      key={tab}
+                      title={tab}
+                      setCurrentTab={setCurrentTab}
+                      currentTab={currentTab}
+                      setUpdateDone={setUpdateDone}
+                    />
+                  );
+                })}
+              </div>
+              <div>
+                {currentTab === "Update" ? (
+                  <AddUser
+                    userName={myUserName}
+                    streetNumber={streetNumber}
+                    streetName={streetName}
+                    city={city}
+                    postCode={postCode}
+                    province={province}
+                  />
+                ) : currentTab === "Purchased" ? (
+                  <ul>
+                    <li>
+                      <h1>Meals Bought</h1>
+                      {purchased && <Transactions transactions={purchased} />}
+                    </li>
+                  </ul>
+                ) : currentTab === "Sold" ? (
+                  <ul>
+                    <li>
+                      Meals Ordered
+                      {sold && <Transactions transactions={sold} />}
+                    </li>
+                  </ul>
+                ) : null}
+              </div>
+            </div>
+            <div></div>
+          </div>
+        </Wrapper>
+      </div>
+    );
+  } else {
+    <h2>Loading...</h2>;
+  }
 };
 
 export default Profile;

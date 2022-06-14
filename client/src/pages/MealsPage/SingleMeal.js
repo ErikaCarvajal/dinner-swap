@@ -21,7 +21,7 @@ export const SingleMeal = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [meal, setMeal] = useState();
   const [isEditing, setIsEditing] = useState(false);
-  const [ deletedMeal, setDeletedMeal ] = useState(false);
+  const [deletedMeal, setDeletedMeal] = useState(false);
 
   useEffect(() => {
     fetch(`/api/meal/${id}`)
@@ -44,26 +44,29 @@ export const SingleMeal = () => {
   };
 
   if (deletedMeal) {
-    setDeletedMeal(false)
-    navigate(`/meals`)
+    setDeletedMeal(false);
+    navigate(`/meals`);
   }
 
   const handleClick = () => {
     navigate(`/user/${user.email}`);
   };
 
-  
-
   if (isEditing) {
     return (
-      <MealForm oldMealData={meal[0]} setIsEditing={setIsEditing} mealId={id} />
+      <MealForm
+        oldMealData={meal[0]}
+        setIsEditing={setIsEditing}
+        mealId={id}
+        method="Update"
+      />
     );
   }
   if (isLoaded && user) {
     console.log(user);
     return (
       <>
-        {!user.address && (
+        {user.address.streetName === "" && (
           <Banner>
             Please add your address to post a meal.
             <button onClick={handleClick}>Update address</button>
@@ -83,6 +86,7 @@ export const SingleMeal = () => {
                   userId={meal[0].userId}
                   mealPoints={meal[0].points}
                   mealId={meal[0]._id}
+                  mealName={meal[0].name}
                   daysInAdvance={meal[0].daysInAdvance}
                   soldBy={meal[0].userId}
                 />
@@ -97,7 +101,6 @@ export const SingleMeal = () => {
         </Wrapper>
         <Wrapper>
           <div>
-
             {meal[0].comments ? (
               <ul>
                 {meal[0].comments.map((review, index) => {
