@@ -21,7 +21,7 @@ const addUser = async (req, res) => {
         .collection("users")
         .findOne({ _id: ObjectId(insertResult.insertedId) });
     }
-
+    console.log("from addUser")
     user
       ? sendResponse(res, 200, user, "User included")
       : sendResponse(res, 400, "User could not be included");

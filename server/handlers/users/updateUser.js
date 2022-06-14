@@ -36,7 +36,8 @@ const updateUser = async (req, res) => {
     const updateObj = { $set: req.body };
     const user = await db.collection("users").updateOne(query, updateObj);
     console.log({user})
-    
+    console.log("from udpateUser")
+
     user.acknowledged
       ? sendResponse(res, 200, user, "User information was updated")
       : sendResponse(res, 404, "User couldn't be reached");

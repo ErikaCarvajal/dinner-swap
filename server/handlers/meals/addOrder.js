@@ -22,7 +22,6 @@ const addOrder = async (req, res) => {
       .collection("users")
       .findOne({ _id: ObjectID(soldBy) });
 
-
     const updateSellersPoints = await db.collection("users").updateOne(
       { _id: ObjectID(soldBy) },
       {
@@ -37,26 +36,34 @@ const addOrder = async (req, res) => {
         { $set: { points: user["points"] } }
       );
 
-      const updatePurchased = await db
+    const updatePurchased = await db
       .collection("users")
       .updateOne(
         { _id: ObjectID(user._id) },
         { $push: { purchased: user["purchased"] } }
       );
 
-      const updateSold = await db
+    const updateSold = await db
       .collection("users")
       .updateOne({ _id: ObjectID(soldBy) }, { $push: { sold } });
 
-        if (updateSold.modifiedCount ===1 && updatePurchased === 1 && updateBuyersPoints ===1 && updateSellersPoints === 1) {
-          sendResponse(res, 200, "Meal Updated");
-        }
+    console.log({
+      updateSold,
+      updatePurchased,
+      updateBuyersPoints,
+      updateSellersPoints,
+    });
 
-    // if (updatingBuyer.modifiedCount === 1  && updatingSeller.modifiedCount === 1) {
-    //     sendResponse(res, 200, (updatingBuyer, updatingSeller), "Meal Updated");
-    //   } else {
-    //     sendResponse(res, 400, "Sorry, could not update the users");
-    //   }
+    if (
+      updateSold.modifiedCount === 1 &&
+      updatePurchased.modifiedCount === 1 &&
+      updateBuyersPoints.modifiedCount === 1 &&
+      updateSellersPoints.modifiedCount === 1
+    ) {
+      sendResponse(res, 200, "Meal Updated");
+    } else {
+      sendResponse(res, 400, "Sorry, could not update the users");
+    }
   } catch (err) {
     console.log(err);
   } finally {
