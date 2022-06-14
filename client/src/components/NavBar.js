@@ -6,35 +6,40 @@ import { UserContext } from "./UserContext";
 import LogoutButton from "./LogoutButton";
 import LoginButton from "./LoginButton";
 
+import { IoSyncOutline } from "react-icons/io5";
+import { GiCircleClaws } from "react-icons/gi";
+// GiCircleClaws
+
 const Navbar = () => {
   const { isAuthenticated, user, isLoading } = useAuth0();
   const isUser = isAuthenticated && user;
 
   return (
     <Div user={isAuthenticated}>
-      {isUser && user.picture && <img src={user.picture} alt={user.name} />}
-      {isUser && user.name && <h3>Hi, {user.name}</h3>}
+      <Greeting>
+        <Avatar>
+          {isUser && user.picture && <Img src={user.picture} alt={user.name} />}
+        </Avatar>
+        {/* <div>{isUser && user.name && <h3>Hi, {isUser}</h3>}</div> */}
+      </Greeting>
       <li>
-        <NavLinkStyled to="/">Home</NavLinkStyled>
+        {/* <NavLinkStyled to="/">
+          Dinner Swap <IoSyncOutline />{" "}
+        </NavLinkStyled> */}
+        <NavLinkStyled to="/" user={isAuthenticated}>
+          Dinner Swap <GiCircleClaws />
+        </NavLinkStyled>
       </li>
       <li>
-        <NavLinkStyled to="/profile">Profile</NavLinkStyled>
+        <NavLinkStyled to="/profile" user={isAuthenticated}>Profile</NavLinkStyled>
       </li>
       <li>
-        <NavLinkStyled to="/meals">Meals</NavLinkStyled>
+        <NavLinkStyled to="/meals" user={isAuthenticated}>Meals</NavLinkStyled>
       </li>
       <li></li>
       <SignInButtons>
         <li>{isAuthenticated ? <LogoutButton /> : <LoginButton />}</li>
       </SignInButtons>
-      {/* <SignInButtons>
-        <StyledLoginBtn user={user}>
-          <LoginButton />
-        </StyledLoginBtn>
-        <StyledLogoutBtn user={user}>
-          <LogoutButton />
-        </StyledLogoutBtn>
-      </SignInButtons> */}
     </Div>
   );
 };
@@ -50,7 +55,6 @@ const Div = styled.div`
   flex-direction: row;
   justify-content: space-between;
   height: var(--header-height);
-  font-family: var(--heading-font-family);
   width: 100vw;
 `;
 
@@ -58,7 +62,7 @@ const NavLinkStyled = styled(NavLink)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #ffffff;
+  color: ${(p) => (p.user ? `var(--primary-color)` : `var(--secondary-color)`)};
   height: 100%;
   /* font-size: "40px"; */
   font-size: 20px;
@@ -72,10 +76,20 @@ const SignInButtons = styled.div`
   margin-right: 40px;
 `;
 
-const StyledLoginBtn = styled.li`
-  visibility: ${(p) => (p.user ? "hidden" : "visible")};
+const Greeting = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
-const StyledLogoutBtn = styled.li`
-  visibility: ${(p) => (p.user ? "visible" : "hidden")};
+const Img = styled.img`
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  column-gap: 10px;
 `;
+
+const Avatar = styled.div`
+width: 40px;
+  margin-left: 20px;
+  margin-right: 10px;
+`

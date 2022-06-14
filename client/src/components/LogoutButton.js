@@ -15,8 +15,10 @@ const LogoutButton = () => {
 export default LogoutButton;
 
 const Button = styled.button`
+  font-family: var(--heading-font-family);
   background: none;
-  color: white;
+  color: var(--primary-color);
   border: none;
-  font-size: 20px
-`
+  font-size: 20px;
+  cursor: pointer;
+`;

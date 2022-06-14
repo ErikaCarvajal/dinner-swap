@@ -8,6 +8,7 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const { user: auth0User, isAuthenticated } = useAuth0();
+  const [updateDone, setUpdateDone] = useState(false);
 
   useEffect(() => {
     // Try to get the user from MongoDB
@@ -49,7 +50,7 @@ export const UserProvider = ({ children }) => {
         })
         .catch((err) => console.log(err));
     }
-  }, [auth0User]);
+  }, [auth0User, updateDone]);
 
   // console.log("from usercontext", user.address)
 
@@ -61,6 +62,8 @@ export const UserProvider = ({ children }) => {
           setIsLoaded,
           user,
           setUser,
+          updateDone,
+          setUpdateDone,
         }}
       >
         {children}

@@ -4,13 +4,19 @@ export const breakpoints = { tablet: "600px" };
 
 export default createGlobalStyle`
     :root {
-      --primary-color: #54a0ff;   //using
-      --secondary-color: #feca57;  //using
+      --primary-color: #3F6844;   //using
+      --thirdary-color: #5DAA68;
+      --secondary-color: #FAF1CF;  //using
+      --fourth-color: #4E3883;
+      --fifth-color: #FFDDCC;
+      --sixth-color: #4D724D;
+      --seventh-color: #8DB48E;
+      --eigth-color: #F5F5F5;
       --accent-bg-color: rgba(204, 85, 0, 0.1);
       --page-horizontal-padding: 20px;
       --header-height: 50px;
       --max-content-width: 1200px;  
-      --heading-font-family: 'Teko', sans-serif;
+      --heading-font-family: 'Noteworthy', 'Comic Sans MS', 'Chalkduster', 'Roboto', sans-serif;
       --user-img-width: 120px;
     }
 

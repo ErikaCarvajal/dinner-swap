@@ -1,14 +1,12 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useContext, useState, useRef } from "react";
 import { UserContext } from "../../components/UserContext";
-import Wrapper from "../../components/Meals/MealWrapper";
-import UserAddress from "../../components/user/Address";
-// import IsLogged from "./IsLogged";
+// import UserAddress from "../../components/user/Address";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const AddUser = ({
-  setUpdateDone,
+  setCurrentTab,
   userName,
   streetNumber,
   streetName,
@@ -19,7 +17,7 @@ const AddUser = ({
   const navigate = useNavigate();
   const selectProvince = useRef(null);
   const { user } = useAuth0();
-  const { user: userDB } = useContext(UserContext);
+  const { user: userDB, udpateDone, setUpdateDone } = useContext(UserContext);
 
   const provincesArray = [
     "Alberta",
@@ -42,12 +40,11 @@ const AddUser = ({
     streetName,
     city,
     postCode,
-    province
+    province,
   });
 
-  const [name, setName ] = useState({userName});
+  const [name, setName] = useState({ userName });
   const [error, setError] = useState(false);
-  // setUpdateDone(false)
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -75,14 +72,15 @@ const AddUser = ({
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           address,
-          name
+          name,
         }),
       })
         .then((res) => res.json())
         .then((data) => {
           if (data.status === 200) {
             console.log(data);
-            setUpdateDone(true)
+            setUpdateDone(!udpateDone);
+            setCurrentTab("");
           }
         })
         .catch((err) => console.log(err));
@@ -92,70 +90,79 @@ const AddUser = ({
   return (
     <>
       <Wrapper>
-        {/* {streetNumber === "" && ( */}
         <div>
-          <h2>Thank you for subscribing to Dinner Swap.</h2>
-          <h3>
-            To finalize the process, please include the address where the meals
-            can be picked up:
-          </h3>
+          <h3>Please update your Name and address:</h3>
         </div>
-        {/* )} */}
         <div>
-          <Form onSubmit={(e) => handleSubmit(e)}>
-            <label htmlFor="userName">Name</label>
-            <input type="text" id="userName" name="userName" value={name.userName} onChange={(e) => handleName(e)}/>
-            <label htmlFor="streetNumber">Street Number</label>
-            <input
-              type="tel"
-              id="streetNumber"
-              name="streetNumber"
-              maxLength="6"
-              value={address.streetNumber}
-              onChange={(e) => handleChange(e)}
-              required={true}
-            />
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <div>
+              <label htmlFor="userName">Name</label>
+              <input
+                type="text"
+                id="userName"
+                name="userName"
+                value={name.userName}
+                onChange={(e) => handleName(e)}
+              />
+            </div>
 
-            <label htmlFor="streetName">Street Name</label>
-            <input
-              type="text"
-              id="streetName"
-              name="streetName"
-              value={address.streetName}
-              onChange={(e) => handleChange(e)}
-              required={true}
-            />
+            <AddressStyling>
+              <label htmlFor="streetNumber">Street Number</label>
+              <StreetNumber
+                type="tel"
+                id="streetNumber"
+                name="streetNumber"
+                maxLength="6"
+                value={address.streetNumber}
+                onChange={(e) => handleChange(e)}
+                required={true}
+              />
 
-            <label htmlFor="city">City</label>
-            <input
-              type="text"
-              id="city"
-              name="city"
-              value={address.city}
-              onChange={(e) => handleChange(e)}
-              required={true}
-            />
+              <label htmlFor="streetName">Street Name</label>
+              <StreetName
+                type="text"
+                id="streetName"
+                name="streetName"
+                value={address.streetName}
+                onChange={(e) => handleChange(e)}
+                required={true}
+              />
+            </AddressStyling>
 
-            <label htmlFor="postCode">Postal Code</label>
-            <input
-              type="text"
-              id="postCode"
-              minLength="6"
-              maxLength="7"
-              name="postCode"
-              value={address.postCode}
-              onChange={(e) => handleChange(e)}
-              required={true}
-            />
+            <AddressStyling>
+              <label htmlFor="city">City</label>
+              <City
+                type="text"
+                id="city"
+                name="city"
+                value={address.city}
+                onChange={(e) => handleChange(e)}
+                required={true}
+              />
+
+              <label htmlFor="postCode">Postal Code</label>
+              <PostalCode
+                type="text"
+                id="postCode"
+                minLength="6"
+                maxLength="7"
+                name="postCode"
+                value={address.postCode}
+                onChange={(e) => handleChange(e)}
+                required={true}
+              />
+            </AddressStyling>
 
             <select
               ref={selectProvince}
               onChange={(e) => handleProvince(e)}
               name="province"
             >
-            {province.length > 0 ? (
-              <option value={address.province}>{address.province}</option>
-            ): (<option value="Choose a province">--Province--</option>)}
+              {province.length > 0 ? (
+                <option value={address.province}>{address.province}</option>
+              ) : (
+                <option value="Choose a province">--Province--</option>
+              )}
               {provincesArray.map((province) => {
                 return (
                   <option key={province} value={province}>
@@ -164,8 +171,8 @@ const AddUser = ({
                 );
               })}
             </select>
-            <input type="submit" value="Submit" />
-          </Form>
+            <SubmitInput type="submit" value="Submit" />
+          </form>
         </div>
       </Wrapper>
     </>
@@ -174,7 +181,53 @@ const AddUser = ({
 
 export default AddUser;
 
-const Form = styled.form`
-  /* display: flex;
-  flex-direction: column; */
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--secondary-color);
+  margin-left: -10px;
+  width: 110%;
+  box-shadow: 1px 8px 12px 0 black;
+  padding: 12px 25px;
+  position: relative;
+
+  h3 {
+    margin-bottom: 10px;
+  }
+`;
+
+const AddressStyling = styled.div`
+  margin: 8px 0;
+
+  label {
+    margin-right: 5px;
+  }
+`;
+
+const StreetNumber = styled.input`
+  width: 50px;
+  margin-right: 5px;
+`;
+
+const StreetName = styled.input`
+  width: 159px;
+`;
+
+const City = styled.input`
+  width: 178px;
+  margin-right: 5px;
+`;
+const PostalCode = styled.input`
+  width: 100px;
+`;
+
+const SubmitInput = styled.input`
+  cursor: pointer;
+  margin-left: 20%;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.4rem 0.8rem;
 `;

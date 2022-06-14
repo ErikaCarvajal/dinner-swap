@@ -17,7 +17,6 @@ const Meals = () => {
   const userFromContext = useContext(UserContext);
 
   useEffect(() => {
-    console.log("HELOOooOOOOOOOOOOOO");
     fetch(`/api/meals`)
       .then((res) => res.json())
       .then((data) => {
@@ -36,10 +35,6 @@ const Meals = () => {
     }
   };
 
-  // const HandleClickNotSign = () => {
-
-  // }
-
   return (
     <>
       {isLoaded ? (
@@ -47,21 +42,21 @@ const Meals = () => {
           <ul>
             {meals.map((item) => {
               return (
-                <button
+                <li
                   style={{ cursor: "pointer" }}
                   key={item.id}
                   type="button"
                   onClick={() => HandleClick(item._id)}
                 >
-                  <Img src={item.secure_url} />
-                  <p>{item.name}</p>
-                  <p>{item.points}</p>
-                  <p>{item.description}</p>
+                  <P>{item.name}</P>
+                  <Points>Points: {item.points}</Points>
+                  <img src={item.secure_url} />
+                  {/* <p>{item.description}</p>
                   <p>{item.contains}</p>
                   <p>{item.daysAvailable}</p>
                   <p>{item.servings}</p>
-                  <p>{item.daysInAdvance} days</p>
-                </button>
+                  <p>{item.daysInAdvance} days</p> */}
+                </li>
               );
             })}
           </ul>
@@ -78,7 +73,43 @@ const Meals = () => {
 export default Meals;
 
 const MealCards = styled.div`
-  width: 100%;
+  width: 85vw;
+  margin: 0 auto;
+  ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 100%;
+    list-style-type: none;
+  }
+
+  li {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    list-style-type: none;
+    margin-top: 60px;
+    width: 30%;
+    /* box-shadow: 1px 10px 10px 10px var(--primary-color); */
+    box-shadow: 1px 10px 10px 10px lightgray;
+    border-radius: 15px;
+    border: none;
+    height: 350px;
+    :hover {
+      box-shadow: 1px 10px 10px 10px var(--primary-color);
+    }
+  }
+
+  img {
+    margin-top: 15px;
+    width: 80%;
+    height: 50%;
+    border-radius: 1.2em;
+  }
 `;
 
 const LoadingWrapper = styled.div`
@@ -87,7 +118,13 @@ const LoadingWrapper = styled.div`
   justify-content: center;
 `;
 
-const Img = styled.img`
-  width: 400px;
-  height: 400px;
+const P = styled.p`
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  font-size: 30px;
+`;
+
+const Points = styled.p`
+  color: var(--primary-color);
+  font-size: 16px;
 `;

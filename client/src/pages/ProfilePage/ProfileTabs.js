@@ -18,13 +18,22 @@ const ProfileTabs = ({ title, setCurrentTab, currentTab }) => {
 export default ProfileTabs;
 
 const Tab = styled.div`
-  padding-top: 15px;
-  padding-bottom: 10px;
   margin-bottom: 2px;
-  border: 2px solid blue;
-  /* border-bottom: 2px solid transparent; */
+  width: 100%;
+  padding: 15px;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  text-align: center;
+  color: var(--primary-color);
+  font-size: 26px;
+  font-weight: bolder;
+
+  :hover {
+    background-color: var(--thirdary-color);
+    color: var(--secondary-color);
+  }
 
   &.selected {
-    border-bottom: 2px solid purple;
+    border-bottom: 2px solid var(--thirdary-color);
   }
 `;
