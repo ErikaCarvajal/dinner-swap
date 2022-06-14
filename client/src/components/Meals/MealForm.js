@@ -4,7 +4,7 @@ import { useState, useContext } from "react";
 import { UserContext } from "../../components/UserContext";
 import MealImage from "../MealImage";
 import { handleErrorMessages } from "./MealErrorMessages";
-import Wrapper from "./MealWrapper";
+// import Wrapper from "./MealWrapper";
 import { useNavigate } from "react-router-dom";
 import Error from "../../pages/Error";
 
@@ -70,7 +70,7 @@ const MealForm = ({ oldMealData, setIsEditing, mealId, method }) => {
       userId: mealToBeUpdated.userId,
       imgData: previewSource,
     };
-    
+
     if (oldMealData) {
       // Validate user's input
       handleErrorMessages(mealToBeUpdated, setError);
@@ -120,10 +120,12 @@ const MealForm = ({ oldMealData, setIsEditing, mealId, method }) => {
         <Form onSubmit={(e) => handleSubmit(e)}>
           <Div>
             {error && <Error errorMessage={"Uh oh something done goofed"} />}
-            <div>
-              Current Image
-              <Img src={secure_url} />
-            </div>
+            {method === "Update" && (
+              <div>
+                Current Image
+                <Img src={secure_url} />
+              </div>
+            )}
             <div>
               To update image:
               <MealImage
@@ -234,6 +236,22 @@ const MealForm = ({ oldMealData, setIsEditing, mealId, method }) => {
 };
 
 export default MealForm;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--secondary-color);
+  margin-left: -10px;
+  width: 110%;
+  box-shadow: 1px 8px 12px 0 black;
+  padding: 12px 25px;
+  position: relative;
+
+  h3 {
+    margin-bottom: 10px;
+  }
+`;
 
 const Form = styled.form`
   display: flex;

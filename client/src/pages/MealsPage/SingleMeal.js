@@ -6,7 +6,7 @@ import styled from "styled-components";
 import MealContent from "../../components/Meals/MealContent";
 import MealForm from "../../components/Meals/MealForm";
 import Options from "../../components/Options";
-import Wrapper from "../../components/Meals/MealWrapper";
+// import Wrapper from "../../components/Meals/MealWrapper";
 import { UserContext } from "../../components/UserContext";
 import OrderForm from "../../components/OrderForm";
 import CommentInput from "../../components/CommentSection/CommentInput";
@@ -72,12 +72,10 @@ export const SingleMeal = () => {
             <button onClick={handleClick}>Update address</button>
           </Banner>
         )}
-        <Wrapper>
           <Div>
-            <div>
-              <Options onChecked={handleChoice} />
+        <Wrapper>
               <MealContent meal={meal[0]} />
-            </div>
+        </Wrapper>
             <StyledForm>
               Your current points are: {user.points}
               <div>
@@ -93,7 +91,9 @@ export const SingleMeal = () => {
               </div>
             </StyledForm>
           </Div>
-        </Wrapper>
+            <div>
+              <Options onChecked={handleChoice} />
+            </div>
         <Wrapper>
           <div>
             <CommentInput userId={meal[0].userId} mealId={meal[0]._id} />
@@ -140,4 +140,20 @@ const Banner = styled.div`
   height: 50px;
   background: tomato;
   text-justify: center;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--secondary-color);
+  margin-left: -10px;
+  width: 110%;
+  box-shadow: 1px 8px 12px 0 black;
+  padding: 12px 25px;
+  position: relative;
+
+  h3 {
+    margin-bottom: 10px;
+  }
 `;

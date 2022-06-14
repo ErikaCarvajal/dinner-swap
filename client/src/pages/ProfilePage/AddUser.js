@@ -66,6 +66,8 @@ const AddUser = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("handleSubmit")
+    console.log(name)
     if (user) {
       fetch(`api/user/${userDB.email}`, {
         method: "PUT",

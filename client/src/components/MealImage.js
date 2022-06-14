@@ -26,7 +26,6 @@ const MealImage = ({ previewSource, setPreviewSource }) => {
           onChange={(e) => {
             uploadImg(e);
           }}
-          value={image}
         />
       </form>
       {previewSource && (
