@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import moment from "moment";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "./UserContext";
 
 const OrderForm = ({
   user,
@@ -11,6 +12,7 @@ const OrderForm = ({
   mealId,
   soldBy,
 }) => {
+  const { updateDone, setUpdateDone } = useContext(UserContext);
   const { points, _id } = user;
   const [orderQty, setOrderQty] = useState(0);
   const [orderDate, setOrderDate] = useState(0);
@@ -79,6 +81,7 @@ const OrderForm = ({
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        setUpdateDone(!updateDone);
         navigate("/profile");
       })
       .catch((err) => console.log(err));
@@ -112,15 +115,14 @@ const OrderForm = ({
         </div>
 
         <div>
-        <Div2>
-          <header>Total points for this order: </header>
-          <p>{orderPoints}</p>
-        </Div2>
-        <Div2>
-
-          <header>Your new total of points is: </header>
-          <p>{userNewPoints}</p>
-        </Div2>
+          <Div2>
+            <header>Total points for this order: </header>
+            <p>{orderPoints}</p>
+          </Div2>
+          <Div2>
+            <header>Your new total of points is: </header>
+            <p>{userNewPoints}</p>
+          </Div2>
         </div>
         <div>
           {user._id !== soldBy && <Input type="submit" value="Place Order" />}
@@ -136,13 +138,12 @@ export default OrderForm;
 const Label = styled.label`
   color: var(--primary-color);
   font-family: var(--heading-font-family);
-  
-  `;
+`;
 
 const Div = styled.div`
   width: 300px;
   line-height: 30px;
-  
+
   header {
     margin-right: 5px;
   }
@@ -150,7 +151,7 @@ const Div = styled.div`
   input {
     margin-left: 5px;
   }
-`
+`;
 
 const Div2 = styled.div`
   display: flex;
@@ -162,18 +163,18 @@ const Div2 = styled.div`
 `;
 
 const Input = styled.input`
-        font-family:var(--heading-font-family);
-        background-color: var(--primary-color);  
-        color: var(--secondary-color); 
-        padding: 5px 15px;
-        border-radius: 1em;
-        border: none;
-        cursor: pointer;
-        margin-top: 20px;
-        font-size: 20px;
+  font-family: var(--heading-font-family);
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  padding: 5px 15px;
+  border-radius: 1em;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 20px;
 
-        :hover {
-        background-color: var(--thirdary-color);
-        color: var(--secondary-color);
-        }
-`
+  :hover {
+    background-color: var(--thirdary-color);
+    color: var(--secondary-color);
+  }
+`;

@@ -37,8 +37,10 @@ export const UserProvider = ({ children }) => {
                   postCode: "",
                   province: "",
                 },
+                purchased: [],
+                sold: [],
               }),
-            })
+            }) //TODO: check what is comming from here
               .then((res) => res.json())
               .then((res) => {
                 if (res.status === 200) {

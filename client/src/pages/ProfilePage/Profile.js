@@ -32,7 +32,7 @@ const Profile = (props) => {
       purchased,
       sold,
     } = myUser;
-
+    console.log(purchased);
     return (
       <div>
         <Wrapper>
@@ -47,8 +47,12 @@ const Profile = (props) => {
                 <p>Points: {points}</p>
                 {streetName.length > 0 && (
                   <div>
-                    <p>Address: {streetNumber} {streetName}, {city}, </p>
-                    <p>{province},  {postCode}.</p>
+                    <p>
+                      Address: {streetNumber} {streetName}, {city},{" "}
+                    </p>
+                    <p>
+                      {province}, {postCode}.
+                    </p>
                   </div>
                 )}
               </div>
@@ -99,7 +103,7 @@ const Profile = (props) => {
       </div>
     );
   } else {
-    <h2>Loading...</h2>
+    <h2>Loading...</h2>;
   }
 };
 
