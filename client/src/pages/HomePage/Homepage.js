@@ -33,12 +33,19 @@ const Homepage = () => {
       {isLoaded ? (
         <div>
           <IsLogged />
-          <Div style={{ backgroundImage: `url(${salmon})` }}>
-            <H1>
-              Welcome to Dinner Swap Because we are all good at least at one
-              thing!
-            </H1>
-          </Div>
+          <Div style={{ backgroundImage: `url(${salmon})` }} > </Div>
+          <div>
+            <H1>Welcome to Meal Swap!</H1>
+          </div>
+            <H2>
+              We believe that everyone is good at making at least one kind of
+              meal, wether it be a peanut butter sandwich or duck a l'orange.
+              This site allows you to offer the very best of what you know how
+              to cook and in return enjoy other people's signature dishes. It's
+              simple; make meals to earn points and spend points to buy meals.
+              So sign up and we'll get you sarted with 50 free points
+            </H2>
+          {/* </Div> */}
         </div>
       ) : (
         <LoadingWrapper>
@@ -52,23 +59,50 @@ const Homepage = () => {
 export default Homepage;
 
 const Div = styled.div`
-  height: 100vh;
+  height: 400px;
+  width: 400px;
+  object-fit: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat; */
   background-size: cover;
+  margin: 20px auto;
+  
+  /* box-shadow: inset 0px 0px 400px 110px rgba(0, 0, 0, .9); */
 `;
 
 const H1 = styled.h1`
-  color: floralwhite;
+  color: var(--primary-color);
+  width: 100vw;
+  font-size: 45px;
   display: flex;
   justify-content: center;
   text-align: center;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 400px;
+  /* position: absolute; */
+  /* top: 40%;
+  left: 50%; */
+  /* transform: translate(-50%, -50%); */
+  `;
+
+const H2 = styled.h2`
+margin-top: 35px;
+  color: var(--primary-color);
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  font-weight: bolder;
+  align-self: center;
+  text-align: center;
+  width: 70%;
+  margin-left: 20%;
+  /* background-color: var(--secondary-color); */
+  /* position: absolute; */
+  /* top: 40%; */
+  /* left: 50%;  */
+  /* transform: translate(-50%, -50%); */
 `;
+
+
+
 
 const LoadingWrapper = styled.div`
   display: flex;

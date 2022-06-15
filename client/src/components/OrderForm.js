@@ -1,5 +1,6 @@
 import { useState } from "react";
 import moment from "moment";
+import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const OrderForm = ({
@@ -83,13 +84,11 @@ const OrderForm = ({
       .catch((err) => console.log(err));
   };
 
-
   return (
-    <>   
+    <Div>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div>
-          points
-          <label htmlFor="orderQty">Quantity to order</label>
+          <Label htmlFor="orderQty">Quantity to order</Label>
           <input
             type="number"
             id="orderQty"
@@ -102,7 +101,7 @@ const OrderForm = ({
         </div>
 
         <div>
-          <label htmlFor="orderDate">Date for meal pick up:</label>
+          <Label htmlFor="orderDate">Date for meal pick up:</Label>
           <input
             type="date"
             id="orderDate"
@@ -113,20 +112,68 @@ const OrderForm = ({
         </div>
 
         <div>
-          <p>Total points for this order: {orderPoints}</p>
-          <p>Your new total is of {userNewPoints} points</p>
+        <Div2>
+          <header>Total points for this order: </header>
+          <p>{orderPoints}</p>
+        </Div2>
+        <Div2>
+
+          <header>Your new total of points is: </header>
+          <p>{userNewPoints}</p>
+        </Div2>
         </div>
-
         <div>
-    <p>{}</p>
-
-        {user._id !== soldBy &&
-          <input type="submit" value="Place Order" />}
+          {user._id !== soldBy && <Input type="submit" value="Place Order" />}
         </div>
       </form>
       <p>{error}</p>
-    </>
+    </Div>
   );
 };
 
 export default OrderForm;
+
+const Label = styled.label`
+  color: var(--primary-color);
+  font-family: var(--heading-font-family);
+  
+  `;
+
+const Div = styled.div`
+  width: 300px;
+  line-height: 30px;
+  
+  header {
+    margin-right: 5px;
+  }
+
+  input {
+    margin-left: 5px;
+  }
+`
+
+const Div2 = styled.div`
+  display: flex;
+  /* flex-direction: row; */
+  justify-content: flex-start;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+`;
+
+const Input = styled.input`
+        font-family:var(--heading-font-family);
+        background-color: var(--primary-color);  
+        color: var(--secondary-color); 
+        padding: 5px 15px;
+        border-radius: 1em;
+        border: none;
+        cursor: pointer;
+        margin-top: 20px;
+        font-size: 20px;
+
+        :hover {
+        background-color: var(--thirdary-color);
+        color: var(--secondary-color);
+        }
+`

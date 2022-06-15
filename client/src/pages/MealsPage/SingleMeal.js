@@ -72,12 +72,14 @@ export const SingleMeal = () => {
             <button onClick={handleClick}>Update address</button>
           </Banner>
         )}
+        <Div>
           <Div>
-        <Wrapper>
-              <MealContent meal={meal[0]} />
-        </Wrapper>
+            <MealContent meal={meal[0]} />
             <StyledForm>
-              Your current points are: {user.points}
+            <UserPointsStyling>
+              <header>Your current points are:</header> 
+              <p>{user.points}</p>
+              </UserPointsStyling>
               <div>
                 <OrderForm
                   user={user}
@@ -91,9 +93,10 @@ export const SingleMeal = () => {
               </div>
             </StyledForm>
           </Div>
-            <div>
-              <Options onChecked={handleChoice} />
-            </div>
+        </Div>
+        <div>
+          <Options onChecked={handleChoice} />
+        </div>
         <Wrapper>
           <div>
             <CommentInput userId={meal[0].userId} mealId={meal[0]._id} />
@@ -126,12 +129,24 @@ export const SingleMeal = () => {
 };
 
 const Div = styled.div`
+  padding: 30px;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  gap: 80px;
 `;
 
 const StyledForm = styled.div`
-  margin: 50px 50px;
+  display: flex;
+  justify-content: center;
+  background-color: var(--secondary-color);
+  width: 50%;
+  box-shadow: 1px 8px 12px 0 black;
+  padding: 12px 25px;
+  position: relative;
+  flex-wrap: wrap;
+  align-content: center;
+  flex-direction: column;
 `;
 
 const Banner = styled.div`
@@ -144,11 +159,10 @@ const Banner = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   background-color: var(--secondary-color);
-  margin-left: -10px;
-  width: 110%;
+  margin: 80px auto;
+  width: 50%;
   box-shadow: 1px 8px 12px 0 black;
   padding: 12px 25px;
   position: relative;
@@ -156,4 +170,13 @@ const Wrapper = styled.div`
   h3 {
     margin-bottom: 10px;
   }
+`;
+
+const UserPointsStyling = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-bottom: 20px;
 `;

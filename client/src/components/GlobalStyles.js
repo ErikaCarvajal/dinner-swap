@@ -66,7 +66,25 @@ export default createGlobalStyle`
     h2 {
       font-size: 28px;
     }
+    button{
+        font-family:var(--heading-font-family);
+        background-color: var(--primary-color);  
+        color: var(--secondary-color); 
+        padding: 5px 15px;
+        border-radius: 1em;
+        border: none;
+        cursor: pointer;
+        font-size: 20px;
 
+        :hover {
+        background-color: var(--thirdary-color);
+        color: var(--secondary-color);
+        }
+    }
+
+    header {
+        color: var(--primary-color);
+        font-family: var(--heading-font-family);
+    }
 
 `;
-  

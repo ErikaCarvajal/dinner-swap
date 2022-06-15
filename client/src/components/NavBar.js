@@ -56,6 +56,7 @@ const Div = styled.div`
   justify-content: space-between;
   height: var(--header-height);
   width: 100vw;
+  font-family: var(--heading-font-family);
 `;
 
 const NavLinkStyled = styled(NavLink)`

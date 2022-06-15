@@ -51,11 +51,6 @@ const Meals = () => {
                   <P>{item.name}</P>
                   <Points>Points: {item.points}</Points>
                   <img src={item.secure_url} />
-                  {/* <p>{item.description}</p>
-                  <p>{item.contains}</p>
-                  <p>{item.daysAvailable}</p>
-                  <p>{item.servings}</p>
-                  <p>{item.daysInAdvance} days</p> */}
                 </li>
               );
             })}
@@ -106,8 +101,9 @@ const MealCards = styled.div`
 
   img {
     margin-top: 15px;
-    width: 80%;
-    height: 50%;
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
     border-radius: 1.2em;
   }
 `;
