@@ -1,10 +1,10 @@
-const { validateAddress } = require("../../lib/utils/validateAddress");
+// const { validateAddress } = require("../../lib/utils/validateAddress");
 
-const handleValidateAddress = (req, res) => {
-  const { address } = req.body;
+// const handleValidateAddress = (req, res) => {
+//   const { address } = req.body;
 
-  validateAddress(address);
-  res.send(200);
-};
+//   validateAddress(address);
+//   res.send(200);
+// };
 
-module.exports = handleValidateAddress;
+// module.exports = handleValidateAddress;

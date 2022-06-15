@@ -24,12 +24,6 @@ export const handleErrorMessages = (mealToBeUpdated, oldMealData, setError) => {
       setError(errorMessages.description)
     } else if (mealToBeUpdated.daysInAdvanced == 0) {
       setError(errorMessages.daysInAdvance)
-    // } else if (mealToBeUpdated.daysInAdvance == 0) {
-    //   setError(errorMessages.daysInAdvance)
-    // } else if (mealToBeUpdated.daysInAdvance == 0) {
-    //   setError(errorMessages.daysInAdvance)
-    // } else if (mealToBeUpdated.servings == 0) {
-    //   setError(errorMessages.servings);
     } else if (strValue.trim() === "") {
       setError(errorMessages[key]);
     }

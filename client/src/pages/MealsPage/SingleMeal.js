@@ -57,6 +57,7 @@ export const SingleMeal = () => {
       <MealForm
         oldMealData={meal[0]}
         setIsEditing={setIsEditing}
+        isEditing={isEditing}
         mealId={id}
         method="Update"
       />
@@ -76,9 +77,9 @@ export const SingleMeal = () => {
           <Div>
             <MealContent meal={meal[0]} />
             <StyledForm>
-            <UserPointsStyling>
-              <header>Your current points are:</header> 
-              <p>{user.points}</p>
+              <UserPointsStyling>
+                <header>Your current points are:</header>
+                <p>{user.points}</p>
               </UserPointsStyling>
               <div>
                 <OrderForm
@@ -97,11 +98,16 @@ export const SingleMeal = () => {
         <div>
           <Options onChecked={handleChoice} />
         </div>
-        <Wrapper>
-          <div>
-            <CommentInput userId={meal[0].userId} mealId={meal[0]._id} />
-          </div>
-        </Wrapper>
+        {/* <Wrapper> */}
+        <div>
+          <CommentInput
+            userId={meal[0].userId}
+            mealId={meal[0]._id}
+            setIsEditing={setIsEditing}
+            isEditing={isEditing}
+          />
+        </div>
+        {/* </Wrapper> */}
         <Wrapper>
           <div>
             {meal[0].comments ? (
@@ -111,7 +117,7 @@ export const SingleMeal = () => {
                     <li key={`${index}CO`}>
                       <h4>{review.title}</h4>
                       <p>{review.comment}</p>
-                      <p>{review.date}</p>
+                      {/* <p>{review.date}</p> */}
                     </li>
                   );
                 })}

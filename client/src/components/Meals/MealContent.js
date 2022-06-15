@@ -17,7 +17,7 @@ const MealContent = (props) => {
         <p>{props.meal.contains}</p>
       </Div>
       <Div>
-        <header>Days Available:</header> 
+        <header>Days Available:</header>
         <p>{props.meal.daysAvailable}</p>
       </Div>
       <Div>
@@ -25,7 +25,7 @@ const MealContent = (props) => {
         <p>{props.meal.servings}</p>
       </Div>
       <Div>
-        <header>Required notice: </header>
+        <header>Required notice (days): </header>
         <p>{props.meal.daysInAdvance} days</p>
       </Div>
     </Wrapper>
@@ -54,7 +54,6 @@ const Wrapper = styled.div`
     border-radius: 1.2em;
     align-self: center;
   }
-
 `;
 
 const MealTitle = styled.div`

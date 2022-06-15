@@ -6,9 +6,7 @@ import { UserContext } from "./UserContext";
 import LogoutButton from "./LogoutButton";
 import LoginButton from "./LoginButton";
 
-import { IoSyncOutline } from "react-icons/io5";
 import { GiCircleClaws } from "react-icons/gi";
-// GiCircleClaws
 
 const Navbar = () => {
   const { isAuthenticated, user, isLoading } = useAuth0();
@@ -20,21 +18,21 @@ const Navbar = () => {
         <Avatar>
           {isUser && user.picture && <Img src={user.picture} alt={user.name} />}
         </Avatar>
-        {/* <div>{isUser && user.name && <h3>Hi, {isUser}</h3>}</div> */}
       </Greeting>
       <li>
-        {/* <NavLinkStyled to="/">
-          Dinner Swap <IoSyncOutline />{" "}
-        </NavLinkStyled> */}
         <NavLinkStyled to="/" user={isAuthenticated}>
-          Dinner Swap <GiCircleClaws />
+          Meal Swap <GiCircleClaws />
         </NavLinkStyled>
       </li>
       <li>
-        <NavLinkStyled to="/profile" user={isAuthenticated}>Profile</NavLinkStyled>
+        <NavLinkStyled to="/profile" user={isAuthenticated}>
+          Profile
+        </NavLinkStyled>
       </li>
       <li>
-        <NavLinkStyled to="/meals" user={isAuthenticated}>Meals</NavLinkStyled>
+        <NavLinkStyled to="/meals" user={isAuthenticated}>
+          Meals
+        </NavLinkStyled>
       </li>
       <li></li>
       <SignInButtons>
@@ -49,7 +47,6 @@ export default Navbar;
 const Div = styled.div`
   background-color: ${(p) =>
     p.user ? `var(--secondary-color)` : `var(--primary-color)`};
-  /* background-color: var(--primary-color); */
   list-style: none;
   display: flex;
   flex-direction: row;
@@ -65,7 +62,6 @@ const NavLinkStyled = styled(NavLink)`
   text-decoration: none;
   color: ${(p) => (p.user ? `var(--primary-color)` : `var(--secondary-color)`)};
   height: 100%;
-  /* font-size: "40px"; */
   font-size: 20px;
   padding-left: 20px;
   padding-right: 20px;
@@ -90,7 +86,7 @@ const Img = styled.img`
 `;
 
 const Avatar = styled.div`
-width: 40px;
+  width: 40px;
   margin-left: 20px;
   margin-right: 10px;
-`
+`;

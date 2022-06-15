@@ -33,23 +33,8 @@ const addComment = async (req, res) => {
    
     console.log("meal", meal)
    
-    // const mealArray2 = await db
-    //   .collection("meals")
-    //   .find({ _id: new ObjectID(mealId) })
-    //   .toArray();
 
-    // mealArray2.map((item) => console.log("from map", item.comments))  //comments object
-    // const newComArray = mealArray2.map((item) => item.comments ? item.comments.push(commentsArray) : item)
-
-    // const query = ({ _id: new ObjectID(mealId) });
-    // const meal = await db.collection("meals").replaceOne(query, newComArray);
-
-    // const { comments } = mealArray[0];
-    // comments.unshift(req.body);
-
-    // const updateObj = { $set: { title: title, comment: comment } };
-    // const meal = await db.collection("meals").updateOne(query, updateObj);
-
+    clientDb.close();
     if (meal.acknowledged) {
       sendResponse(res, 200, meal, "Comment update successfull");
     } else {
