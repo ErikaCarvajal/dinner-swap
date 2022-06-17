@@ -1,4 +1,3 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate, NavLink } from "react-router-dom";
 import styled from "styled-components";
@@ -6,12 +5,13 @@ import styled from "styled-components";
 import MealContent from "../../components/Meals/MealContent";
 import MealForm from "../../components/Meals/MealForm";
 import Options from "../../components/Options";
-// import Wrapper from "../../components/Meals/MealWrapper";
 import { UserContext } from "../../components/UserContext";
 import OrderForm from "../../components/OrderForm";
 import CommentInput from "../../components/CommentSection/CommentInput";
-import AddUser from "../ProfilePage/AddUser";
 import handleDelete from "../MealsPage/DeleteMeal";
+// import { useAuth0 } from "@auth0/auth0-react";
+// import AddUser from "../ProfilePage/AddUser";
+// import Wrapper from "../../components/Meals/MealWrapper";
 
 export const SingleMeal = () => {
   let { id } = useParams();
@@ -33,6 +33,7 @@ export const SingleMeal = () => {
       .catch((err) => console.log(err));
   }, [isEditing]); // !Add isEditing in the array here to re-fetch data from BE
 
+  // console.log("user name for comments", user);
   const handleChoice = (option) => {
     if (option === 0) {
       navigate("/meal/add");
@@ -64,7 +65,9 @@ export const SingleMeal = () => {
     );
   }
   if (isLoaded && user) {
-    console.log(user);
+    //TODO trying to get username into comments array and rearrange array to show comment list in order from newest to oldest. I commentED EVERYTHIG OUT BECAUSE IT WAS CRAHSING BUT IT HAS TO BE BECAUSE PREVIOUS COMMENTS DONT HAVE THE USERNAME INCLUDED ON THEIR OBJECTS..
+    // const commentsArray = meal[0].comments;
+    // console.log(commentsArray);
     return (
       <>
         {user.address.streetName === "" && (
@@ -98,16 +101,15 @@ export const SingleMeal = () => {
         <div>
           <Options onChecked={handleChoice} />
         </div>
-        {/* <Wrapper> */}
         <div>
           <CommentInput
             userId={meal[0].userId}
             mealId={meal[0]._id}
+            // userName={user[0].name}
             setIsEditing={setIsEditing}
             isEditing={isEditing}
           />
         </div>
-        {/* </Wrapper> */}
         <Wrapper>
           <div>
             {meal[0].comments ? (
@@ -117,7 +119,8 @@ export const SingleMeal = () => {
                     <li key={`${index}CO`}>
                       <h4>{review.title}</h4>
                       <p>{review.comment}</p>
-                      {/* <p>{review.date}</p> */}
+                      {/* <p>{review.userName}</p> */}
+                      <p>{review.date}</p>
                     </li>
                   );
                 })}

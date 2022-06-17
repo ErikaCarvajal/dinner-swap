@@ -8,21 +8,20 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Homepage from "../pages/HomePage";
 import Navbar from "./NavBar";
 import Meals from "../pages/MealsPage/Meals";
-import { NewMeal } from "../pages/MealsPage/NewMeal";
 import DeleteMeal from "../pages/MealsPage/DeleteMeal";
 import { SingleMeal } from "../pages/MealsPage/SingleMeal";
 import AddUser from "../pages/ProfilePage/AddUser";
 import Profile from "../pages/ProfilePage";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import TestAddress from "../components/user/testAddress";
-
-// import MealInput from "./MealInput";
 import LoginButton from "./LoginButton";
 import AuthWrapper from "./authentication/AuthWrapper";
 import { Error } from "../pages/Error";
-import PrivateRoute from "./authentication/PrivateRoute";
 import OrderForm from "./OrderForm";
 import MealForm from "./Meals/MealForm";
+// import CircularProgress from "@material-ui/core/CircularProgress";
+// import { NewMeal } from "../pages/MealsPage/NewMeal";
+// import TestAddress from "../components/user/testAddress";
+// import MealInput from "./MealInput";
+// import PrivateRoute from "./authentication/PrivateRoute";
 
 function App() {
   const { isLoading } = useAuth0();
@@ -48,8 +47,12 @@ function App() {
             />
             <Route
               path="/meal/upd/:id"
-              element={<NewMeal method={"update"} />}
+              element={<MealForm method={"update"} />}
             />
+            {/* <Route
+              path="/meal/upd/:id"
+              element={<NewMeal method={"update"} />}
+            /> */}
             <Route path="/meal/:id" element={<SingleMeal />} />
 
             <Route path="/order/:email" element={<OrderForm />} />

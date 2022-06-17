@@ -29,7 +29,7 @@ const MealImage = ({ previewSource, setPreviewSource }) => {
         />
       </form>
       {previewSource && (
-        <img src={previewSource} alt="chosen" style={{ height: "300px" }} />
+        <img src={previewSource} alt="chosen" style={{ height: "100px" }} />
       )}
     </>
   );

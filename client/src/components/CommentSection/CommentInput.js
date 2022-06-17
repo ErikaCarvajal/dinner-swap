@@ -1,7 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-const CommentInput = ({ userId, mealId, isEditing, setIsEditing }) => {
+const CommentInput = ({
+  userId,
+  mealId,
+  userName,
+  isEditing,
+  setIsEditing,
+}) => {
   const [title, setTitle] = useState("");
   const [comment, setComment] = useState("");
 
@@ -24,6 +30,7 @@ const CommentInput = ({ userId, mealId, isEditing, setIsEditing }) => {
       body: JSON.stringify({
         title,
         comment,
+        userName,
         mealId,
         userId,
         date,

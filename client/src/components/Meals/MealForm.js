@@ -41,7 +41,6 @@ const MealForm = ({ oldMealData, isEditing, setIsEditing, mealId, method }) => {
   );
 
   const [error, setError] = useState(false);
-
   const handleChange = (e) => {
     e.preventDefault();
     // setError(null);
@@ -83,7 +82,7 @@ const MealForm = ({ oldMealData, isEditing, setIsEditing, mealId, method }) => {
           .then((res) => res.json())
           .then((data) => {
             if (data.status === 200) {
-              console.log(data);
+              // console.log(data);
               setIsEditing(false);
             }
           })
@@ -105,7 +104,7 @@ const MealForm = ({ oldMealData, isEditing, setIsEditing, mealId, method }) => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
+            // console.log(data);
             navigate("/meals");
           })
           .catch((err) => console.log(err));
@@ -231,7 +230,11 @@ const MealForm = ({ oldMealData, isEditing, setIsEditing, mealId, method }) => {
               type="button"
               value="Cancel"
               onClick={() => {
-                setIsEditing(!isEditing);
+                if (isEditing === undefined) {
+                  navigate(-1);
+                } else {
+                  setIsEditing(!isEditing);
+                }
               }}
             />
             {error && <p>{error}</p>}
@@ -268,8 +271,8 @@ const Form = styled.form`
 `;
 
 const Img = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   margin: 10px;
 `;
 
@@ -278,7 +281,7 @@ const Div = styled.div`
   column-gap: 100px;
   align-content: center;
   justify-content: center;
-  align-items: baseline;
+  align-items: center;
   margin-bottom: 10px;
 `;
 
