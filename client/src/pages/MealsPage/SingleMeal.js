@@ -23,6 +23,7 @@ export const SingleMeal = () => {
   const [meal, setMeal] = useState();
   const [isEditing, setIsEditing] = useState(false);
   const [deletedMeal, setDeletedMeal] = useState(false);
+  const [addComment, setAddComment] = useState(false);
 
   useEffect(() => {
     fetch(`/api/meal/${id}`)
@@ -32,7 +33,7 @@ export const SingleMeal = () => {
         setMeal(data.data);
       })
       .catch((err) => console.log(err));
-  }, [isEditing]); // !Add isEditing in the array here to re-fetch data from BE
+  }, [isEditing, addComment]); // !Add isEditing in the array here to re-fetch data from BE
 
   // console.log("user name for comments", user);
   const handleChoice = (option) => {
@@ -108,10 +109,11 @@ export const SingleMeal = () => {
             userId={meal[0].userId}
             mealId={meal[0]._id}
             userName={user.name}
-            setIsEditing={setIsEditing}
-            isEditing={isEditing}
+            addComment={addComment}
+            setAddComment={setAddComment}
           />
         </div>
+        {/* Comments display */}
         <Wrapper>
           <div>
             {meal[0].comments ? (
@@ -119,12 +121,14 @@ export const SingleMeal = () => {
                 {meal[0].comments.map((review, index) => {
                   return (
                     <li key={`${index}CO`}>
-                      <h4>{review.title}</h4>
+                      <h3>{review.title}</h3>
                       <p>{review.comment}</p>
                       <footer>
-                        <p>Created by: {review.userName}</p>
                         <p>
-                          On:
+                          <span>Created by:</span> {review.userName}
+                        </p>
+                        <p>
+                          <span>On: {"  "}</span>
                           {moment(review.date).format("MMMM Do YYYY, h:mm a")}
                         </p>
                       </footer>
@@ -177,7 +181,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   background-color: var(--secondary-color);
-  margin: 80px auto;
+  margin: 0px auto;
   width: 50%;
   box-shadow: 1px 8px 12px 0 black;
   padding: 12px 25px;
@@ -187,9 +191,27 @@ const Wrapper = styled.div`
     margin-bottom: 10px;
   }
 
+  li {
+    background-color: hsl(0, 100%, 100%);
+    margin: 5px auto;
+    width: 90%;
+    box-shadow: 1px 8px 12px 0 var(--primary-color);
+    padding: 12px 25px;
+    position: relative;
+  }
+
   footer {
     display: flex;
+    margin-top: 8px;
     justify-content: space-between;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--primary-color);
+    font-family: "Comic Sans MS", "Roboto", sans-serif;
+
+    span {
+      font-weight: bolder;
+    }
   }
 `;
 

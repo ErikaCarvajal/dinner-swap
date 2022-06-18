@@ -38,13 +38,17 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   background-color: var(--secondary-color);
-  width: 50%;
+  width: 600px;
   box-shadow: 1px 8px 12px 0 black;
   padding: 12px 25px;
   position: relative;
   flex-wrap: wrap;
   align-content: center;
   flex-direction: column;
+
+  h1 {
+    font-size: 19px;
+  }
 
   img {
     margin-top: 15px;
@@ -53,6 +57,11 @@ const Wrapper = styled.div`
     height: 200px;
     border-radius: 1.2em;
     align-self: center;
+  }
+
+  header {
+    font-size: 18px;
+    font-weight: bolder;
   }
 `;
 

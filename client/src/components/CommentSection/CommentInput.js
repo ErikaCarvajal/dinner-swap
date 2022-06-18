@@ -5,11 +5,12 @@ const CommentInput = ({
   userId,
   mealId,
   userName,
-  isEditing,
-  setIsEditing,
+  addComment,
+  setAddComment,
 }) => {
   const [title, setTitle] = useState("");
   const [comment, setComment] = useState("");
+
   const handleTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -39,8 +40,12 @@ const CommentInput = ({
     fetch(`/api/comment/`, queryObj)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        // setIsEditing(!isEditing);
+        if (data.status === 200) {
+          console.log("THIS IS DATA", data.status);
+          setTitle("");
+          setComment("");
+          setAddComment(!addComment);
+        }
       });
   };
 
@@ -52,6 +57,7 @@ const CommentInput = ({
           type="text"
           name="title"
           id="title"
+          value={title}
           onChange={(e) => {
             handleTitle(e);
           }}
@@ -62,6 +68,7 @@ const CommentInput = ({
           id="content"
           rows="3"
           cols="50"
+          value={comment}
           onChange={(e) => {
             handleContent(e);
           }}
@@ -86,7 +93,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   background-color: var(--secondary-color);
-  margin: 80px auto;
+  margin: 30px auto;
   width: 50%;
   box-shadow: 1px 8px 12px 0 black;
   padding: 12px 25px;

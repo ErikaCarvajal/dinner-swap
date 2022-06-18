@@ -17,6 +17,8 @@ export default createGlobalStyle`
       --header-height: 50px;
       --max-content-width: 1200px;  
       --heading-font-family: 'Noteworthy', 'Comic Sans MS', 'Chalkduster', 'Roboto', sans-serif;
+      --others-font-family: 'Comic Sans MS', 'Roboto', sans-serif;
+      --other-font-weight: lighter; 
       --user-img-width: 120px;
     }
 
@@ -85,6 +87,10 @@ export default createGlobalStyle`
     header {
         color: var(--primary-color);
         font-family: var(--heading-font-family);
+    }
+
+    p {
+        font-family: var(--others-font-family);
     }
 
 `;
