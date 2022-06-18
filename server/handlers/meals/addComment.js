@@ -1,4 +1,4 @@
-const {sendResponse} = require('../../lib/utils/sendResponse')
+const { sendResponse } = require("../../lib/utils/sendResponse");
 
 const addComment = async (req, res) => {
   // Connect to mongo client
@@ -10,29 +10,20 @@ const addComment = async (req, res) => {
 
     let ObjectID = require("mongodb").ObjectId;
 
-    const { mealId, title, comment, userId } = req.body;
-    const date = new Date();
-    const commentsArray = req.body;
+    const { mealId, title, userName, comment, userId, date } = req.body;
 
-    const mealArray = await db
-      .collection("meals")
-      .find({ _id: new ObjectID(mealId) }, { projection: { comments: 1 } })
-      .toArray();
+    // const commentsArray = req.body;
 
-      
-    console.log(mealArray);
-    // mealArray.push(commentsArray);
-    // console.log("mealArray ", mealArray);
+    // const mealArray = await db
+    //   .collection("meals")
+    //   .find({ _id: new ObjectID(mealId) }, { projection: { comments: 1 } })
+    //   .toArray();
 
-    
     const query = { _id: new ObjectID(mealId) };
-    const updateObj = { $push: { comments: { title, comment, mealId, userId, date } } };
-    const meal = await db
-    .collection("meals")
-    .updateOne(query, updateObj);
-   
-    console.log("meal", meal)
-   
+    const updateObj = {
+      $push: { comments: { title, comment, userName, mealId, userId, date } },
+    };
+    const meal = await db.collection("meals").updateOne(query, updateObj);
 
     clientDb.close();
     if (meal.acknowledged) {
@@ -40,8 +31,6 @@ const addComment = async (req, res) => {
     } else {
       sendResponse(res, 400, "Sorry, could not update this meal");
     }
-
-
   } catch (err) {
     console.log(err);
   } finally {

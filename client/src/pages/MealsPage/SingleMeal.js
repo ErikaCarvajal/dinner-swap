@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate, NavLink } from "react-router-dom";
 import styled from "styled-components";
+import moment from "moment";
 
 import MealContent from "../../components/Meals/MealContent";
 import MealForm from "../../components/Meals/MealForm";
@@ -65,9 +66,10 @@ export const SingleMeal = () => {
     );
   }
   if (isLoaded && user) {
-    //TODO trying to get username into comments array and rearrange array to show comment list in order from newest to oldest. I commentED EVERYTHIG OUT BECAUSE IT WAS CRAHSING BUT IT HAS TO BE BECAUSE PREVIOUS COMMENTS DONT HAVE THE USERNAME INCLUDED ON THEIR OBJECTS..
-    // const commentsArray = meal[0].comments;
-    // console.log(commentsArray);
+    const { comments } = meal[0];
+    comments.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
     return (
       <>
         {user.address.streetName === "" && (
@@ -105,7 +107,7 @@ export const SingleMeal = () => {
           <CommentInput
             userId={meal[0].userId}
             mealId={meal[0]._id}
-            // userName={user[0].name}
+            userName={user.name}
             setIsEditing={setIsEditing}
             isEditing={isEditing}
           />
@@ -119,8 +121,13 @@ export const SingleMeal = () => {
                     <li key={`${index}CO`}>
                       <h4>{review.title}</h4>
                       <p>{review.comment}</p>
-                      {/* <p>{review.userName}</p> */}
-                      <p>{review.date}</p>
+                      <footer>
+                        <p>Created by: {review.userName}</p>
+                        <p>
+                          On:
+                          {moment(review.date).format("MMMM Do YYYY, h:mm a")}
+                        </p>
+                      </footer>
                     </li>
                   );
                 })}
@@ -178,6 +185,11 @@ const Wrapper = styled.div`
 
   h3 {
     margin-bottom: 10px;
+  }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
   }
 `;
 

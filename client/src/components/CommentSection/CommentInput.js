@@ -10,7 +10,6 @@ const CommentInput = ({
 }) => {
   const [title, setTitle] = useState("");
   const [comment, setComment] = useState("");
-
   const handleTitle = (e) => {
     setTitle(e.target.value);
   };
