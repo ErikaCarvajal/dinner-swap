@@ -1,20 +1,21 @@
 // Require modules
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { useNavigate } from "react-router-dom";
-import IsLogged from "../ProfilePage/IsLogged";
-import { useAuth0 } from "@auth0/auth0-react";
-import { UserContext } from "../../components/UserContext";
 
+// import IsLogged from "../ProfilePage/IsLogged";
 // Require components
+import { UserContext } from "../../components/UserContext";
+import { MealCards } from "../../components/GlobalStyles";
 
 const Meals = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [isLoaded, setIsLoaded] = useState(false);
   const [meals, setMeals] = useState("");
   const navigate = useNavigate();
-  const userFromContext = useContext(UserContext);
+  // const userFromContext = useContext(UserContext);
 
   useEffect(() => {
     fetch(`/api/meals`)
@@ -67,46 +68,45 @@ const Meals = () => {
 
 export default Meals;
 
-const MealCards = styled.div`
-  width: 85vw;
-  margin: 0 auto;
-  ul {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    max-width: 100%;
-    list-style-type: none;
-  }
+// const MealCards = styled.div`
+//   width: 85vw;
+//   margin: 0 auto;
+//   ul {
+//     display: flex;
+//     flex-direction: row;
+//     flex-wrap: wrap;
+//     justify-content: space-between;
+//     max-width: 100%;
+//     list-style-type: none;
+//   }
 
-  li {
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    list-style-type: none;
-    margin-top: 60px;
-    width: 30%;
-    /* box-shadow: 1px 10px 10px 10px var(--primary-color); */
-    box-shadow: 1px 10px 10px 10px lightgray;
-    border-radius: 15px;
-    border: none;
-    height: 350px;
-    :hover {
-      box-shadow: 1px 10px 10px 10px var(--primary-color);
-    }
-  }
+//   li {
+//     cursor: pointer;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     text-align: center;
+//     list-style-type: none;
+//     margin-top: 60px;
+//     width: 30%;
+//     box-shadow: 1px 10px 10px 10px lightgray;
+//     border-radius: 15px;
+//     border: none;
+//     height: 350px;
+//     :hover {
+//       box-shadow: 1px 10px 10px 10px var(--primary-color);
+//     }
+//   }
 
-  img {
-    margin-top: 15px;
-    object-fit: cover;
-    width: 200px;
-    height: 200px;
-    border-radius: 1.2em;
-  }
-`;
+//   img {
+//     margin-top: 15px;
+//     object-fit: cover;
+//     width: 200px;
+//     height: 200px;
+//     border-radius: 1.2em;
+//   }
+// `;
 
 const LoadingWrapper = styled.div`
   display: flex;

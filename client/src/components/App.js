@@ -1,8 +1,6 @@
 // Require modules:
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import styled from "styled-components";
 import GlobalStyles from "./GlobalStyles";
-import { useAuth0 } from "@auth0/auth0-react";
 
 // Require components:
 import Homepage from "../pages/HomePage";
@@ -17,18 +15,13 @@ import AuthWrapper from "./authentication/AuthWrapper";
 import { Error } from "../pages/Error";
 import OrderForm from "./OrderForm";
 import MealForm from "./Meals/MealForm";
-// import CircularProgress from "@material-ui/core/CircularProgress";
-// import { NewMeal } from "../pages/MealsPage/NewMeal";
-// import TestAddress from "../components/user/testAddress";
-// import MealInput from "./MealInput";
-// import PrivateRoute from "./authentication/PrivateRoute";
+import { MyMeals } from "./Meals/MyMeals";
+// import { useAuth0 } from "@auth0/auth0-react";
+// const { isLoading } = useAuth0();
 
 function App() {
-  const { isLoading } = useAuth0();
-
   return (
     <div>
-      {/* {!isLoading ? ( */}
       <AuthWrapper>
         <Router>
           <GlobalStyles />
@@ -36,6 +29,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/meals" element={<Meals />} />
+            <Route path="/meals/:id" element={<MyMeals />} />
             <Route path="/profile" element={<Profile />} />
             <Route
               path="/meal/add"
@@ -49,10 +43,6 @@ function App() {
               path="/meal/upd/:id"
               element={<MealForm method={"update"} />}
             />
-            {/* <Route
-              path="/meal/upd/:id"
-              element={<NewMeal method={"update"} />}
-            /> */}
             <Route path="/meal/:id" element={<SingleMeal />} />
 
             <Route path="/order/:email" element={<OrderForm />} />
@@ -64,22 +54,8 @@ function App() {
           </Routes>
         </Router>
       </AuthWrapper>
-      {/* ) : (
-        <>
-        <h1>is loading</h1>
-        <LoadingWrapper>
-          <CircularProgress />
-        </LoadingWrapper>
-        </>
-      )} */}
     </div>
   );
 }
 
 export default App;
-
-const LoadingWrapper = styled.div`
-  display: flex;
-  margin-top: 50px;
-  justify-content: center;
-`;

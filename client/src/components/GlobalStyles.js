@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 
 export const breakpoints = { tablet: "600px" };
 
@@ -93,4 +94,44 @@ export default createGlobalStyle`
         font-family: var(--others-font-family);
     }
 
+`;
+
+export const MealCards = styled.div`
+  width: 85vw;
+  margin: 0 auto;
+  ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 100%;
+    list-style-type: none;
+  }
+
+  li {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    list-style-type: none;
+    margin-top: 60px;
+    width: 30%;
+    box-shadow: 1px 10px 10px 10px lightgray;
+    border-radius: 15px;
+    border: none;
+    height: 350px;
+    :hover {
+      box-shadow: 1px 10px 10px 10px var(--primary-color);
+    }
+  }
+
+  img {
+    margin-top: 15px;
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+    border-radius: 1.2em;
+  }
 `;

@@ -1,32 +1,60 @@
 import styled from "styled-components";
+import moment from "moment";
+import MealOffer from "./MealOffer";
 
 const MealContent = (props) => {
+  const {
+    name,
+    points,
+    secure_url,
+    description,
+    contains,
+    daysAvailable,
+    servings,
+    daysInAdvance,
+    userId,
+    _id,
+  } = props.meal;
+  // const [orderDate, setOrderDate] = useState(0);
+
+  console.log(userId);
+  console.log(props.userIdNumber);
+
   return (
     <Wrapper>
       <MealTitle>
-        <h1>{props.meal.name}</h1>
-        <span>{props.meal.points} points</span>
+        <h1>{name}</h1>
+        <span>{points} points</span>
       </MealTitle>
-      <img src={props.meal.secure_url} />
+      <Div2>
+        <img src={secure_url} />
+        {userId === props.userIdNumber && (
+          <MealOffer
+            userId={userId}
+            mealId={_id}
+            daysInAdvance={daysInAdvance}
+          />
+        )}
+      </Div2>
       <Div>
         <header>Description:</header>
-        <p>{props.meal.description}</p>
+        <p>{description}</p>
       </Div>
       <Div>
         <header>Contains: </header>
-        <p>{props.meal.contains}</p>
+        <p>{contains}</p>
       </Div>
       <Div>
         <header>Days Available:</header>
-        <p>{props.meal.daysAvailable}</p>
+        <p>{daysAvailable}</p>
       </Div>
       <Div>
         <header>Servings: </header>
-        <p>{props.meal.servings}</p>
+        <p>{servings}</p>
       </Div>
       <Div>
         <header>Required notice (days): </header>
-        <p>{props.meal.daysInAdvance} days</p>
+        <p>{daysInAdvance} days</p>
       </Div>
     </Wrapper>
   );
@@ -52,9 +80,10 @@ const Wrapper = styled.div`
 
   img {
     margin-top: 15px;
+    margin-bottom: 15px;
     object-fit: cover;
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     border-radius: 1.2em;
     align-self: center;
   }
@@ -68,6 +97,7 @@ const Wrapper = styled.div`
 const MealTitle = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 400px;
 `;
 
 const Div = styled.div`
@@ -77,4 +107,11 @@ const Div = styled.div`
   align-items: baseline;
   flex-wrap: wrap;
   gap: 10px;
+`;
+
+const Div2 = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
 `;

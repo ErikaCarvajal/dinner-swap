@@ -17,7 +17,6 @@ import handleDelete from "../MealsPage/DeleteMeal";
 export const SingleMeal = () => {
   let { id } = useParams();
   const { user } = useContext(UserContext);
-
   const navigate = useNavigate();
   const [isLoaded, setIsLoaded] = useState(false);
   const [meal, setMeal] = useState();
@@ -67,10 +66,15 @@ export const SingleMeal = () => {
     );
   }
   if (isLoaded && user) {
-    const { comments } = meal[0];
-    comments.sort(
-      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-    );
+    if (meal[0].comments) {
+      const { comments } = meal[0];
+      comments.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+    }
+    const bought = user.purchased.findIndex((item) => {
+      return item.mealId === meal[0]._id;
+    });
     return (
       <>
         {user.address.streetName === "" && (
@@ -81,39 +85,44 @@ export const SingleMeal = () => {
         )}
         <Div>
           <Div>
-            <MealContent meal={meal[0]} />
-            <StyledForm>
-              <UserPointsStyling>
-                <header>Your current points are:</header>
-                <p>{user.points}</p>
-              </UserPointsStyling>
-              <div>
-                <OrderForm
-                  user={user}
-                  userId={meal[0].userId}
-                  mealPoints={meal[0].points}
-                  mealId={meal[0]._id}
-                  mealName={meal[0].name}
-                  daysInAdvance={meal[0].daysInAdvance}
-                  soldBy={meal[0].userId}
-                />
-              </div>
-            </StyledForm>
+            <MealContent meal={meal[0]} userIdNumber={user._id} />
+            {meal[0].userId !== user._id && (
+              <StyledForm>
+                <UserPointsStyling>
+                  <header>Your current points are:</header>
+                  <p>{user.points}</p>
+                </UserPointsStyling>
+                <div>
+                  <OrderForm
+                    user={user}
+                    userId={meal[0].userId}
+                    mealPoints={meal[0].points}
+                    mealId={meal[0]._id}
+                    mealName={meal[0].name}
+                    daysInAdvance={meal[0].daysInAdvance}
+                    soldBy={meal[0].userId}
+                  />
+                </div>
+              </StyledForm>
+            )}
           </Div>
         </Div>
-        <div>
-          <Options onChecked={handleChoice} />
-        </div>
-        <div>
-          <CommentInput
-            userId={meal[0].userId}
-            mealId={meal[0]._id}
-            userName={user.name}
-            addComment={addComment}
-            setAddComment={setAddComment}
-          />
-        </div>
-        {/* Comments display */}
+        {meal[0].userId === user._id && (
+          <div>
+            <Options onChecked={handleChoice} />
+          </div>
+        )}
+        {meal[0].userId !== user._id && bought >= 0 && (
+          <div>
+            <CommentInput
+              userId={meal[0].userId}
+              mealId={meal[0]._id}
+              userName={user.name}
+              addComment={addComment}
+              setAddComment={setAddComment}
+            />
+          </div>
+        )}
         <Wrapper>
           <div>
             {meal[0].comments ? (

@@ -1,15 +1,16 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
+import { GiCircleClaws } from "react-icons/gi";
+import styled from "styled-components";
 
 import { UserContext } from "./UserContext";
 import LogoutButton from "./LogoutButton";
 import LoginButton from "./LoginButton";
 
-import { GiCircleClaws } from "react-icons/gi";
-
 const Navbar = () => {
   const { isAuthenticated, user, isLoading } = useAuth0();
+  const { user: myUser } = useContext(UserContext);
   const isUser = isAuthenticated && user;
 
   return (
@@ -34,10 +35,19 @@ const Navbar = () => {
           Meals
         </NavLinkStyled>
       </li>
-      <li></li>
-      <SignInButtons>
-        <li>{isAuthenticated ? <LogoutButton /> : <LoginButton />}</li>
-      </SignInButtons>
+      {isUser && myUser && (
+        <li>
+          <NavLinkStyled to={`/meals/${myUser._id}`} user={isAuthenticated}>
+            My Kitchen
+          </NavLinkStyled>
+        </li>
+      )}
+      <DivStyling>
+        {isUser && myUser && <LiPoints>You have: {myUser.points}</LiPoints>}
+        <SignInButtons>
+          <li>{isAuthenticated ? <LogoutButton /> : <LoginButton />}</li>
+        </SignInButtons>
+      </DivStyling>
     </Div>
   );
 };
@@ -54,6 +64,18 @@ const Div = styled.div`
   height: var(--header-height);
   width: 100vw;
   font-family: var(--heading-font-family);
+`;
+
+const LiPoints = styled.li`
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--primary-color);
+  height: 100%;
+  font-size: 20px;
+  font-weight: bolder;
+  padding-left: 20px;
+  padding-right: 20px;
 `;
 
 const NavLinkStyled = styled(NavLink)`
@@ -89,4 +111,8 @@ const Avatar = styled.div`
   width: 40px;
   margin-left: 20px;
   margin-right: 10px;
+`;
+
+const DivStyling = styled.div`
+  display: flex;
 `;

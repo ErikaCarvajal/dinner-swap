@@ -7,7 +7,11 @@ const { cloudinary } = require("../../lib/cloudinary");
 //   uploadImgToCloudinary,
 // } = require("../../lib/utils/uploadImgToCloudinary");
 const { ListIndexesCursor } = require("mongodb");
-const { updateImage } = require("../../lib/utils/updateImage");
+const { updateImage, deleteImage } = require("../../lib/utils/updateImage");
+
+const {
+  deleteImgToCloudinary,
+} = require("../../lib/utils/uploadImgToCloudinary");
 
 const updateMeal = async (req, res) => {
   console.log("ON UPDATE MEAL HANDLER");
@@ -44,8 +48,6 @@ const updateMeal = async (req, res) => {
     // call updateImage to upload new img to Cloudinary if imgData is available
     const { secure_url, public_id } = await updateImage(imgData, oldUrl, oldId);
 
-    console.log({ oldUrl, oldId, secure_url, public_id });
-
     // find Meal to be change and set Object with new values
     const query = { _id: ObjectID(mealId) };
     const updateObj = {
@@ -66,6 +68,12 @@ const updateMeal = async (req, res) => {
     // Connect to collection and update information
     const meal = await db.collection("meals").updateOne(query, updateObj);
 
+    if (meal.acknowledged && imgData.length > 0) {
+      const { response, error } = await deleteImgToCloudinary(oldId);
+      console.log(response, "confirmation from cloudinary");
+    }
+    console.log(typeof imgData);
+
     console.log("2nd");
 
     if (meal.acknowledged && meal.modifiedCount === 1) {
@@ -81,4 +89,4 @@ const updateMeal = async (req, res) => {
   }
 };
 
-module.exports = updateMeal;    
+module.exports = updateMeal;

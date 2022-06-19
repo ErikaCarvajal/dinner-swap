@@ -1,12 +1,16 @@
 import styled from "styled-components";
+import moment from "moment";
 
 const SingleTransaction = ({ transaction }) => {
   const { mealName, quantity, date } = transaction;
+
   return (
     <Wrapper key={`${quantity}-${date}`}>
       <h3>{mealName}</h3>
       <div>
-        <span>{`Quantity: ${quantity}. Date: ${date}`}</span>
+        <span>{`Ordered: ${quantity} for pick up ${moment(date).format(
+          "MMMM DD, YYYY"
+        )}`}</span>
       </div>
     </Wrapper>
   );
@@ -14,17 +18,20 @@ const SingleTransaction = ({ transaction }) => {
 
 const Wrapper = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: space-between;
   justify-content: center;
-  background-color: var(--secondary-color);
+  background-color: hsl(0, 100%, 100%);
   margin: 8px auto;
   width: 100%;
-  box-shadow: 1px 8px 12px 0 black;
+  box-shadow: 1px 8px 12px 0 var(--primary-color);
+  font-family: "Comic Sans MS", "Roboto", sans-serif;
   padding: 12px 25px;
   position: relative;
 
   h3 {
-    display: flex;
-    justify-content: center;
+    margin-bottom: 10px;
   }
 
   span {

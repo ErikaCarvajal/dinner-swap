@@ -39,6 +39,7 @@ export const UserProvider = ({ children }) => {
                 },
                 purchased: [],
                 sold: [],
+                offered: [],
               }),
             }) //TODO: check what is comming from here
               .then((res) => res.json())
