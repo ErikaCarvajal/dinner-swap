@@ -1,9 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 const MealOffer = ({ userId, mealId, daysInAdvance }) => {
   const today = new Date();
+  const navigate = useNavigate();
   const [mealOffer, setMealOffer] = useState({
     offerDate: today,
     offerQty: 0,
@@ -33,7 +35,12 @@ const MealOffer = ({ userId, mealId, daysInAdvance }) => {
       }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        console.log(data);
+        if (data.status === 200) {
+          navigate(-1, { state: { offer: "made" } });
+        }
+      })
       .catch((err) => console.log(err));
   };
 

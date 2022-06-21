@@ -10,9 +10,6 @@ import { UserContext } from "../../components/UserContext";
 import OrderForm from "../../components/OrderForm";
 import CommentInput from "../../components/CommentSection/CommentInput";
 import handleDelete from "../MealsPage/DeleteMeal";
-// import { useAuth0 } from "@auth0/auth0-react";
-// import AddUser from "../ProfilePage/AddUser";
-// import Wrapper from "../../components/Meals/MealWrapper";
 
 export const SingleMeal = () => {
   let { id } = useParams();
@@ -38,8 +35,6 @@ export const SingleMeal = () => {
   // console.log("user name for comments", user);
   const handleChoice = (option) => {
     if (option === 0) {
-      navigate("/meal/add");
-    } else if (option === 1) {
       setIsEditing(true);
     } else {
       handleDelete(id, meal[0], setDeletedMeal);
@@ -102,6 +97,7 @@ export const SingleMeal = () => {
                     mealName={meal[0].name}
                     daysInAdvance={meal[0].daysInAdvance}
                     soldBy={meal[0].userId}
+                    chef={meal[0].chef}
                   />
                 </div>
               </StyledForm>

@@ -1,21 +1,13 @@
-import { useState } from "react";
 import styled from "styled-components";
-import { useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-
 import SingleTransaction from "../../pages/ProfilePage/SingleTransaction";
-import { UserContext } from "../../components/UserContext";
 
-const Transactions = ({ transactions, setViewHistory }) => {
-  const { user: myUser, updateDone, setUpdateDone } = useContext(UserContext);
-  // const { id, thing } = useParams();
-  // console.log(id);
-  // console.log(thing);
-  // const [bought, setBought] = useState("");
-  // const [sold, setSold] = useState("");
+// import { useState } from "react";
+// import { useContext } from "react";
+// import { useParams, useNavigate } from "react-router-dom";
+// import { UserContext } from "../../components/UserContext";
 
-  console.log("INSIDE TRANSACTIONS");
-  console.log(transactions);
+const Transactions = ({ transactions }) => {
+  // const { user: myUser, updateDone, setUpdateDone } = useContext(UserContext);
 
   transactions.sort((a, b) => {
     let dateA = new Date(a.date);
@@ -27,7 +19,7 @@ const Transactions = ({ transactions, setViewHistory }) => {
     <>
       <Wrapper>
         <ul>
-          {transactions.map((transaction, index) => {
+          {transactions.map((transaction) => {
             return <SingleTransaction transaction={transaction} />;
           })}
         </ul>

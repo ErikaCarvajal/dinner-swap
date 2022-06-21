@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { UserContext } from "../../components/UserContext";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
@@ -11,6 +11,7 @@ import Options from "../../components/Options";
 
 export const MyMeals = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user, isAuthenticated, isLoading } = useAuth0();
   const { user: myUser, updateDone, setUpdateDone } = useContext(UserContext);
   const { id } = useParams();
@@ -19,17 +20,11 @@ export const MyMeals = () => {
 
   const handleChoice = (option) => {
     if (option === 0) {
-      // getPurchases();
-      // const purchased = myUser.purchased;
-      navigate("/sold");
-      // <Transactions transactions={purchased} />;
-      console.log("option 1");
+      navigate("/meal/add");
     } else if (option === 1) {
-      console.log("option 2");
-      // setIsEditing(true);
-    } else {
-      console.log("option 3");
-      // handleDelete(id, meal[0], setDeletedMeal);
+      navigate("/offered");
+    } else if (option === 2) {
+      navigate("/sold");
     }
   };
 
@@ -43,6 +38,8 @@ export const MyMeals = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  console.log(location.state);
 
   const HandleClick = (id) => {
     if (isAuthenticated) {
@@ -59,8 +56,8 @@ export const MyMeals = () => {
           <div>
             <Options onChecked={handleChoice} MyMeals={true} />
           </div>
+          <H2>Menu</H2>
 
-          <H2>My Kitchen</H2>
           <MealCards>
             <ul>
               {meals.map((item) => {

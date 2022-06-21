@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import moment from "moment";
 
 // import IsLogged from "../ProfilePage/IsLogged";
 // Require components
@@ -12,9 +13,11 @@ import { MealCards } from "../../components/GlobalStyles";
 
 const Meals = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
+  const today = moment(new Date()).format("YYYY-MM-DD");
   const [isLoaded, setIsLoaded] = useState(false);
   const [meals, setMeals] = useState("");
   const navigate = useNavigate();
+
   // const userFromContext = useContext(UserContext);
 
   useEffect(() => {
@@ -53,6 +56,10 @@ const Meals = () => {
                   <P>{item.name}</P>
                   <Points>Points: {item.points}</Points>
                   <img src={item.secure_url} />
+                  {item.offer &&
+                    item.offer.some((el) => el.offerDate >= today) && (
+                      <H2>Now available!</H2>
+                    )}
                 </li>
               );
             })}
@@ -124,4 +131,8 @@ const P = styled.p`
 const Points = styled.p`
   color: var(--primary-color);
   font-size: 16px;
+`;
+
+const H2 = styled.h2`
+  color: var(--thirdary-color);
 `;

@@ -21,7 +21,7 @@ const Profile = (props) => {
 
   usePrivateRoute();
 
-  const tabs = ["Update", "Purchased", "Sold"];
+  const tabs = ["Update"];
 
   if (isAuthenticated && myUser) {
     const { name, picture, email } = user;
@@ -81,20 +81,6 @@ const Profile = (props) => {
                     province={province}
                     setCurrentTab={setCurrentTab}
                   />
-                ) : currentTab === "Purchased" ? (
-                  <ul>
-                    <li>
-                      <h1>Meals Bought</h1>
-                      {purchased && <Transactions transactions={purchased} />}
-                    </li>
-                  </ul>
-                ) : currentTab === "Sold" ? (
-                  <ul>
-                    <li>
-                      <h1>Meals Ordered</h1>
-                      {sold && <Transactions transactions={sold} />}
-                    </li>
-                  </ul>
                 ) : null}
               </div>
             </div>

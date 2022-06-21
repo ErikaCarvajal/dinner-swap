@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 const Options = (props) => {
-  const options = ["Add a new Meal", "Update", "Delete"];
+  const options = ["Edit", "Delete"];
 
   if (props.MyMeals) {
-    let options = ["Sold", "Offered"];
+    let options = ["Add a new Meal", "Offered", "Sold"];
 
     return (
       <Wrapper>

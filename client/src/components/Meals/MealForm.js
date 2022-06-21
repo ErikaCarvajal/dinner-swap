@@ -25,6 +25,7 @@ const MealForm = ({ oldMealData, isEditing, setIsEditing, mealId, method }) => {
     servings: 0,
     daysInAdvance: 0,
     userId: user._id,
+    chef: user.name,
   };
 
   const {
@@ -37,6 +38,7 @@ const MealForm = ({ oldMealData, isEditing, setIsEditing, mealId, method }) => {
     servings,
     daysInAdvance,
     userId,
+    chef,
   } = oldMealData || initialState;
 
   const [mealToBeUpdated, setMealToBeUpdated] = useState(
@@ -69,6 +71,7 @@ const MealForm = ({ oldMealData, isEditing, setIsEditing, mealId, method }) => {
       secure_url: mealToBeUpdated.secure_url,
       public_id: mealToBeUpdated.public_id,
       userId: mealToBeUpdated.userId,
+      chef: mealToBeUpdated.chef,
       imgData: previewSource,
     };
 

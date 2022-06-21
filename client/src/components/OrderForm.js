@@ -11,9 +11,11 @@ const OrderForm = ({
   daysInAdvance,
   mealId,
   soldBy,
+  chef,
 }) => {
   const { updateDone, setUpdateDone } = useContext(UserContext);
   const { points, _id } = user;
+  const navigate = useNavigate();
   const [orderQty, setOrderQty] = useState(0);
   const [orderDate, setOrderDate] = useState(0);
   const [orderPoints, setOrderPoints] = useState(0);
@@ -26,15 +28,10 @@ const OrderForm = ({
   const nextAvailableDay = moment(today)
     .add(daysInAdvance, "days")
     .format("YYYY-MM-DD");
-  // const minOrderDate = moment(
-  //   today.setDate(today.getDate() + daysInAdvance)
-  // ).format("YYYY-MM-DD");
-
-  const navigate = useNavigate();
 
   const handleQtyChange = (e) => {
     const pointsPerOrder = e.target.value * mealPoints;
-    console.log("qty value", e.target.value);
+
     setOrderQty(e.target.value);
     setOrderPoints(pointsPerOrder);
     if (points - pointsPerOrder < 0) {
@@ -55,6 +52,7 @@ const OrderForm = ({
       quantity: orderQty,
       mealId: mealId,
       mealName: mealName,
+      boughtBy: user.name,
     };
     let sellerPoints = orderPoints;
 
@@ -64,6 +62,7 @@ const OrderForm = ({
       quantity: orderQty,
       mealId: mealId,
       mealName: mealName,
+      chef: chef,
     };
     user["points"] = userNewPoints;
 
@@ -82,7 +81,7 @@ const OrderForm = ({
       .then((data) => {
         console.log(data);
         setUpdateDone(!updateDone);
-        navigate("/profile");
+        navigate("/meals");
       })
       .catch((err) => console.log(err));
   };

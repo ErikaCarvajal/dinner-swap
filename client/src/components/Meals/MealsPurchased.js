@@ -18,6 +18,7 @@ const Purchased = () => {
   if (myUser) {
     const { purchased } = myUser;
     let activePurchases = purchased.filter((item) => item.date >= todaysDate);
+
     let oldPurchases = purchased.filter((item) => item.date < todaysDate);
 
     return (

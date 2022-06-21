@@ -14,13 +14,15 @@ const MealContent = (props) => {
     servings,
     daysInAdvance,
     userId,
+    offer,
     _id,
   } = props.meal;
   const location = useLocation();
-  console.log("state from location", location.state);
+  const today = moment(new Date()).format("YYYY-MM-DD");
 
   console.log(userId);
   console.log(props.userIdNumber);
+  console.log(offer);
 
   return (
     <Wrapper>
@@ -46,17 +48,31 @@ const MealContent = (props) => {
         <header>Contains: </header>
         <p>{contains}</p>
       </Div>
-      <Div>
-        <header>Days Available:</header>
-        <p>{daysAvailable}</p>
-      </Div>
+
       <Div>
         <header>Servings: </header>
         <p>{servings}</p>
       </Div>
       <Div>
-        <header>Required notice (days): </header>
-        <p>{daysInAdvance} days</p>
+        <header>Next available dates, quantites and cut offs:</header>
+      </Div>
+      <Div>
+        {offer ? (
+          offer.map((item) => {
+            if (item.offerDate >= today) {
+              return (
+                <>
+                  <section>
+                    For: {item.offerDate}, Quantity: {item.offerQty}, Cut off:{" "}
+                    {item.cutOffDate}
+                  </section>
+                </>
+              );
+            }
+          })
+        ) : (
+          <p>None available at the moment</p>
+        )}
       </Div>
     </Wrapper>
   );
@@ -93,6 +109,10 @@ const Wrapper = styled.div`
   header {
     font-size: 18px;
     font-weight: bolder;
+  }
+
+  section {
+    margin-top: 5px;
   }
 `;
 

@@ -2,15 +2,27 @@ import styled from "styled-components";
 import moment from "moment";
 
 const SingleTransaction = ({ transaction }) => {
-  const { mealName, quantity, date } = transaction;
+  const { mealName, quantity, date, chef, boughtBy } = transaction;
 
   return (
     <Wrapper key={`${quantity}-${date}`}>
       <h3>{mealName}</h3>
       <div>
-        <span>{`Ordered: ${quantity} for pick up ${moment(date).format(
-          "MMMM DD, YYYY"
-        )}`}</span>
+        <span>
+          {`Ordered: ${quantity} for pick up ${moment(date).format(
+            "MMMM DD, YYYY"
+          )}`}
+        </span>{" "}
+        {chef && (
+          <span>
+            by Chef <em>{chef}</em>
+          </span>
+        )}
+        {boughtBy && (
+          <span>
+            bought by <em>{boughtBy}</em>
+          </span>
+        )}
       </div>
     </Wrapper>
   );
@@ -36,6 +48,10 @@ const Wrapper = styled.div`
 
   span {
     margin-left: 10px;
+  }
+
+  em {
+    color: hsl(130, 3%, 53%);
   }
   /* min-width: 100%;
   background: lime; */

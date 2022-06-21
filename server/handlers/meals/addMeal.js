@@ -9,7 +9,6 @@ const {
   uploadImgToCloudinary,
 } = require("../../lib/utils/uploadImgToCloudinary");
 
-
 const addMeal = async (req, res) => {
   // Connect to mongo client
   const { clientDb } = res.locals;
@@ -20,12 +19,20 @@ const addMeal = async (req, res) => {
     // Connect to DB:
     const db = clientDb.db("dinnerSwap");
 
-    console.log("from BE addMeal handle", req.body)
+    console.log("from BE addMeal handle", req.body);
     const { completeMeal } = req.body;
 
-    
-
-    const { name, points, description, contains, daysAvailable, servings, daysInAdvance, userId } = completeMeal;
+    const {
+      name,
+      points,
+      description,
+      contains,
+      daysAvailable,
+      servings,
+      daysInAdvance,
+      userId,
+      chef,
+    } = completeMeal;
     const {
       result: { secure_url, public_id },
       error,
@@ -33,11 +40,22 @@ const addMeal = async (req, res) => {
 
     console.log(secure_url, public_id);
 
-    let newMeal = { name, points, description, contains, daysAvailable, servings, daysInAdvance, userId, secure_url, public_id };
+    let newMeal = {
+      name,
+      points,
+      description,
+      contains,
+      daysAvailable,
+      servings,
+      daysInAdvance,
+      userId,
+      chef,
+      secure_url,
+      public_id,
+    };
 
     // Connect to collection:
     const meals = await db.collection("meals").insertOne(newMeal);
-
 
     sendResponse(res, 200, meals);
   } catch (err) {
