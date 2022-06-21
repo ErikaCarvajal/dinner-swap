@@ -30,7 +30,7 @@ const Meals = () => {
 
   const HandleClick = (id) => {
     if (isAuthenticated) {
-      navigate(`/meal/${id}`);
+      navigate(`/meal/${id}`, { state: { special: "allMeals" } });
     } else {
       window.alert(`Login to continue`);
     }
@@ -48,6 +48,7 @@ const Meals = () => {
                   key={item.id}
                   type="button"
                   onClick={() => HandleClick(item._id)}
+                  allMeals="allMeals"
                 >
                   <P>{item.name}</P>
                   <Points>Points: {item.points}</Points>

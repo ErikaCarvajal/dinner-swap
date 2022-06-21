@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import moment from "moment";
 
@@ -16,7 +16,6 @@ import handleDelete from "../MealsPage/DeleteMeal";
 
 export const SingleMeal = () => {
   let { id } = useParams();
-  const location = useLocation();
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -108,7 +107,7 @@ export const SingleMeal = () => {
             )}
           </Div>
         </Div>
-        {meal[0].userId === user._id && location.state === null && (
+        {meal[0].userId === user._id && (
           <div>
             <Options onChecked={handleChoice} />
           </div>

@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { UserContext } from "./UserContext";
 import LogoutButton from "./LogoutButton";
 import LoginButton from "./LoginButton";
+// import { getThemeProps } from "@material-ui/styles";
 
 const Navbar = () => {
   const { isAuthenticated, user, isLoading } = useAuth0();
@@ -36,14 +37,23 @@ const Navbar = () => {
         </NavLinkStyled>
       </li>
       {isUser && myUser && (
-        <li>
-          <NavLinkStyled to={`/meals/${myUser._id}`} user={isAuthenticated}>
-            My Kitchen
-          </NavLinkStyled>
-        </li>
+        <>
+          <li>
+            <NavLinkStyled to={`/meals/${myUser._id}`} user={isAuthenticated}>
+              My Kitchen
+            </NavLinkStyled>
+          </li>
+          <li>
+            <NavLinkStyled to={`purchased`} user={isAuthenticated}>
+              Purchased
+            </NavLinkStyled>
+          </li>
+        </>
       )}
       <DivStyling>
-        {isUser && myUser && <LiPoints>You have: {myUser.points}</LiPoints>}
+        {isUser && myUser && (
+          <LiPoints>You have: {myUser.points} points</LiPoints>
+        )}
         <SignInButtons>
           <li>{isAuthenticated ? <LogoutButton /> : <LoginButton />}</li>
         </SignInButtons>
@@ -87,6 +97,14 @@ const NavLinkStyled = styled(NavLink)`
   font-size: 20px;
   padding-left: 20px;
   padding-right: 20px;
+
+  :hover {
+    border-bottom: 5px solid var(--thirdary-color);
+  }
+
+  /* &.active {
+    border-bottom: 5px solid var(--thirdary-color);
+  } */
 `;
 
 const SignInButtons = styled.div`
@@ -115,4 +133,12 @@ const Avatar = styled.div`
 
 const DivStyling = styled.div`
   display: flex;
+`;
+
+const ULSTYLE = styled.ul`
+  //STYLING for dropdown  UL:
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
 `;

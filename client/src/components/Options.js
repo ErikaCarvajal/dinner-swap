@@ -3,6 +3,25 @@ import styled from "styled-components";
 const Options = (props) => {
   const options = ["Add a new Meal", "Update", "Delete"];
 
+  if (props.MyMeals) {
+    let options = ["Sold", "Offered"];
+
+    return (
+      <Wrapper>
+        {options.map((option, index) => {
+          return (
+            <button
+              key={`${index}OpMyM`}
+              onClick={() => props.onChecked(index)}
+            >
+              {option}
+            </button>
+          );
+        })}
+      </Wrapper>
+    );
+  }
+
   return (
     <Wrapper>
       {options.map((option, index) => {

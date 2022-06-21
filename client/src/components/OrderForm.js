@@ -119,10 +119,6 @@ const OrderForm = ({
             <header>Total points for this order: </header>
             <p>{orderPoints}</p>
           </Div2>
-          <Div2>
-            <header>Your new total of points is: </header>
-            <p>{userNewPoints}</p>
-          </Div2>
         </div>
         <div>
           {user._id !== soldBy && <Input type="submit" value="Place Order" />}

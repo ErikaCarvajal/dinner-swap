@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 import moment from "moment";
 import MealOffer from "./MealOffer";
 
@@ -15,7 +16,8 @@ const MealContent = (props) => {
     userId,
     _id,
   } = props.meal;
-  // const [orderDate, setOrderDate] = useState(0);
+  const location = useLocation();
+  console.log("state from location", location.state);
 
   console.log(userId);
   console.log(props.userIdNumber);
@@ -28,7 +30,7 @@ const MealContent = (props) => {
       </MealTitle>
       <Div2>
         <img src={secure_url} />
-        {userId === props.userIdNumber && (
+        {userId === props.userIdNumber && location.state === null && (
           <MealOffer
             userId={userId}
             mealId={_id}
@@ -97,7 +99,11 @@ const Wrapper = styled.div`
 const MealTitle = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 400px;
+  width: 530px;
+
+  span {
+    font-size: 20px;
+  }
 `;
 
 const Div = styled.div`

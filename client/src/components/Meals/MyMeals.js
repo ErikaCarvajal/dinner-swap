@@ -1,23 +1,43 @@
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { UserContext } from "../../components/UserContext";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { MealCards } from "../GlobalStyles";
+import Options from "../../components/Options";
+// import Transactions from "../user/Transactions";
 
 export const MyMeals = () => {
   const navigate = useNavigate();
   const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user: myUser, updateDone, setUpdateDone } = useContext(UserContext);
   const { id } = useParams();
   const [isLoaded, setIsLoaded] = useState(false);
   const [meals, setMeals] = useState("");
+
+  const handleChoice = (option) => {
+    if (option === 0) {
+      // getPurchases();
+      // const purchased = myUser.purchased;
+      navigate("/sold");
+      // <Transactions transactions={purchased} />;
+      console.log("option 1");
+    } else if (option === 1) {
+      console.log("option 2");
+      // setIsEditing(true);
+    } else {
+      console.log("option 3");
+      // handleDelete(id, meal[0], setDeletedMeal);
+    }
+  };
 
   useEffect(() => {
     fetch(`/api/meals/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.data);
+        // console.log(data.data);
         setIsLoaded(true);
         setMeals(data.data);
       })
@@ -36,6 +56,10 @@ export const MyMeals = () => {
     <>
       {isLoaded ? (
         <>
+          <div>
+            <Options onChecked={handleChoice} MyMeals={true} />
+          </div>
+
           <H2>My Kitchen</H2>
           <MealCards>
             <ul>

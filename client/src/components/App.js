@@ -16,6 +16,9 @@ import { Error } from "../pages/Error";
 import OrderForm from "./OrderForm";
 import MealForm from "./Meals/MealForm";
 import { MyMeals } from "./Meals/MyMeals";
+import Transactions from "./user/Transactions";
+import Purchased from "./Meals/MealsPurchased";
+import Sold from "./Meals/MealsSold";
 // import { useAuth0 } from "@auth0/auth0-react";
 // const { isLoading } = useAuth0();
 
@@ -30,6 +33,9 @@ function App() {
             <Route path="/" element={<Homepage />} />
             <Route path="/meals" element={<Meals />} />
             <Route path="/meals/:id" element={<MyMeals />} />
+            <Route path="/purchased" element={<Purchased />} />
+            <Route path="/sold" element={<Sold />} />
+
             <Route path="/profile" element={<Profile />} />
             <Route
               path="/meal/add"

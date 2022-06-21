@@ -3,38 +3,59 @@ import styled from "styled-components";
 import moment from "moment";
 
 const MealOffer = ({ userId, mealId, daysInAdvance }) => {
-  const [offerQty, setOfferQty] = useState(0);
-  const [offerDate, setOfferDate] = useState(0);
-  const [cutOffDate, setCutOffDate] = useState(0);
   const today = new Date();
+  const [mealOffer, setMealOffer] = useState({
+    offerDate: today,
+    offerQty: 0,
+    cutOffDate: 0,
+  });
+
   const nextAvailableDay = moment(today)
     .add(daysInAdvance, "days")
     .format("YYYY-MM-DD");
 
-  // fulanito: jacques, donnas, dave
-  // The greatest cook cook1 : exotic frue
-  //  newuser60@... : BBQ Like never before
-  //  newuser104@ : bbq
+  const handleChange = (e) => {
+    e.preventDefault();
+    let key = e.target.name;
+    let value = e.target.value;
+    setMealOffer({ ...mealOffer, [key]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(mealOffer);
+
+    fetch(`/api/meal/${mealId}/offer`, {
+      method: "PUT",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        mealOffer,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div>
-      <Form>
+      <Form onSubmit={(e) => handleSubmit(e)}>
         <Label htmlFor="offerOn">Next date offer on: </Label>
         <input
           type="date"
           id="offerDate"
           name="offerDate"
           min={nextAvailableDay}
-          onChange={(e) => setOfferDate(e.target.value)}
+          onChange={(e) => handleChange(e)}
         />
-        <Label htmlFor="orderQty">Quantity offer:</Label>
+        <Label htmlFor="offerQty">Quantity offer:</Label>
         <input
           type="number"
-          id="orderQty"
-          name="orderQty"
+          id="offerQty"
+          name="offerQty"
           min={1}
           defaultValue={0}
-          onChange={(e) => setOfferQty(e)}
+          onChange={(e) => handleChange(e)}
         />
         <Label htmlFor="cutOffDate">Cut off on:</Label>
         <input
@@ -42,10 +63,10 @@ const MealOffer = ({ userId, mealId, daysInAdvance }) => {
           id="cutOffDate"
           name="cutOffDate"
           min={today}
-          max={offerDate}
-          onChange={(e) => setCutOffDate(e.target.value)}
+          max={mealOffer["offerDate"]}
+          onChange={(e) => handleChange(e)}
         />
-        <button type="submit">Send Offer</button>
+        <input type="submit" value="Send Offer" />
       </Form>
     </div>
   );

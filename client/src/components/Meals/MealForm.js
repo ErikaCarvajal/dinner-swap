@@ -4,13 +4,16 @@ import { useState, useContext } from "react";
 import { UserContext } from "../../components/UserContext";
 import MealImage from "../MealImage";
 import { handleErrorMessages } from "./MealErrorMessages";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Error from "../../pages/Error";
 
 const MealForm = ({ oldMealData, isEditing, setIsEditing, mealId, method }) => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
+  const location = useLocation();
   const [previewSource, setPreviewSource] = useState("");
+
+  console.log("state from location", location);
 
   const initialState = {
     name: "",
