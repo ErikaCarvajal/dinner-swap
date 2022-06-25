@@ -41,7 +41,6 @@ const CommentInput = ({
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
-          console.log("THIS IS DATA", data.status);
           setTitle("");
           setComment("");
           setAddComment(!addComment);
@@ -73,14 +72,7 @@ const CommentInput = ({
             handleContent(e);
           }}
         />
-        {/* <input
-          type="text"
-          name="content"
-          id="content"
-          onChange={(e) => {
-            handleContent(e);
-          }}
-        /> */}
+
         <Input type="submit" value="Submit" />
       </form>
     </Wrapper>
@@ -128,7 +120,7 @@ const Input = styled.input`
   font-size: 20px;
 
   :hover {
-    background-color: var(--thirdary-color);
+    background-color: var(--tertiary-color);
     color: var(--secondary-color);
   }
 `;

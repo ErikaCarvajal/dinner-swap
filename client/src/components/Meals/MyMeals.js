@@ -32,14 +32,11 @@ export const MyMeals = () => {
     fetch(`/api/meals/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data.data);
         setIsLoaded(true);
         setMeals(data.data);
       })
       .catch((err) => console.log(err));
   }, []);
-
-  console.log(location.state);
 
   const HandleClick = (id) => {
     if (isAuthenticated) {

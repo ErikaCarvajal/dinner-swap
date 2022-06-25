@@ -54,8 +54,6 @@ export const UserProvider = ({ children }) => {
     }
   }, [auth0User, updateDone]);
 
-  // console.log("from usercontext", user.address)
-
   return (
     <>
       <UserContext.Provider
@@ -73,27 +71,3 @@ export const UserProvider = ({ children }) => {
     </>
   );
 };
-
-// NEW CODE:
-// const { user, isAuthenticated, loginWithRedirect, logout, isLoading } = useAuth0();
-// const [myUser, seMyUser] = useState(null);
-
-// useEffect(() => {
-//   console.log(`user: ${user}`)
-// }, [isAuthenticated]);
-
-// console.log("user from DB", user)
-// console.log("user from Auth0", auth0User)
-
-// return (
-//   <>
-//     <UserContext.Provider value={{loginWithRedirect, logout, myUser}} >
-//       {children}
-//     </UserContext.Provider>
-//   </>
-// );
-// };
-
-// export const useUserContext = () => {
-//   return useContext(UserContext)
-// }

@@ -9,8 +9,6 @@ const addMealOffer = async (req, res) => {
     const db = clientDb.db("dinnerSwap");
     let ObjectID = require("mongodb").ObjectId;
 
-    // console.log("from addMealOffer", req.body);
-    // .post('/api/meal/:id/offer', addMealOffer)
     const { offerDate, offerQty, cutOffDate } = req.body.mealOffer;
 
     const { id } = req.params;
@@ -18,8 +16,6 @@ const addMealOffer = async (req, res) => {
     const updateObj = { $push: { offer: { offerDate, offerQty, cutOffDate } } };
 
     const newOffer = await db.collection("meals").updateOne(query, updateObj);
-
-    console.log(newOffer);
 
     clientDb.close();
     if (newOffer.acknowledged) {

@@ -12,12 +12,12 @@ import { UserProvider } from "./components/UserContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Auth0Provider
-    // domain={process.env.REACT_APP_AUTH0_DOMAIN}
-    // clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
-    domain='dev-6driueyv.us.auth0.com'
-    clientId='XjWHr0mRskkEfJYDiRlC45GHHOihNuGn'
+    domain={process.env.REACT_APP_AUTH0_DOMAIN}
+    clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
+    // domain='dev-6driueyv.us.auth0.com'
+    // clientId='XjWHr0mRskkEfJYDiRlC45GHHOihNuGn'
     redirectUri={window.location.origin}
-    cacheLocation='localstorage'
+    cacheLocation="localstorage"
   >
     <UserProvider>
       <App />

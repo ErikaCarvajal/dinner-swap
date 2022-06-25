@@ -1,6 +1,5 @@
 "use strict";
 
-// Test comment for git staging
 // Require modules:
 const express = require("express");
 const morgan = require("morgan");
@@ -23,7 +22,6 @@ const getUser = require("./handlers/users/getUser");
 const addUser = require("./handlers/users/addUser");
 const updateUser = require("./handlers/users/updateUser");
 const deleteUser = require("./handlers/users/deleteUser");
-// const handleValidateAddress = require("./handlers/users/handleValidateAddress");
 
 const { connectDb } = require("./lib/utils/connectDb");
 
@@ -53,7 +51,6 @@ express()
   .put("/api/user/:email", updateUser)
   .delete("/api/user/:email", deleteUser)
   .put("/api/order/:id", addOrder)
-  // .post("/api/user/validate-address", handleValidateAddress)
 
   // this is our catch all endpoint.
   .get("*", (req, res) => {

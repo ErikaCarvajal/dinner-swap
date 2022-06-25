@@ -14,20 +14,15 @@ const {
 } = require("../../lib/utils/uploadImgToCloudinary");
 
 const updateMeal = async (req, res) => {
-  console.log("ON UPDATE MEAL HANDLER");
   // connect to clientDb
   const { clientDb } = res.locals;
   try {
-    //============ Prepare Database
     // connect to DB:
     const db = clientDb.db("dinnerSwap");
-    // connect to collection:
-    // console.log(fileStr)
-    // 629bc1c64ee674f28b6fc037 checken salad
 
     //============ Retrieve information from Database
     let ObjectID = require("mongodb").ObjectId;
-    // console.log("req.body   ... ", req.body);
+
     const { id: mealId } = req.params;
     let {
       name,
@@ -70,11 +65,7 @@ const updateMeal = async (req, res) => {
 
     if (meal.acknowledged && imgData.length > 0) {
       const { response, error } = await deleteImgToCloudinary(oldId);
-      console.log(response, "confirmation from cloudinary");
     }
-    console.log(typeof imgData);
-
-    console.log("2nd");
 
     if (meal.acknowledged && meal.modifiedCount === 1) {
       sendResponse(res, 200, meal, "Meal Updated");

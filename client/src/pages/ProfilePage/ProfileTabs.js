@@ -27,14 +27,14 @@ const Tab = styled.div`
   color: var(--primary-color);
   font-size: 26px;
   font-weight: bolder;
-  font-family:var(--heading-font-family);
+  font-family: var(--heading-font-family);
 
   :hover {
-    background-color: var(--thirdary-color);
+    background-color: var(--tertiary-color);
     color: var(--secondary-color);
   }
 
   &.selected {
-    border-bottom: 2px solid var(--thirdary-color);
+    border-bottom: 2px solid var(--tertiary-color);
   }
 `;

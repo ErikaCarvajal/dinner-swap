@@ -22,62 +22,65 @@ export const Offered = () => {
     fetch(`/api/meals/${myUser._id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("data received", data.data);
-        setIsLoaded(true);
         setMeals(data.data);
+        setIsLoaded(true);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  //   const HandleClick = (id) => {
-  //     if (isAuthenticated) {
-  //       navigate(`/meal/${id}`);
-  //     } else {
-  //       window.alert(`Login to continue`);
-  //     }
-  //   };
+  if (isLoaded && myUser) {
+    let offerMealArray = meals.filter((meal) => {
+      if (meal.offer) {
+        return {
+          ...meal,
+          ["offer"]: meal.offer.filter((item) => item.offerQty === "1"),
+        };
+      }
+    });
 
-  return (
-    <>
-      {isLoaded ? (
-        <>
-          <H2>Meals currently offered</H2>
-          <MealCard>
-            <ul>
-              {meals.map((item) => {
-                return (
-                  <li key={item.id} type="button">
-                    <P>{item.name}</P>
-                    <Points>Points: {item.points}</Points>
-                    <img src={item.secure_url} />
-                    {item.offer &&
-                      item.offer.map((el) => {
-                        if (el.offerDate > today) {
-                          return (
-                            <>
-                              <Points>Offer for {el.offerDate}</Points>
-                              <Points>Quantity {el.offerQty}</Points>
-                              <Points>
-                                Cut off for orders: {el.cutOffDate}
-                              </Points>
-                              <Divider />
-                            </>
-                          );
-                        }
-                      })}
-                  </li>
-                );
-              })}
-            </ul>
-          </MealCard>
-        </>
-      ) : (
-        <LoadingWrapper>
-          <CircularProgress />
-        </LoadingWrapper>
-      )}
-    </>
-  );
+    return (
+      <>
+        <H2>Meals currently offered</H2>
+        <MealCard>
+          <ul>
+            {offerMealArray.map((item) => {
+              return (
+                <li key={item.id} type="button">
+                  <P>{item.name}</P>
+                  <Points>Points: {item.points}</Points>
+                  <img src={item.secure_url} />
+                  <div>
+                    {item.offer.map((meal) => {
+                      if (meal.cutOffDate >= today) {
+                        return (
+                          <>
+                            <Points>
+                              Offer for{" "}
+                              {moment(meal.offerDate).format("MMM DD")}
+                            </Points>
+                            <Points>Quantity {meal.offerQty}</Points>
+                            <Points>
+                              Cut off for orders:{" "}
+                              {moment(meal.cutOffDate).format("MMM DD")}
+                            </Points>
+                            <Divider />
+                          </>
+                        );
+                      }
+                    })}
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </MealCard>
+      </>
+    );
+  } else {
+    <LoadingWrapper>
+      <CircularProgress />
+    </LoadingWrapper>;
+  }
 };
 
 const MealCard = styled.div`
@@ -107,9 +110,6 @@ const MealCard = styled.div`
     border-radius: 15px;
     border: none;
     height: 650px;
-    /* :hover {
-      box-shadow: 1px 10px 10px 10px var(--primary-color);
-    } */
   }
 
   img {

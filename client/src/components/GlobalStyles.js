@@ -6,13 +6,8 @@ export const breakpoints = { tablet: "600px" };
 export default createGlobalStyle`
     :root {
       --primary-color: #3F6844;   //using
-      --thirdary-color: #5DAA68;
       --secondary-color: #FAF1CF;  //using
-      --fourth-color: #4E3883;
-      --fifth-color: #FFDDCC;
-      --sixth-color: #4D724D;
-      --seventh-color: #8DB48E;
-      --eigth-color: #F5F5F5;
+      --tertiary-color: #5DAA68;
       --accent-bg-color: rgba(204, 85, 0, 0.1);
       --page-horizontal-padding: 20px;
       --header-height: 50px;
@@ -80,7 +75,7 @@ export default createGlobalStyle`
         font-size: 20px;
 
         :hover {
-        background-color: var(--thirdary-color);
+        background-color: var(--tertiary-color);
         color: var(--secondary-color);
         }
     }
@@ -99,6 +94,7 @@ export default createGlobalStyle`
 export const MealCards = styled.div`
   width: 85vw;
   margin: 0 auto;
+
   ul {
     display: flex;
     flex-direction: row;
@@ -118,10 +114,14 @@ export const MealCards = styled.div`
     list-style-type: none;
     margin-top: 60px;
     width: 30%;
-    box-shadow: 1px 10px 10px 10px lightgray;
+    box-shadow: ${(p) =>
+      p.isAvailable
+        ? "1px 10px 10px 10px green"
+        : "1px 10px 10px 10px lightgray"};
     border-radius: 15px;
     border: none;
     height: 350px;
+
     :hover {
       box-shadow: 1px 10px 10px 10px var(--primary-color);
     }

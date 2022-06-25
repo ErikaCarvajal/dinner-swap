@@ -66,8 +66,6 @@ const AddUser = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("handleSubmit")
-    console.log(name)
     if (user) {
       fetch(`api/user/${userDB.email}`, {
         method: "PUT",
@@ -80,7 +78,6 @@ const AddUser = ({
         .then((res) => res.json())
         .then((data) => {
           if (data.status === 200) {
-            console.log(data);
             setUpdateDone(!udpateDone);
             setCurrentTab("");
           }

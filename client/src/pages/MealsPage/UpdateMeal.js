@@ -1,7 +1,7 @@
-const UpdateMeal = () => {
-    return <>
-        Update Page
-    </>
-};
+// const UpdateMeal = () => {
+//     return <>
+//         Update Page
+//     </>
+// };
 
-export default UpdateMeal;
+// export default UpdateMeal;

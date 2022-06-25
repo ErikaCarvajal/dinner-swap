@@ -99,12 +99,8 @@ const NavLinkStyled = styled(NavLink)`
   padding-right: 20px;
 
   :hover {
-    border-bottom: 5px solid var(--thirdary-color);
+    border-bottom: 5px solid var(--tertiary-color);
   }
-
-  /* &.active {
-    border-bottom: 5px solid var(--thirdary-color);
-  } */
 `;
 
 const SignInButtons = styled.div`

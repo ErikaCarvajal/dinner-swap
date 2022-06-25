@@ -25,8 +25,6 @@ const MealOffer = ({ userId, mealId, daysInAdvance }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(mealOffer);
-
     fetch(`/api/meal/${mealId}/offer`, {
       method: "PUT",
       headers: { "content-type": "application/json" },
@@ -36,7 +34,6 @@ const MealOffer = ({ userId, mealId, daysInAdvance }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.status === 200) {
           navigate(-1, { state: { offer: "made" } });
         }
@@ -73,7 +70,7 @@ const MealOffer = ({ userId, mealId, daysInAdvance }) => {
           max={mealOffer["offerDate"]}
           onChange={(e) => handleChange(e)}
         />
-        <input type="submit" value="Send Offer" />
+        <Input type="submit" value="Send Offer" />
       </Form>
     </div>
   );
@@ -96,5 +93,22 @@ const Form = styled.form`
   input {
     width: 200px;
     margin-bottom: 20px;
+  }
+`;
+
+const Input = styled.input`
+  font-family: var(--heading-font-family);
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  padding: 5px 15px;
+  border-radius: 1em;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 20px;
+
+  :hover {
+    background-color: var(--tertiary-color);
+    color: var(--secondary-color);
   }
 `;

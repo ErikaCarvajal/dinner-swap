@@ -4,7 +4,6 @@ const MealImage = ({ previewSource, setPreviewSource }) => {
   const [image, setImage] = useState("");
 
   const uploadImg = async (e) => {
-    console.log(e.target.files[0]);
     const file = e.target.files[0];
     previewFile(file);
   };

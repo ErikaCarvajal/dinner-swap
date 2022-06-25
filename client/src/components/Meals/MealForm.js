@@ -13,8 +13,6 @@ const MealForm = ({ oldMealData, isEditing, setIsEditing, mealId, method }) => {
   const location = useLocation();
   const [previewSource, setPreviewSource] = useState("");
 
-  console.log("state from location", location);
-
   const initialState = {
     name: "",
     points: 0,
@@ -48,7 +46,6 @@ const MealForm = ({ oldMealData, isEditing, setIsEditing, mealId, method }) => {
   const [error, setError] = useState(false);
   const handleChange = (e) => {
     e.preventDefault();
-    // setError(null);
     const key = e.target.name;
     const value = e.target.value;
     setMealToBeUpdated({ ...mealToBeUpdated, [key]: value });
@@ -88,7 +85,6 @@ const MealForm = ({ oldMealData, isEditing, setIsEditing, mealId, method }) => {
           .then((res) => res.json())
           .then((data) => {
             if (data.status === 200) {
-              // console.log(data);
               setIsEditing(false);
             }
           })
@@ -99,7 +95,6 @@ const MealForm = ({ oldMealData, isEditing, setIsEditing, mealId, method }) => {
       }
     } else {
       if (Object.keys(previewSource).length !== 0) {
-        console.log("true for  fetch");
         fetch(`/api/meal/add`, {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -110,7 +105,6 @@ const MealForm = ({ oldMealData, isEditing, setIsEditing, mealId, method }) => {
         })
           .then((res) => res.json())
           .then((data) => {
-            // console.log(data);
             navigate("/meals");
           })
           .catch((err) => console.log(err));
@@ -328,7 +322,7 @@ const Input = styled.input`
   font-size: 20px;
 
   :hover {
-    background-color: var(--thirdary-color);
+    background-color: var(--tertiary-color);
     color: var(--secondary-color);
   }
 `;

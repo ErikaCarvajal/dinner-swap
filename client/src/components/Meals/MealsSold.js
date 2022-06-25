@@ -30,7 +30,7 @@ const Sold = () => {
             <Transactions transactions={activeSold} />
           </Div>
           <Div>
-            <input
+            <Input
               type="submit"
               value={viewHistory ? "Close History" : "View History"}
               onClick={(e) => handleClick(e)}
@@ -56,4 +56,21 @@ const Header = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 50px;
+`;
+
+const Input = styled.input`
+  font-family: var(--heading-font-family);
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  padding: 5px 15px;
+  border-radius: 1em;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 20px;
+
+  :hover {
+    background-color: var(--tertiary-color);
+    color: var(--secondary-color);
+  }
 `;

@@ -53,8 +53,6 @@ const Wrapper = styled.div`
   em {
     color: hsl(130, 3%, 53%);
   }
-  /* min-width: 100%;
-  background: lime; */
 `;
 
 export default SingleTransaction;

@@ -11,19 +11,17 @@ export const handleErrorMessages = (mealToBeUpdated, oldMealData, setError) => {
 
   const formKeysArray = Object.keys(mealToBeUpdated);
 
-  
   formKeysArray.forEach((key) => {
-      let strValue = mealToBeUpdated[key].toString();
-      console.log(mealToBeUpdated.name)
-      if (mealToBeUpdated.name.trim() === "") {
-        console.log("Inside empty name")
-      setError(errorMessages[key])
-    } else  if (mealToBeUpdated.points == 0) {
+    let strValue = mealToBeUpdated[key].toString();
+
+    if (mealToBeUpdated.name.trim() === "") {
+      setError(errorMessages[key]);
+    } else if (mealToBeUpdated.points == 0) {
       setError(errorMessages.points);
-    } else if (mealToBeUpdated.description.trim() === '') {
-      setError(errorMessages.description)
+    } else if (mealToBeUpdated.description.trim() === "") {
+      setError(errorMessages.description);
     } else if (mealToBeUpdated.daysInAdvanced == 0) {
-      setError(errorMessages.daysInAdvance)
+      setError(errorMessages.daysInAdvance);
     } else if (strValue.trim() === "") {
       setError(errorMessages[key]);
     }

@@ -47,13 +47,6 @@ const addOrder = async (req, res) => {
       .collection("users")
       .updateOne({ _id: ObjectID(soldBy) }, { $push: { sold } });
 
-    console.log({
-      updateSold,
-      updatePurchased,
-      updateBuyersPoints,
-      updateSellersPoints,
-    });
-
     if (
       updateSold.modifiedCount === 1 &&
       updatePurchased.modifiedCount === 1 &&

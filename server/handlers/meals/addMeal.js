@@ -19,7 +19,6 @@ const addMeal = async (req, res) => {
     // Connect to DB:
     const db = clientDb.db("dinnerSwap");
 
-    console.log("from BE addMeal handle", req.body);
     const { completeMeal } = req.body;
 
     const {
@@ -37,8 +36,6 @@ const addMeal = async (req, res) => {
       result: { secure_url, public_id },
       error,
     } = await uploadImgToCloudinary(fileStr);
-
-    console.log(secure_url, public_id);
 
     let newMeal = {
       name,

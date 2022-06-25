@@ -15,10 +15,6 @@ const Profile = (props) => {
   const { user: myUser, updateDone, setUpdateDone } = useContext(UserContext);
   const [currentTab, setCurrentTab] = useState("");
 
-  if (myUser) {
-    console.log("This is myUser from DB in profile", myUser);
-  }
-
   usePrivateRoute();
 
   const tabs = ["Update"];
@@ -32,7 +28,7 @@ const Profile = (props) => {
       purchased,
       sold,
     } = myUser;
-    console.log(purchased);
+
     return (
       <div>
         <Wrapper>

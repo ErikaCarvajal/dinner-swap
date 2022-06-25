@@ -1,27 +1,26 @@
 import styled from "styled-components";
 import SingleTransaction from "../../pages/ProfilePage/SingleTransaction";
 
-// import { useState } from "react";
-// import { useContext } from "react";
-// import { useParams, useNavigate } from "react-router-dom";
-// import { UserContext } from "../../components/UserContext";
-
 const Transactions = ({ transactions }) => {
-  // const { user: myUser, updateDone, setUpdateDone } = useContext(UserContext);
-
   transactions.sort((a, b) => {
     let dateA = new Date(a.date);
     let dateB = new Date(b.date);
     return dateB - dateA;
   });
-
+  console.log(transactions);
   return (
     <>
       <Wrapper>
         <ul>
-          {transactions.map((transaction) => {
-            return <SingleTransaction transaction={transaction} />;
-          })}
+          {transactions.length > 0 ? (
+            <div>
+              {transactions.map((transaction) => {
+                return <SingleTransaction transaction={transaction} />;
+              })}
+            </div>
+          ) : (
+            <h2>Nothing to report.</h2>
+          )}
         </ul>
       </Wrapper>
     </>
@@ -40,8 +39,4 @@ const Wrapper = styled.div`
   box-shadow: 1px 8px 12px 0 black;
   padding: 12px 25px;
   position: relative;
-
-  h3 {
-    margin-bottom: 10px;
-  }
 `;

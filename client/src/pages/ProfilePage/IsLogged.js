@@ -7,22 +7,12 @@ const IsLogged = () => {
     return <div>Loading ...</div>;
   }
 
-  if (isAuthenticated) {
-    // console.log("isAuth true ", user);
-  } else {
-    // console.log("isAuth false", user)
-  }
-
-  return (
-    isAuthenticated ? (
-      <div>
-        {window.sessionStorage.setItem("email", JSON.stringify(user.email))}
-      </div>
-    ) : (
-        <div>
-        {window.sessionStorage.removeItem("email")}
-        </div>
-    )
+  return isAuthenticated ? (
+    <div>
+      {window.sessionStorage.setItem("email", JSON.stringify(user.email))}
+    </div>
+  ) : (
+    <div>{window.sessionStorage.removeItem("email")}</div>
   );
 };
 

@@ -20,10 +20,6 @@ const MealContent = (props) => {
   const location = useLocation();
   const today = moment(new Date()).format("YYYY-MM-DD");
 
-  console.log(userId);
-  console.log(props.userIdNumber);
-  console.log(offer);
-
   return (
     <Wrapper>
       <MealTitle>
@@ -59,12 +55,15 @@ const MealContent = (props) => {
       <Div>
         {offer ? (
           offer.map((item) => {
-            if (item.offerDate >= today) {
+            if (item.cutOffDate >= today) {
               return (
                 <>
                   <section>
-                    For: {item.offerDate}, Quantity: {item.offerQty}, Cut off:{" "}
-                    {item.cutOffDate}
+                    <p>
+                      For: {moment(item.offerDate).format("MMM DD")}, Quantity:{" "}
+                      {item.offerQty}, Cut off:{" "}
+                      {moment(item.cutOffDate).format("MMM DD, YYYY")}
+                    </p>
                   </section>
                 </>
               );
@@ -113,6 +112,16 @@ const Wrapper = styled.div`
 
   section {
     margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    background-color: #ffffff;
+    width: 95%;
+    box-shadow: 1px 8px 12px 0 black;
+    padding: 12px 25px;
+    position: relative;
+    flex-wrap: wrap;
+    align-content: center;
+    flex-direction: column;
   }
 `;
 

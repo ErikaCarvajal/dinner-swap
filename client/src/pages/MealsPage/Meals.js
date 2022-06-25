@@ -9,7 +9,7 @@ import moment from "moment";
 // import IsLogged from "../ProfilePage/IsLogged";
 // Require components
 import { UserContext } from "../../components/UserContext";
-import { MealCards } from "../../components/GlobalStyles";
+// import { MealCards } from "../../components/GlobalStyles";
 
 const Meals = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -24,7 +24,6 @@ const Meals = () => {
     fetch(`/api/meals`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("from fetch", data.data);
         setMeals(data.data);
         setIsLoaded(true);
       })
@@ -46,21 +45,35 @@ const Meals = () => {
           <ul>
             {meals.map((item) => {
               return (
-                <li
+                <Li
                   style={{ cursor: "pointer" }}
                   key={item.id}
                   type="button"
+                  isAvailable={
+                    item.offer && item.offer.some((el) => el.offerDate >= today)
+                      ? true
+                      : false
+                  }
                   onClick={() => HandleClick(item._id)}
                   allMeals="allMeals"
                 >
-                  <P>{item.name}</P>
+                  <P
+                    isAvailable={
+                      item.offer &&
+                      item.offer.some((el) => el.offerDate >= today)
+                        ? true
+                        : false
+                    }
+                  >
+                    {item.name}
+                  </P>
                   <Points>Points: {item.points}</Points>
                   <img src={item.secure_url} />
                   {item.offer &&
                     item.offer.some((el) => el.offerDate >= today) && (
                       <H2>Now available!</H2>
                     )}
-                </li>
+                </Li>
               );
             })}
           </ul>
@@ -76,45 +89,27 @@ const Meals = () => {
 
 export default Meals;
 
-// const MealCards = styled.div`
-//   width: 85vw;
-//   margin: 0 auto;
-//   ul {
-//     display: flex;
-//     flex-direction: row;
-//     flex-wrap: wrap;
-//     justify-content: space-between;
-//     max-width: 100%;
-//     list-style-type: none;
-//   }
+const MealCards = styled.div`
+  width: 85vw;
+  margin: 0 auto;
 
-//   li {
-//     cursor: pointer;
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: center;
-//     align-items: center;
-//     text-align: center;
-//     list-style-type: none;
-//     margin-top: 60px;
-//     width: 30%;
-//     box-shadow: 1px 10px 10px 10px lightgray;
-//     border-radius: 15px;
-//     border: none;
-//     height: 350px;
-//     :hover {
-//       box-shadow: 1px 10px 10px 10px var(--primary-color);
-//     }
-//   }
+  ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 100%;
+    list-style-type: none;
+  }
 
-//   img {
-//     margin-top: 15px;
-//     object-fit: cover;
-//     width: 200px;
-//     height: 200px;
-//     border-radius: 1.2em;
-//   }
-// `;
+  img {
+    margin-top: 15px;
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+    border-radius: 1.2em;
+  }
+`;
 
 const LoadingWrapper = styled.div`
   display: flex;
@@ -123,7 +118,9 @@ const LoadingWrapper = styled.div`
 `;
 
 const P = styled.p`
-  color: var(--primary-color);
+  color: ${(p) =>
+    p.isAvailable ? "var(--secondary-color)" : "var(--primary-color)"};
+  /* color: var(--primary-color); */
   margin-bottom: 10px;
   font-size: 30px;
 `;
@@ -134,5 +131,28 @@ const Points = styled.p`
 `;
 
 const H2 = styled.h2`
-  color: var(--thirdary-color);
+  color: var(--tertiary-color);
+`;
+
+const Li = styled.li`
+  background-color: ${(p) =>
+    p.isAvailable ? "var(--primary-color)" : "#ffff"};
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  list-style-type: none;
+  margin-top: 60px;
+  width: 30%;
+  box-shadow: 1px 10px 10px 10px lightgray;
+
+  border-radius: 15px;
+  border: none;
+  height: 350px;
+
+  :hover {
+    box-shadow: 1px 10px 10px 10px var(--primary-color);
+  }
 `;

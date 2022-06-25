@@ -10,9 +10,8 @@ const addUser = async (req, res) => {
   try {
     // Connect to DB:
     const db = clientDb.db("dinnerSwap");
-    console.log("from BE addUser");
+
     // Connect to collection:
-    console.log(req.body);
     const insertResult = await db.collection("users").insertOne(req.body);
 
     let user;
@@ -21,7 +20,6 @@ const addUser = async (req, res) => {
         .collection("users")
         .findOne({ _id: ObjectId(insertResult.insertedId) });
     }
-    console.log("from addUser")
     user
       ? sendResponse(res, 200, user, "User included")
       : sendResponse(res, 400, "User could not be included");

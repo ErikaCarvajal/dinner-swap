@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const { sendResponse } = require("../../lib/utils/sendResponse");
 
@@ -12,9 +12,11 @@ const getMealsByUserId = async (req, res) => {
 
     // Connect to collection:
     const userId = req.params.id;
-    console.log("id from req. params ", userId)
-    const mealsById = await db.collection("meals").find({ userId: (userId) }).toArray();
-    console.log(mealsById)
+
+    const mealsById = await db
+      .collection("meals")
+      .find({ userId: userId })
+      .toArray();
 
     sendResponse(res, 200, mealsById, "From meals by id");
   } catch (err) {

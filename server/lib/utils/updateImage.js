@@ -6,7 +6,6 @@ const updateImage = async (newImgData, oldUrl, oldId) => {
     newImgUpload = await uploadImgToCloudinary(newImgData);
   }
   if (newImgUpload) {
-    console.log("1st");
     return newImgUpload.result;
   } else {
     return { secure_url: oldUrl, public_id: oldId };

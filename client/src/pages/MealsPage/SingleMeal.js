@@ -32,7 +32,6 @@ export const SingleMeal = () => {
       .catch((err) => console.log(err));
   }, [isEditing, addComment]); // !Add isEditing in the array here to re-fetch data from BE
 
-  // console.log("user name for comments", user);
   const handleChoice = (option) => {
     if (option === 0) {
       setIsEditing(true);
@@ -200,6 +199,7 @@ const Wrapper = styled.div`
   li {
     background-color: hsl(0, 100%, 100%);
     margin: 5px auto;
+    min-width: 500px;
     width: 90%;
     box-shadow: 1px 8px 12px 0 var(--primary-color);
     padding: 12px 25px;

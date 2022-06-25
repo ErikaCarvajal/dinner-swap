@@ -66,7 +66,6 @@ const OrderForm = ({
     };
     user["points"] = userNewPoints;
 
-    console.log("user, sold, soldby", user, sold, soldBy);
     fetch(`/api/order/${_id}`, {
       method: "PUT",
       headers: { "content-type": "application/json" },
@@ -79,7 +78,6 @@ const OrderForm = ({
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setUpdateDone(!updateDone);
         navigate("/meals");
       })
@@ -169,7 +167,7 @@ const Input = styled.input`
   font-size: 20px;
 
   :hover {
-    background-color: var(--thirdary-color);
+    background-color: var(--tertiary-color);
     color: var(--secondary-color);
   }
 `;

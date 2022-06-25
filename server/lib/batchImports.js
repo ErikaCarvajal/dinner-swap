@@ -18,7 +18,6 @@ const batchImport = async () => {
   try {
     //connect to the client
     await client.connect();
-    console.log("connect");
 
     //connects to database
     const db = client.db("dinnerSwap");
@@ -28,9 +27,15 @@ const batchImport = async () => {
     const subscribers = await db.collection("users").insertMany(users);
 
     if (dinners && subscribers) {
-      console.log("Meals and Users collections are updated", dinners, subscribers);
+      console.log(
+        "Meals and Users collections are updated",
+        dinners,
+        subscribers
+      );
     } else {
-      console.log("There was an error on uploading information. Please try again.");
+      console.log(
+        "There was an error on uploading information. Please try again."
+      );
     }
   } catch (err) {
     console.log(err.stack);
