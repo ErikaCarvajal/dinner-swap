@@ -21,17 +21,8 @@ const addMeal = async (req, res) => {
 
     const { completeMeal } = req.body;
 
-    const {
-      name,
-      points,
-      description,
-      contains,
-      daysAvailable,
-      servings,
-      daysInAdvance,
-      userId,
-      chef,
-    } = completeMeal;
+    const { name, points, description, contains, servings, userId, chef } =
+      completeMeal;
     const {
       result: { secure_url, public_id },
       error,
@@ -42,9 +33,7 @@ const addMeal = async (req, res) => {
       points,
       description,
       contains,
-      daysAvailable,
       servings,
-      daysInAdvance,
       userId,
       chef,
       secure_url,

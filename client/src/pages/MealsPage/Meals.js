@@ -1,24 +1,18 @@
 // Require modules
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import moment from "moment";
 
-// import IsLogged from "../ProfilePage/IsLogged";
-// Require components
-import { UserContext } from "../../components/UserContext";
-// import { MealCards } from "../../components/GlobalStyles";
-
+//Fetches meals from all users and highlights the ones that are available
 const Meals = () => {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { isAuthenticated } = useAuth0();
   const today = moment(new Date()).format("YYYY-MM-DD");
   const [isLoaded, setIsLoaded] = useState(false);
   const [meals, setMeals] = useState("");
   const navigate = useNavigate();
-
-  // const userFromContext = useContext(UserContext);
 
   useEffect(() => {
     fetch(`/api/meals`)
@@ -46,11 +40,12 @@ const Meals = () => {
             {meals.map((item) => {
               return (
                 <Li
+                  key={`${item.id}-m`}
                   style={{ cursor: "pointer" }}
-                  key={item.id}
                   type="button"
                   isAvailable={
-                    item.offer && item.offer.some((el) => el.offerDate >= today)
+                    item.offer &&
+                    item.offer.some((el) => el.cutOffDate >= today)
                       ? true
                       : false
                   }
@@ -58,16 +53,25 @@ const Meals = () => {
                   allMeals="allMeals"
                 >
                   <P
-                    isAvailable={
-                      item.offer &&
-                      item.offer.some((el) => el.offerDate >= today)
-                        ? true
-                        : false
-                    }
+                  // isAvailable={
+                  //   item.offer &&
+                  //   item.offer.some((el) => el.offerDate >= today)
+                  //     ? true
+                  //     : false
+                  // }
                   >
                     {item.name}
                   </P>
-                  <Points>Points: {item.points}</Points>
+                  <Points
+                  // isAvailable={
+                  //   item.offer &&
+                  //   item.offer.some((el) => el.offerDate >= today)
+                  //     ? true
+                  //     : false
+                  // }
+                  >
+                    Points: {item.points}
+                  </Points>
                   <img src={item.secure_url} />
                   {item.offer &&
                     item.offer.some((el) => el.offerDate >= today) && (
@@ -118,15 +122,15 @@ const LoadingWrapper = styled.div`
 `;
 
 const P = styled.p`
-  color: ${(p) =>
-    p.isAvailable ? "var(--secondary-color)" : "var(--primary-color)"};
-  /* color: var(--primary-color); */
+  /* color: ${(p) =>
+    p.isAvailable ? "var(--secondary-color)" : "var(--primary-color)"}; */
   margin-bottom: 10px;
   font-size: 30px;
 `;
 
 const Points = styled.p`
-  color: var(--primary-color);
+  /* color: ${(p) =>
+    p.isAvailable ? "var(--secondary-color)" : "var(--primary-color)"}; */
   font-size: 16px;
 `;
 
@@ -137,6 +141,8 @@ const H2 = styled.h2`
 const Li = styled.li`
   background-color: ${(p) =>
     p.isAvailable ? "var(--primary-color)" : "#ffff"};
+  color: ${(p) =>
+    p.isAvailable ? "var(--secondary-color)" : "var(--primary-color)"};
   cursor: pointer;
   display: flex;
   flex-direction: column;

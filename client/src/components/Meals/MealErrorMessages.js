@@ -6,7 +6,6 @@ export const handleErrorMessages = (mealToBeUpdated, oldMealData, setError) => {
     contains: "Contains cannot be empty",
     daysAvailable: "Please include which days this meal is available",
     servings: "Servings cannot be 0",
-    daysInAdvance: "Time Required cannot be empty",
   };
 
   const formKeysArray = Object.keys(mealToBeUpdated);
@@ -20,8 +19,6 @@ export const handleErrorMessages = (mealToBeUpdated, oldMealData, setError) => {
       setError(errorMessages.points);
     } else if (mealToBeUpdated.description.trim() === "") {
       setError(errorMessages.description);
-    } else if (mealToBeUpdated.daysInAdvanced == 0) {
-      setError(errorMessages.daysInAdvance);
     } else if (strValue.trim() === "") {
       setError(errorMessages[key]);
     }

@@ -1,23 +1,27 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { UserContext } from "../../components/UserContext";
-// import Wrapper, { Container } from "../../components/Meals/MealWrapper";
-import usePrivateRoute from "../../hooks/usePrivateRoute";
-import AddUser from "./AddUser";
-import Transactions from "../../components/user/Transactions";
+import { useContext, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
+
+import EditUser from "./EditUser";
 import ProfileTabs from "./ProfileTabs";
+import usePrivateRoute from "../../hooks/usePrivateRoute";
+import { UserContext } from "../../components/UserContext";
 
 const Profile = (props) => {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   const navigate = useNavigate();
-  const { user: myUser, updateDone, setUpdateDone } = useContext(UserContext);
+  const { user: myUser } = useContext(UserContext);
   const [currentTab, setCurrentTab] = useState("");
 
   usePrivateRoute();
 
   const tabs = ["Update"];
+
+  if (!isAuthenticated) {
+    window.alert("Login to continue");
+    return navigate("/");
+  }
 
   if (isAuthenticated && myUser) {
     const { name, picture, email } = user;
@@ -67,8 +71,8 @@ const Profile = (props) => {
                 })}
               </Tabs>
               <div>
-                {currentTab === "Update" ? (
-                  <AddUser
+                {currentTab === "Update" && (
+                  <EditUser
                     userName={myUserName}
                     streetNumber={streetNumber}
                     streetName={streetName}
@@ -77,7 +81,7 @@ const Profile = (props) => {
                     province={province}
                     setCurrentTab={setCurrentTab}
                   />
-                ) : null}
+                )}
               </div>
             </div>
           </Div>

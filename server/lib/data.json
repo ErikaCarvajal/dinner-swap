@@ -6,10 +6,8 @@
     "secure_url": "https://res.cloudinary.com/dpeskwcqr/image/upload/v1654719533/dinnerSwap/mdnaymmhkirhqpfmymzp.jpg",
     "public_id": "dinnerSwap/mdnaymmhkirhqpfmymzp.jpg",
     "description": "Grilled beef and potatoes!",
-    "daysInAdvance": 1,
     "servings": 4,
     "contains": "No dairy or nuts. Vegan",
-    "daysAvailable": "weekend",
     "userId": "62a398d513b74c0011703777",
     "comments": [
       {
@@ -42,10 +40,8 @@
     "secure_url": "https://res.cloudinary.com/dpeskwcqr/image/upload/v1654721764/dinnerSwap/wzuerdjbwaossxezijmb.jpg",
     "public_id": "dinnerSwap/wzuerdjbwaossxezijmb",
     "description": "Perfect for a hot summer day",
-    "daysInAdvance": 3,
     "servings": 4,
     "contains": "No dairy or nuts. Gluten Free.",
-    "daysAvailable": "everyday",
     "userId": "62a398d513b74c0011703777",
     "comments": []
   },
@@ -56,10 +52,8 @@
     "secure_url": "https://res.cloudinary.com/dpeskwcqr/image/upload/v1654370181/dinnerSwap/w1wshrktvmq2ultuium5.jpg",
     "public_id": "dinnerSwap/w1wshrktvmq2ultuium5",
     "description": "Hummmm breakfast of champions",
-    "daysInAdvance": 2,
     "servings": 4,
     "contains": "No dairy or nuts.",
-    "daysAvailable": "weekend",
     "userId": "62a398d513b74c0011703777",
     "comments": []
   }

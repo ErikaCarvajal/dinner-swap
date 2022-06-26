@@ -15,36 +15,36 @@ const Navbar = () => {
   const isUser = isAuthenticated && user;
 
   return (
-    <Div user={isAuthenticated}>
+    <Div $user={isAuthenticated}>
       <Greeting>
         <Avatar>
           {isUser && user.picture && <Img src={user.picture} alt={user.name} />}
         </Avatar>
       </Greeting>
       <li>
-        <NavLinkStyled to="/" user={isAuthenticated}>
+        <NavLinkStyled to="/" $user={isAuthenticated}>
           Meal Swap <GiCircleClaws />
         </NavLinkStyled>
       </li>
       <li>
-        <NavLinkStyled to="/profile" user={isAuthenticated}>
+        <NavLinkStyled to="/profile" $user={isAuthenticated}>
           Profile
         </NavLinkStyled>
       </li>
       <li>
-        <NavLinkStyled to="/meals" user={isAuthenticated}>
+        <NavLinkStyled to="/meals" $user={isAuthenticated}>
           Meals
         </NavLinkStyled>
       </li>
       {isUser && myUser && (
         <>
           <li>
-            <NavLinkStyled to={`/meals/${myUser._id}`} user={isAuthenticated}>
+            <NavLinkStyled to={`/meals/${myUser._id}`} $user={isAuthenticated}>
               My Kitchen
             </NavLinkStyled>
           </li>
           <li>
-            <NavLinkStyled to={`purchased`} user={isAuthenticated}>
+            <NavLinkStyled to={`purchased`} $user={isAuthenticated}>
               Purchased
             </NavLinkStyled>
           </li>
@@ -66,7 +66,7 @@ export default Navbar;
 
 const Div = styled.div`
   background-color: ${(p) =>
-    p.user ? `var(--secondary-color)` : `var(--primary-color)`};
+    p.$user ? `var(--secondary-color)` : `var(--primary-color)`};
   list-style: none;
   display: flex;
   flex-direction: row;
@@ -92,7 +92,8 @@ const NavLinkStyled = styled(NavLink)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: ${(p) => (p.user ? `var(--primary-color)` : `var(--secondary-color)`)};
+  color: ${(p) =>
+    p.$user ? `var(--primary-color)` : `var(--secondary-color)`};
   height: 100%;
   font-size: 20px;
   padding-left: 20px;
@@ -129,12 +130,4 @@ const Avatar = styled.div`
 
 const DivStyling = styled.div`
   display: flex;
-`;
-
-const ULSTYLE = styled.ul`
-  //STYLING for dropdown  UL:
-  max-width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: flex-end;
 `;

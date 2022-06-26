@@ -1,27 +1,24 @@
 // Require modules:
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import GlobalStyles from "./GlobalStyles";
 
 // Require components:
-import Homepage from "../pages/HomePage";
 import Navbar from "./NavBar";
-import Meals from "../pages/MealsPage/Meals";
-import DeleteMeal from "../pages/MealsPage/DeleteMeal";
-import { SingleMeal } from "../pages/MealsPage/SingleMeal";
-import AddUser from "../pages/ProfilePage/AddUser";
-import Profile from "../pages/ProfilePage";
-import LoginButton from "./LoginButton";
-import AuthWrapper from "./authentication/AuthWrapper";
-import { Error } from "../pages/Error";
 import OrderForm from "./OrderForm";
-import MealForm from "./Meals/MealForm";
-import { MyMeals } from "./Meals/MyMeals";
-import Transactions from "./user/Transactions";
-import Purchased from "./Meals/MealsPurchased";
 import Sold from "./Meals/MealsSold";
+import { Error } from "../pages/Error";
+import MealForm from "./Meals/MealForm";
+import LoginButton from "./LoginButton";
+import Homepage from "../pages/HomePage";
+import GlobalStyles from "./GlobalStyles";
+import { MyMeals } from "./Meals/MyMeals";
+import Profile from "../pages/ProfilePage";
+import Meals from "../pages/MealsPage/Meals";
+import Purchased from "./Meals/MealsPurchased";
 import { Offered } from "./Meals/MyMealsOffered";
-// import { useAuth0 } from "@auth0/auth0-react";
-// const { isLoading } = useAuth0();
+import EditUser from "../pages/ProfilePage/EditUser";
+import DeleteMeal from "../pages/MealsPage/DeleteMeal";
+import AuthWrapper from "./authentication/AuthWrapper";
+import { SingleMeal } from "../pages/MealsPage/SingleMeal";
 
 function App() {
   return (
@@ -37,7 +34,6 @@ function App() {
             <Route path="/purchased" element={<Purchased />} />
             <Route path="/sold" element={<Sold />} />
             <Route path="/offered" element={<Offered />} />
-
             <Route path="/profile" element={<Profile />} />
             <Route
               path="/meal/add"
@@ -52,12 +48,9 @@ function App() {
               element={<MealForm method={"update"} />}
             />
             <Route path="/meal/:id" element={<SingleMeal />} />
-
             <Route path="/order/:email" element={<OrderForm />} />
-
-            <Route path="/user/:email" element={<AddUser />} />
+            <Route path="/user/:email" element={<EditUser />} />
             <Route path="login" element={<LoginButton />} />
-
             <Route path="*" element={<Error />} />
           </Routes>
         </Router>

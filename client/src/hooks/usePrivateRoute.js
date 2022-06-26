@@ -9,7 +9,7 @@ const usePrivateRoute = () => {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("../meals", { replace: true });
+      navigate(-1, { replace: true });
     }
   }, []);
 

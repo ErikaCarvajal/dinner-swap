@@ -4,15 +4,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "./UserContext";
 
-const OrderForm = ({
-  user,
-  mealPoints,
-  mealName,
-  daysInAdvance,
-  mealId,
-  soldBy,
-  chef,
-}) => {
+const OrderForm = ({ user, mealPoints, mealName, mealId, soldBy, chef }) => {
   const { updateDone, setUpdateDone } = useContext(UserContext);
   const { points, _id } = user;
   const navigate = useNavigate();
@@ -25,9 +17,7 @@ const OrderForm = ({
   );
   const [error, setError] = useState(false);
   const today = new Date();
-  const nextAvailableDay = moment(today)
-    .add(daysInAdvance, "days")
-    .format("YYYY-MM-DD");
+  const nextAvailableDay = moment(today).format("YYYY-MM-DD");
 
   const handleQtyChange = (e) => {
     const pointsPerOrder = e.target.value * mealPoints;

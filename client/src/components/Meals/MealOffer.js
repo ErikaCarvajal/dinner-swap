@@ -3,7 +3,7 @@ import styled from "styled-components";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
-const MealOffer = ({ userId, mealId, daysInAdvance }) => {
+const MealOffer = ({ userId, mealId }) => {
   const today = new Date();
   const navigate = useNavigate();
   const [mealOffer, setMealOffer] = useState({
@@ -12,9 +12,7 @@ const MealOffer = ({ userId, mealId, daysInAdvance }) => {
     cutOffDate: 0,
   });
 
-  const nextAvailableDay = moment(today)
-    .add(daysInAdvance, "days")
-    .format("YYYY-MM-DD");
+  const nextAvailableDay = moment(today).format("YYYY-MM-DD");
 
   const handleChange = (e) => {
     e.preventDefault();

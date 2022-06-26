@@ -1,49 +1,41 @@
 import styled from "styled-components";
-
 import { useState, useContext } from "react";
-import { UserContext } from "../../components/UserContext";
+import { useNavigate } from "react-router-dom";
+
 import MealImage from "../MealImage";
-import { handleErrorMessages } from "./MealErrorMessages";
-import { useNavigate, useLocation } from "react-router-dom";
 import Error from "../../pages/Error";
+import { handleErrorMessages } from "./MealErrorMessages";
+import { UserContext } from "../../components/UserContext";
 
 const MealForm = ({ oldMealData, isEditing, setIsEditing, mealId, method }) => {
-  const { user } = useContext(UserContext);
   const navigate = useNavigate();
-  const location = useLocation();
+  const { user } = useContext(UserContext);
+  const [error, setError] = useState(false);
   const [previewSource, setPreviewSource] = useState("");
-
   const initialState = {
     name: "",
     points: 0,
     secure_url: "",
     description: "",
     contains: "",
-    daysAvailable: "",
     servings: 0,
-    daysInAdvance: 0,
     userId: user._id,
     chef: user.name,
   };
-
   const {
     name,
     points,
     secure_url,
     description,
     contains,
-    daysAvailable,
     servings,
-    daysInAdvance,
     userId,
     chef,
   } = oldMealData || initialState;
-
   const [mealToBeUpdated, setMealToBeUpdated] = useState(
     oldMealData || initialState
   );
 
-  const [error, setError] = useState(false);
   const handleChange = (e) => {
     e.preventDefault();
     const key = e.target.name;
@@ -53,18 +45,14 @@ const MealForm = ({ oldMealData, isEditing, setIsEditing, mealId, method }) => {
     console.log("inside handleChange -error is", error);
   };
 
-  // const handleOnBlur = () => { }
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const completeMeal = {
       name: mealToBeUpdated.name,
       points: mealToBeUpdated.points,
       description: mealToBeUpdated.description,
-      daysInAdvance: mealToBeUpdated.daysInAdvance,
       servings: mealToBeUpdated.servings,
       contains: mealToBeUpdated.contains,
-      daysAvailable: mealToBeUpdated.daysAvailable,
       secure_url: mealToBeUpdated.secure_url,
       public_id: mealToBeUpdated.public_id,
       userId: mealToBeUpdated.userId,
@@ -73,7 +61,6 @@ const MealForm = ({ oldMealData, isEditing, setIsEditing, mealId, method }) => {
     };
 
     if (oldMealData) {
-      // Validate user's input
       handleErrorMessages(mealToBeUpdated, setError);
 
       if (!error) {
@@ -89,7 +76,6 @@ const MealForm = ({ oldMealData, isEditing, setIsEditing, mealId, method }) => {
             }
           })
           .catch((err) => {
-            console.log(err);
             setError(true);
           });
       }
@@ -107,141 +93,117 @@ const MealForm = ({ oldMealData, isEditing, setIsEditing, mealId, method }) => {
           .then((data) => {
             navigate("/meals");
           })
-          .catch((err) => console.log(err));
+          .catch((err) => setError(true));
       }
     }
   };
 
   return (
     <>
-      <Wrapper>
-        <Form onSubmit={(e) => handleSubmit(e)}>
-          <Div>
-            {error && <Error errorMessage={"Uh oh something done goofed"} />}
-            {method === "Update" && (
+      {!error ? (
+        <Wrapper>
+          <Form onSubmit={(e) => handleSubmit(e)}>
+            <Div>
+              {error && <Error errorMessage={"Uh oh something done goofed"} />}
+              {method === "Update" && (
+                <div>
+                  Current Image
+                  <Img src={secure_url} />
+                </div>
+              )}
               <div>
-                Current Image
-                <Img src={secure_url} />
+                <h1>New image</h1>
+                <MealImage
+                  previewSource={previewSource}
+                  setPreviewSource={setPreviewSource}
+                />
               </div>
-            )}
-            <div>
-              <h1>New image</h1>
-              <MealImage
-                previewSource={previewSource}
-                setPreviewSource={setPreviewSource}
+            </Div>
+            <Div2>
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={mealToBeUpdated.name}
+                onChange={(e) => handleChange(e)}
+                required="true"
+                pattern="^[^\s]+(\s+[^\s]+)*$"
               />
+            </Div2>
+            <Div2>
+              <label htmlFor="points">Points</label>
+              <input
+                type="number"
+                id="points"
+                name="points"
+                value={mealToBeUpdated.points}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+                required
+              />
+            </Div2>
+            <Div2>
+              <label htmlFor="description">Description</label>
+              <textarea
+                id="description"
+                name="description"
+                row="4"
+                column="50"
+                value={mealToBeUpdated.description}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+                required
+              />
+            </Div2>
+            <Div2>
+              <label htmlFor="contains">Contains</label>
+              <input
+                type="text"
+                id="contains"
+                name="contains"
+                value={mealToBeUpdated.contains}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+                required
+              />
+            </Div2>
+            <Div2>
+              <label htmlFor="servings">Servings</label>
+              <input
+                type="number"
+                value={mealToBeUpdated.servings}
+                id="servings"
+                name="servings"
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+                required
+              />
+            </Div2>
+            <div>
+              <Input
+                type="button"
+                value="Cancel"
+                onClick={() => {
+                  if (isEditing === undefined) {
+                    navigate(-1);
+                  } else {
+                    setIsEditing(!isEditing);
+                  }
+                }}
+              />
+              {error && <p>{error}</p>}
+              <Input type="submit" value={method} />
             </div>
-          </Div>
-          {/* <NameInput element="input" type="text" label="Name" validators={[validatorInput()]} error="Please enter a valid name"/> */}
-          <Div2>
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={mealToBeUpdated.name}
-              onChange={(e) => handleChange(e)}
-              required="true"
-              pattern="^[^\s]+(\s+[^\s]+)*$"
-            />
-          </Div2>
-
-          <Div2>
-            <label htmlFor="points">Points</label>
-            <input
-              type="number"
-              id="points"
-              name="points"
-              value={mealToBeUpdated.points}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              required
-            />
-          </Div2>
-          <Div2>
-            <label htmlFor="description">Description</label>
-            <textarea
-              id="description"
-              name="description"
-              row="4"
-              column="50"
-              value={mealToBeUpdated.description}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              required
-            />
-          </Div2>
-          <Div2>
-            <label htmlFor="contains">Contains</label>
-            <input
-              type="text"
-              id="contains"
-              name="contains"
-              value={mealToBeUpdated.contains}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              required
-            />
-          </Div2>
-          <Div2>
-            <label htmlFor="daysAvailable">Days Available</label>
-            <input
-              type="text"
-              value={mealToBeUpdated.daysAvailable}
-              id="daysAvailable"
-              name="daysAvailable"
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              required
-            />
-          </Div2>
-          <Div2>
-            <label htmlFor="servings">Servings</label>
-            <input
-              type="number"
-              value={mealToBeUpdated.servings}
-              id="servings"
-              name="servings"
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              required
-            />
-          </Div2>
-          <Div2>
-            <label htmlFor="daysInAdvance">Required notice (days)</label>
-            <input
-              type="number"
-              value={mealToBeUpdated.daysInAdvance}
-              id="daysInAdvance"
-              name="daysInAdvance"
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              required
-            />
-          </Div2>
-          <div>
-            <Input
-              type="button"
-              value="Cancel"
-              onClick={() => {
-                if (isEditing === undefined) {
-                  navigate(-1);
-                } else {
-                  setIsEditing(!isEditing);
-                }
-              }}
-            />
-            {error && <p>{error}</p>}
-            <Input type="submit" value={method} />
-          </div>
-        </Form>
-      </Wrapper>
+          </Form>
+        </Wrapper>
+      ) : (
+        <Error />
+      )}
     </>
   );
 };
@@ -287,7 +249,6 @@ const Div = styled.div`
 
 const Div2 = styled.div`
   display: flex;
-  /* flex-direction: row; */
   justify-content: flex-start;
   align-items: baseline;
   flex-wrap: wrap;
@@ -303,10 +264,22 @@ const Div2 = styled.div`
   input {
     margin-left: 5px;
     width: 250px;
+    font-family: var(--others-font-family);
+    border-radius: 5px;
+    border-bottom: 3px solid var(--primary-color);
+    border-right: 3px solid var(--primary-color);
+    border-top: 2px solid var(--tertiary-color);
+    border-left: 2px solid var(--tertiary-color);
   }
 
   textarea {
     width: 250px;
+    font-family: var(--others-font-family);
+    border-radius: 5px;
+    border-bottom: 3px solid var(--primary-color);
+    border-right: 3px solid var(--primary-color);
+    border-top: 2px solid var(--tertiary-color);
+    border-left: 2px solid var(--tertiary-color);
   }
 `;
 

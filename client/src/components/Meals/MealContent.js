@@ -10,9 +10,7 @@ const MealContent = (props) => {
     secure_url,
     description,
     contains,
-    daysAvailable,
     servings,
-    daysInAdvance,
     userId,
     offer,
     _id,
@@ -29,11 +27,7 @@ const MealContent = (props) => {
       <Div2>
         <img src={secure_url} />
         {userId === props.userIdNumber && location.state === null && (
-          <MealOffer
-            userId={userId}
-            mealId={_id}
-            daysInAdvance={daysInAdvance}
-          />
+          <MealOffer userId={userId} mealId={_id} />
         )}
       </Div2>
       <Div>

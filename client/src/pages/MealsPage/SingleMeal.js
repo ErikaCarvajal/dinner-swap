@@ -1,23 +1,25 @@
+import moment from "moment";
+import styled from "styled-components";
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import styled from "styled-components";
-import moment from "moment";
 
-import MealContent from "../../components/Meals/MealContent";
-import MealForm from "../../components/Meals/MealForm";
+import Error from "../Error";
 import Options from "../../components/Options";
-import { UserContext } from "../../components/UserContext";
 import OrderForm from "../../components/OrderForm";
-import CommentInput from "../../components/CommentSection/CommentInput";
 import handleDelete from "../MealsPage/DeleteMeal";
+import MealForm from "../../components/Meals/MealForm";
+import { UserContext } from "../../components/UserContext";
+import MealContent from "../../components/Meals/MealContent";
+import CommentInput from "../../components/CommentSection/CommentInput";
 
 export const SingleMeal = () => {
   let { id } = useParams();
-  const location = useLocation();
-  const { user } = useContext(UserContext);
   const navigate = useNavigate();
-  const [isLoaded, setIsLoaded] = useState(false);
+  const location = useLocation();
   const [meal, setMeal] = useState();
+  const { user } = useContext(UserContext);
+  const [error, setError] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [deletedMeal, setDeletedMeal] = useState(false);
   const [addComment, setAddComment] = useState(false);
@@ -29,8 +31,10 @@ export const SingleMeal = () => {
         setIsLoaded(true);
         setMeal(data.data);
       })
-      .catch((err) => console.log(err));
-  }, [isEditing, addComment]); // !Add isEditing in the array here to re-fetch data from BE
+      .catch((err) => {
+        setError(true);
+      });
+  }, [isEditing, addComment]); // Add isEditing in the array here to re-fetch data from BE
 
   const handleChoice = (option) => {
     if (option === 0) {
@@ -46,9 +50,12 @@ export const SingleMeal = () => {
   }
 
   const handleClick = () => {
-    navigate(`/user/${user.email}`);
+    navigate(`/profile`, { replace: true });
   };
 
+  if (error) {
+    return <Error />;
+  }
   if (isEditing) {
     return (
       <MealForm
@@ -94,7 +101,6 @@ export const SingleMeal = () => {
                     mealPoints={meal[0].points}
                     mealId={meal[0]._id}
                     mealName={meal[0].name}
-                    daysInAdvance={meal[0].daysInAdvance}
                     soldBy={meal[0].userId}
                     chef={meal[0].chef}
                   />

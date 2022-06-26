@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import moment from "moment";
+import styled from "styled-components";
 
 const SingleTransaction = ({ transaction }) => {
   const { mealName, quantity, date, chef, boughtBy } = transaction;
