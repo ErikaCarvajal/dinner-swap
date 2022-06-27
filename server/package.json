@@ -13,7 +13,6 @@
     "underscore": "^1.13.4"
   },
   "scripts": {
-    "start": "PROD=true node server.js",
-    "postinstall": "cd ../client && yarn"
+    "start": "nodemon server.js"
   }
 }

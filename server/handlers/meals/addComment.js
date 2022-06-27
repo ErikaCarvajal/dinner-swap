@@ -12,13 +12,6 @@ const addComment = async (req, res) => {
 
     const { mealId, title, userName, comment, userId, date } = req.body;
 
-    // const commentsArray = req.body;
-
-    // const mealArray = await db
-    //   .collection("meals")
-    //   .find({ _id: new ObjectID(mealId) }, { projection: { comments: 1 } })
-    //   .toArray();
-
     const query = { _id: new ObjectID(mealId) };
     const updateObj = {
       $push: { comments: { title, comment, userName, mealId, userId, date } },

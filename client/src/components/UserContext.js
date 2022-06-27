@@ -1,17 +1,18 @@
+import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import { createContext, useState, useEffect } from "react";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  // CODE THAT I WAS USING:
   const [user, setUser] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const { user: auth0User, isAuthenticated } = useAuth0();
   const [updateDone, setUpdateDone] = useState(false);
 
   useEffect(() => {
-    // Try to get the user from MongoDB
+    //Check if user exists
     if (isAuthenticated) {
       fetch(`/api/user/${auth0User.email}`)
         .then((res) => res.json())
@@ -56,6 +57,7 @@ export const UserProvider = ({ children }) => {
 
   return (
     <>
+      {/* {isLoaded && auth0User ? ( */}
       <UserContext.Provider
         value={{
           isLoaded,
@@ -68,6 +70,17 @@ export const UserProvider = ({ children }) => {
       >
         {children}
       </UserContext.Provider>
+      {/* ) : (
+        <LoadingWrapper>
+          <CircularProgress />
+        </LoadingWrapper>
+      )} */}
     </>
   );
 };
+
+const LoadingWrapper = styled.div`
+  display: flex;
+  margin-top: 50px;
+  justify-content: center;
+`;

@@ -1,17 +1,12 @@
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import moment from "moment";
 
 import { UserContext } from "../../components/UserContext";
-// import { MealCards } from "../GlobalStyles";
-// import Options from "../../components/Options";
-// import Transactions from "../user/Transactions";
 
 export const Offered = () => {
-  const navigate = useNavigate();
   const { user, isAuthenticated, isLoading } = useAuth0();
   const { user: myUser, updateDone, setUpdateDone } = useContext(UserContext);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -33,7 +28,7 @@ export const Offered = () => {
       if (meal.offer) {
         return {
           ...meal,
-          ["offer"]: meal.offer.filter((item) => item.offerQty === "1"),
+          ["offer"]: meal.offer.filter((item) => item.cutOffDate >= today),
         };
       }
     });
@@ -97,7 +92,6 @@ const MealCard = styled.div`
   }
 
   li {
-    cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
