@@ -1,10 +1,10 @@
-const { sendResponse } = require("../lib/utils/sendResponse");
+// const { sendResponse } = require("../lib/utils/sendResponse");
 
-// Go Home
-const getHome = async (req, res) => {
-  const result = "This is from getHome Handler";
+// // Go Home
+// const getHome = async (req, res) => {
+//   const result = "This is from getHome Handler";
 
-  sendResponse(res, 200, "from getHome");
-};
+//   sendResponse(res, 200, "from getHome");
+// };
 
-module.exports = getHome;
+// module.exports = getHome;

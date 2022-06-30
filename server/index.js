@@ -33,7 +33,7 @@ express()
   .use(connectDb)
 
   //* HOME FEED Endpoints
-  .get("/api/home", getHome)
+  // .get("/api/home", getHome)
 
   //* MEALS Endpoints
   .get("/api/meals", getMeals)
